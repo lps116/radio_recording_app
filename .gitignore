@@ -1,6 +1,6 @@
 # Project specific git ignore here
 .env
-*.DS_Store
+.DS_Store
 
 # https://github.com/github/gitignore/blob/master/Python.gitignore
 
