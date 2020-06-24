@@ -1,1 +1,1 @@
-web: gunicorn radio_app.wsgi
+web: gunicorn radio_app.wsgi --log-file -
