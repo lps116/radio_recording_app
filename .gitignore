@@ -1,6 +1,7 @@
 # Project specific git ignore here
 .env
 .DS_Store
+media
 
 # https://github.com/github/gitignore/blob/master/Python.gitignore
 

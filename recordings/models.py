@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-from .validators import validate_streaming_url, validate_over_one_character, validate_title_over_ten_characters, validate_description_over_thirty_characters
+from .validators import (validate_streaming_url, validate_over_one_character,
+validate_title_over_ten_characters, validate_description_over_thirty_characters,
+is_mp3_file)
 from django.core.exceptions import ValidationError
 
 class RadioStation(models.Model):
@@ -52,6 +54,10 @@ class Recording(models.Model):
                                         ("complete", "complete"),
                                         ),
                                        default="pending")
+  file               = models.FileField(upload_to="media/",
+                                        validators=[is_mp3_file],
+                                        blank=True,
+                                        null=True)
 
   @property
   def time_till_recording(self):
