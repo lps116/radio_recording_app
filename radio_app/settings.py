@@ -131,7 +131,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL     = '/static/'
+STATIC_URL = '/static/'
+
+# info of media files
+# https://overiq.com/django-1-10/handling-media-files-in-django/
+MEDIA_ROOT = os.path.join(BASE_DIR, '')
+MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
