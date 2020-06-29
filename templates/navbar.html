@@ -10,6 +10,7 @@
       <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
       <a class="nav-item nav-link" href="{% url 'register' %}">Sign Up</a>
       {% else %}
+      <a class="nav-item nav-link" href="{% url 'recordings' %}">Recordings</a>
       <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
       {% endif %}
     </div>
