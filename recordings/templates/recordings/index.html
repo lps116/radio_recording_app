@@ -4,7 +4,7 @@
 
 <div class="container">
 {% for recording in recordings %}
-<p><a href="{% url 'recording' pk=recording.id %}">{{recording.title}}</a> -- {{recording.end_datetime}}</p>
+<p><a href="{% url 'recording' pk=recording.id %}">{{recording.title}}</a> -- {{recording.end_datetime}} -- {{recording.id}}</p>
 <hr>
 {% endfor %}
 </div>

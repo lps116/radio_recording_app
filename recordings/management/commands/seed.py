@@ -6,7 +6,7 @@ import factory
 import requests
 import json
 from datetime import datetime, timedelta
-from random import randint
+from random import randint, choice
 from django.utils import timezone
 
 class Command(BaseCommand):
@@ -54,7 +54,8 @@ def create_recordings():
       description    = faker.text(),
       start_datetime = timezone.now() + timedelta(days=day_skew, minutes=start_time_skew),
       end_datetime   = timezone.now() + timedelta(days=day_skew, minutes=end_time_skew),
-      status         = "pending"
+      status         = choice(["pending", "complete"]),
+      public         = choice([False, True, True, True])
       )
     recording.save()
     random_tags = Tag.objects.order_by("?")
