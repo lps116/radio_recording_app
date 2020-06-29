@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='/login/')
 def recordings_index(response):
-  recordings = Recording.objects.filter(status="complete").order_by('-end_datetime')
+  recordings = Recording.objects.filter(status="complete", public=True).order_by('-end_datetime')
   context = {
     "recordings" : recordings
   }

@@ -58,11 +58,12 @@ class Recording(models.Model):
                                         validators=[is_mp3_file],
                                         blank=True,
                                         null=True)
+  public             = models.BooleanField(default=True)
 
   @property
   def time_till_recording(self):
     if self.status == "pending":
-      return self.end_datetime - self.start_datetime
+      return self.start_datetime - timezone.now()
 
   # def save(self, *args, **kwargs):
   #   if self.start_datetime < timezone.now():
