@@ -1,0 +1,35 @@
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+#nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+#navbar-color {
+  background-image: linear-gradient(to right, #12417A, #3DA8D5);
+}
+
+.navbar-nav li {
+  padding: 0 15px;
+}
+
+.navbar-nav li a {
+  color: #fff !important;
+  font-weight: 400;
+  float: right;
+  text-align: left;
+}
+
+.navbar-brand {
+  color: #fff !important;
+  font-weight: 500;
+  padding-left: 15px;
+}
+
+.navbar-toggler {
+  border-color: rgba(0,0,0,0.0) !important;
+  outline: none !important;
+}
