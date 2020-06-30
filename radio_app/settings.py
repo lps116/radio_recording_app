@@ -46,8 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home.apps.HomeConfig',
     'register.apps.RegisterConfig',
-    # 'home.apps.HomeConfig',
-    'recordings.apps.RecordingsConfig'
+    'recordings.apps.RecordingsConfig',
+    'account.apps.AccountConfig'
 ]
 
 MIDDLEWARE = [
