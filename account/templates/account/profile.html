@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<h1></h1>
+<p>{{user.username}}</p>
+
+
+<h3>Your upcoming recordings</h3>
+<ul>
+  {% for recording in scheduled_recordings %}
+  <li>{{recording.title}} -- {{recording.status}}</li>
+  {% endfor %}
+</ul>
+
+<h3>Your completed recordings</h3>
+<ul>
+  {% for recording in completed_recordings %}
+  <li>{{recording.title}} -- {{recording.status}}</li>
+  {% endfor %}
+</ul>
+
+<h3>Recordings in Progress</h3>
+<ul>
+  {% for recording in inprogress_recordings %}
+  <li>{{recording.title}} -- {{recording.status}}</li>
+  {% endfor %}
+</ul>
+
+
+{% endblock %}

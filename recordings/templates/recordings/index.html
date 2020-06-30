@@ -4,7 +4,8 @@
 
 <div class="container">
 {% for recording in recordings %}
-<p><a href="{% url 'recording' pk=recording.id %}">{{recording.title}}</a> -- {{recording.end_datetime}} -- {{recording.id}}</p>
+<p><a href="{% url 'profile' username=recording.user.username%}">{{recording.user.username}}</a>--
+  <a href="{% url 'recording' pk=recording.id %}">{{recording.title}}</a> -- {{recording.end_datetime}} -- {{recording.id}}</p>
 <hr>
 {% endfor %}
 </div>
