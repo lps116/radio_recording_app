@@ -1,31 +1,36 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
 <h1></h1>
 <p>{{user.username}}</p>
-
+{% if request.user == user %}
+<h3>Schedule A Recording</h3>
+<form action="." method="POST">
+  {% csrf_token %}
+  {{form.as_p}}
+  <input type="Submit" value="Schedule">
+</form>
+{% endif %}
 
 <h3>Your upcoming recordings</h3>
 <ul>
   {% for recording in scheduled_recordings %}
-  <li>{{recording.title}} -- {{recording.status}}</li>
+  <li>{{recording.title}} -- {{recording.status}} -- {{recording.start_datetime}} -- {{recording.end_datetime}}</li>
   {% endfor %}
 </ul>
 
 <h3>Your completed recordings</h3>
 <ul>
   {% for recording in completed_recordings %}
-  <li>{{recording.title}} -- {{recording.status}}</li>
+  <li>{{recording.title}} -- {{recording.status}} -- {{recording.start_datetime}} -- {{recording.end_datetime}}</li>
   {% endfor %}
 </ul>
 
 <h3>Recordings in Progress</h3>
 <ul>
   {% for recording in inprogress_recordings %}
-  <li>{{recording.title}} -- {{recording.status}}</li>
+  <li>{{recording.title}} -- {{recording.status}} -- {{recoding.start_datetime}} -- {{recording.end_datetime}}</li>
   {% endfor %}
 </ul>
-
 
 {% endblock %}
