@@ -1,13 +1,76 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
+<!-- https://www.bootdey.com/snippets/view/support-tickets#html -->
+<div class="padding"></div>
 <div class="container">
-{% for recording in recordings %}
-<p><a href="{% url 'profile' username=recording.user.username%}">{{recording.user.username}}</a>--
-  <a href="{% url 'recording' pk=recording.id %}">{{recording.title}}</a> -- {{recording.end_datetime}} -- {{recording.id}}</p>
-<hr>
-{% endfor %}
+<section class="content">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="grid support">
+        <div class="grid-body">
+
+          <p><strong>Search Recordings</strong></p>
+            <form action="." method="POST">
+              <input type="text">
+              <button type="submit" value="Search" class="btn btn-success">Search</button>
+            </form>
+          <hr>
+
+          <p><strong>Filter by Topics</strong></p>
+          <form action="." method="POST">
+            <input type="text">
+             <button type="submit" value="Search" class="btn btn-success">Filter</button>
+          </form>
+          <hr>
+
+          <p><strong>Popular Topics</strong></p>
+
+          <ul>
+            {% for tag in popular_tags%}
+            <li>{{tag.tag}}<span class="pull-right">{{tag.recordings.count}}</span></li>
+            {% endfor %}
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- BEGIN TICKET -->
+    <div class="col-md-9">
+      <div class="grid support-content">
+         <div class="grid-body">
+          <p><strong>Public Recordings</strong></p>
+          <div class="row">
+            <!-- BEGIN TICKET CONTENT -->
+            <div class="col-md-12">
+              <ul class="list-group fa-padding">
+
+              {% for recording in recordings %}
+                <li class="list-group-item" data-toggle="modal" data-target="#issue">
+                  <div class="media">
+                    <i class="fa fa-check pull-left text-success"></i>
+                    <div class="media-body">
+                      <strong>{{recording.user.username}}</strong> on <strong>{{recording.radio_station.name}}</strong> <span class="label label-danger">{{recording.title}}</span><span class="number pull-right">{{recording.start_datetime}}</span>
+                      {% if not recording.description %}
+                      <p class="info"></p>
+                      {% else %}
+                      <p class="info">{{recording.description}}</p>
+                      {% endif %}
+                  </div>
+                </li>
+                {% endfor %}
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 </div>
 
 {% endblock %}
