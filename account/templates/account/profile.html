@@ -21,8 +21,8 @@
         </ul>
         <hr>
         {% endif %}
-          <p><strong>Schedule Recording</strong></p>
-            {% if request.user == user %}
+          {% if request.user == user %}
+          <p><strong>Schedule a Recording</strong></p>
             <form action="." method="POST">
               {% csrf_token %}
               {{form.title}}
@@ -34,8 +34,8 @@
               {{form.public}}
               <input type="Submit" value="Schedule">
             </form>
-            {% endif %}
           <hr>
+          {% endif %}
 
           <p><strong>Pending</strong></p>
           <ul>
