@@ -1,36 +1,89 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<h1></h1>
-<p>{{user.username}}</p>
-{% if request.user == user %}
-<h3>Schedule A Recording</h3>
-<form action="." method="POST">
-  {% csrf_token %}
-  {{form.as_p}}
-  <input type="Submit" value="Schedule">
-</form>
-{% endif %}
+<!-- https://www.bootdey.com/snippets/view/support-tickets#html -->
+<div class="padding"></div>
+<div class="container">
+<section class="content">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="grid support">
+        <div class="grid-body">
+        {% if inprogress_recordings.all %}
+        <p><strong>In Progress</strong></p>
+        <ul class="support-label">
+          {% for recording in inprogress_recordings %}
+          <li>{{recording.radio_station.name}}<span class="pull-right"><div class="spinner-grow text-success spinner-grow-sm" role="status">
+  <span class="sr-only">Loading...</span>
+</div></span></li>
+          {% endfor %}
+        </ul>
+        <hr>
+        {% endif %}
+          <p><strong>Schedule Recording</strong></p>
+            {% if request.user == user %}
+            <form action="." method="POST">
+              {% csrf_token %}
+              {{form.title}}
+              {{form.radio_station}}
+              {{form.start_date}}
+              {{form.start_time}}
+              {{form.end_date}}
+              {{form.end_time}}
+              {{form.public}}
+              <input type="Submit" value="Schedule">
+            </form>
+            {% endif %}
+          <hr>
 
-<h3>Your upcoming recordings</h3>
-<ul>
-  {% for recording in scheduled_recordings %}
-  <li>{{recording.title}} -- {{recording.status}} -- {{recording.start_datetime}} -- {{recording.end_datetime}}</li>
-  {% endfor %}
-</ul>
+          <p><strong>Pending</strong></p>
+          <ul>
+            {% for recording in scheduled_recordings %}
+            <li>{{recording.radio_station.name}}<span class="pull-right"><img src="{% static 'images/calendar.svg'%}" style="height: 20px; width: 20px;"alt=""></span></li>
+            {% endfor%}
+          </ul>
+        </div>
+      </div>
+    </div>
 
-<h3>Your completed recordings</h3>
-<ul>
-  {% for recording in completed_recordings %}
-  <li>{{recording.title}} -- {{recording.status}} -- {{recording.start_datetime}} -- {{recording.end_datetime}}</li>
-  {% endfor %}
-</ul>
 
-<h3>Recordings in Progress</h3>
-<ul>
-  {% for recording in inprogress_recordings %}
-  <li>{{recording.title}} -- {{recording.status}} -- {{recoding.start_datetime}} -- {{recording.end_datetime}}</li>
-  {% endfor %}
-</ul>
+<!-- <h3>Your completed recordings</h3> -->
+
+
+    <!-- BEGIN TICKET -->
+    <div class="col-md-9">
+      <div class="grid support-content">
+         <div class="grid-body">
+          <p><strong>My Recordings</strong></p>
+          <div class="row">
+            <!-- BEGIN TICKET CONTENT -->
+            <div class="col-md-12">
+              <ul class="list-group fa-padding">
+
+              {% for recording in completed_recordings %}
+                <li class="list-group-item" data-toggle="modal" data-target="#issue">
+                  <div class="media">
+                    <i class="fa fa-check pull-left text-success"></i>
+                    <div class="media-body">
+                      <strong>{{recording.radio_station.name}}: </strong> <span class="label label-danger">{{recording.title}}</span><span class="number pull-right">{{recording.start_datetime}}</span>
+                      {% if not recording.description %}
+                      <p class="info">Add a description <strong><a href="#">here</a></strong>.</p>
+                      {% else %}
+                      <p class="info">{{recording.description}}</p>
+                      {% endif %}
+                  </div>
+                </li>
+                {% endfor %}
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
 
 {% endblock %}

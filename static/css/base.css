@@ -1,5 +1,6 @@
 body {
   font-family: 'Roboto', sans-serif;
+  background:#eee;
 }
 
 /*NAVBAR SECTION*/
@@ -62,6 +63,78 @@ body {
   margin-right: 20px;
   margin-left: 20px;
 }
+
+/*PROFILE PAGE LAYOUT*/
+/*https://www.bootdey.com/snippets/view/support-tickets#html*/
+.padding {
+    padding: 10px;
+}
+
+/* GRID */
+.col {
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  background: #fff;
+  color: #666666;
+  text-align: center;
+  font-weight: 400;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.row h3 {
+  color: #666666;
+}
+
+.row.grid {
+  margin-left: 0;
+}
+
+.grid {
+  position: relative;
+  width: 100%;
+  background: #fff;
+  color: #666666;
+  border-radius: 2px;
+  margin-bottom: 25px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.grid .grid-body {
+  padding: 15px 20px 15px 20px;
+  font-size: 0.9em;
+  line-height: 1.9em;
+}
+
+.support ul {
+    list-style: none;
+  padding: 0px;
+}
+
+.support ul li a {
+  color: #999;
+  display: block;
+}
+
+.support-content .list-group li:hover {
+  background: #eee;
+}
+
+.support-content .fa-padding .fa {
+  padding-top: 5px;
+  width: 1.5em;
+}
+
+.support-content .info {
+  color: #777;
+  margin: 0px;
+}
+/*https://www.bootdey.com/snippets/view/support-tickets#html*/
+
+
+
+
+
+
 
 
 
