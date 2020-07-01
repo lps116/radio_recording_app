@@ -2,6 +2,8 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+/*NAVBAR SECTION*/
+
 #nav-bar {
   position: sticky;
   top: 0;
@@ -33,3 +35,41 @@ body {
   border-color: rgba(0,0,0,0.0) !important;
   outline: none !important;
 }
+
+/*BANNER SECTION */
+#banner {
+  background-image: linear-gradient(to right, #12417A, #3DA8D5);
+  color: #fff;
+  padding-top: 5%;
+}
+
+.title-div-margin {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.promo-title{
+  font-size: 40px;
+  font-weight: 500px;
+  margin-top: 100px;
+}
+
+.bottom-img {
+  width: 100%;
+}
+
+.button-margin {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
