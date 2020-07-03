@@ -10,7 +10,7 @@
         <p>Another statement to type this platform to the max</p>
         {% if not user.is_authenticated %}
         <a href="{% url 'register' %}"><button class="btn btn-primary mr-2">Sign Up</button></a>
-        <a href="{% url 'login' %}"><button class="btn btn-outline-primary">Log In</button></a>s
+        <a href="{% url 'login' %}"><button class="btn btn-outline-primary">Login</button></a>
         {% else %}
         <a href="{% url 'recordings' %}"><button class="btn btn-primary">Browse Recordings</button></a>
         {% endif %}

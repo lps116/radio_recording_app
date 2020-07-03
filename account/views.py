@@ -35,7 +35,8 @@ def account_view(response, username):
         )
 
       recording.save()
-      messages.success(response, "Your recording has been scheduled")
+      string = "Your " + radio_station.name + " recording has been scheduled."
+      messages.success(response, "Your recording has been scheduled.")
 
   form = CreateRecordingForm()
   user = User.objects.get(username=username)
