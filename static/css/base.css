@@ -212,3 +212,20 @@ body {
     background-color: #3afe;
     color: #fff;
 }
+
+/*FLASH MESSAGE STYLE*/
+
+.flash-message {
+  padding: 13px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1EDD88;
+}
+
+.alert {
+  margin-bottom: 0px;
+  border-radius: 0px;
+}
+
+
