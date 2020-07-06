@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'register.apps.RegisterConfig',
     'recordings.apps.RecordingsConfig',
-    'account.apps.AccountConfig'
+    'account.apps.AccountConfig',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

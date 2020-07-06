@@ -19,9 +19,12 @@
             </form>
           <hr>
 
-          <p><strong>Filter by Topics</strong></p>
-          <form action="." method="POST">
-            <input type="text">
+          <p><strong>Filter by Station & Topic</strong></p>
+          <form method="GET">
+            <label for="">Radio Station</label>
+            {{recording_filter.form.radio_station}}
+            <label for="">Tags</label>
+            {{recording_filter.form.tags}}
              <button type="submit" value="Search" class="btn btn-success">Filter</button>
           </form>
           <hr>
@@ -57,7 +60,11 @@
                       {% if not recording.description %}
                       <p class="info"></p>
                       {% else %}
-                      <p class="info">{{recording.description}}</p>
+                      <p class="info">{{recording.description}} - Tags:
+                        {% for tag in recording.tags.all %}
+                        {{tag.tag}},
+                        {% endfor %}
+                      </p>
                       {% endif %}
                   </div>
                 </li>
