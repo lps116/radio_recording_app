@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from recordings.models import Recording, RadioStation
 from datetime import datetime
 import pytz
+from recordings.tasks import record_show
+
 
 # Create your views here.
 @login_required(login_url='/login/')
@@ -35,6 +37,8 @@ def account_view(response, username):
         )
 
       recording.save()
+      record_show.apply_async(args=[recording.id], eta=recording.start_datetime)
+      # record_show.delay(recording.id)
       string = "Your " + radio_station.name + " recording has been scheduled."
       messages.success(response, "Your recording has been scheduled.")
 
