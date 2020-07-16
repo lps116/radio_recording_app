@@ -7,7 +7,7 @@
     <div class="row">
       <div class="col-md-6 title-div-margin">
         <p class="promo-title">ALWAYS HAVE A RECORD OF YOUR RADIO APPEARANCES</p>
-        <p>Another statement to type this platform to the max</p>
+        <p>Statement to make platform sound cool.</p>
         {% if not user.is_authenticated %}
         <a href="{% url 'register' %}"><button class="btn btn-primary mr-2">Sign Up</button></a>
         <a href="{% url 'login' %}"><button class="btn btn-outline-primary">Login</button></a>
@@ -24,5 +24,74 @@
   <img src="{% static 'images/wave.png' %}" class="bottom-img">
 </section>
 
-<script type='text/javascript'>document.addEventListener('DOMContentLoaded', function () {window.setTimeout(document.querySelector('svg').classList.add('animated'),1000);}</script>
+<section class="mt-2">
+  <div class="container-fluid padding">
+    <div class="row welcome text-center">
+      <div class="col-12">
+        <h1 class="display-4">Record in 3 Steps</h1>
+      </div>
+      <hr>
+      <div class="col-12">
+        <p class="lead">Description of the solution</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid padding">
+    <div class="row text-center padding">
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        <h3>Select Station</h3>
+        <p>Add text</p>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        <h3>Set Time</h3>
+        <p>Add text</p>
+      </div>
+      <div class="col-xs-12 col-md-4">
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        <h3>Relax</h3>
+        <p>Add text</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container-fluid">
+    <div class="row jumbotron">
+      <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10">
+        <p class="lead">More description of the product</p>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-9 col-xl-2">
+        <a href="{% url 'recordings' %}"><button class="btn btn-primary">Browse Recordings</button></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container-fluid padding">
+    <div class="row welcome text-center">
+      <div class="col-12">
+        <h1 class="display-4">Project Timeline</h1>
+      </div>
+     </div>
+  </div>
+</section>
+
+<section>
+  <div class="container-fluid padding">
+    <div class="row welcome text-center">
+      <div class="col-12">
+        <h1 class="display-4">Footer</h1>
+      </div>
+     </div>
+  </div>
+</section>
+
+
+<script type='text/javascript'>document.addEventListener('DOMContentLoaded', function () {window.setTimeout(document.querySelector('svg').classList.add('animated'),1000);}
+</script>
 {% endblock %}
