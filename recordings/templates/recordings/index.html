@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
@@ -14,18 +15,15 @@
 
           <p><strong>Search Recordings</strong></p>
             <form action="." method="POST">
-              <input type="text">
-              <button type="submit" value="Search" class="btn btn-success">Search</button>
+              <input type="text" class="form-control">
+              <button type="submit" value="Search" class="btn btn-primary mt-2">Search</button>
             </form>
           <hr>
 
           <p><strong>Filter by Station & Topic</strong></p>
           <form method="GET">
-            <label for="">Radio Station</label>
-            {{recording_filter.form.radio_station}}
-            <label for="">Tags</label>
-            {{recording_filter.form.tags}}
-             <button type="submit" value="Search" class="btn btn-success">Filter</button>
+            {{recording_filter.form|crispy}}
+             <button type="submit" value="Search" class="btn btn-primary">Filter</button>
           </form>
           <hr>
 
