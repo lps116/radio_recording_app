@@ -1,6 +1,6 @@
 body {
   font-family: 'Roboto', sans-serif;
-  background:#eee;
+  /*background:#eee;*/
 }
 
 /*NAVBAR SECTION*/
@@ -231,12 +231,9 @@ body {
 
 /*HOMEPAGE BACKGROUND*/
 
-.white-background {
-  background-color: #FFFFFF !important;
-}
-
 .fa-spinner {
   font-size: 4em;
   margin: 1rem;
 }
+
 
