@@ -19,7 +19,6 @@
               <button type="submit" value="Search" class="btn btn-primary mt-2">Search</button>
             </form>
           <hr>
-
           <p><strong>Filter by Station & Topic</strong></p>
           <form method="GET">
             {{recording_filter.form|crispy}}
@@ -54,7 +53,8 @@
                   <div class="media">
                     <i class="fa fa-check pull-left text-success"></i>
                     <div class="media-body">
-                      <strong>{{recording.user.username}}</strong> on <strong>{{recording.radio_station.name}}</strong> <span class="label label-danger">{{recording.title}}</span><span class="number pull-right">{{recording.start_datetime}}</span>
+                      <strong><a href="{% url 'profile' username=recording.user.username %}">{{recording.user.username}}</a></strong> on <strong>{{recording.radio_station.name}}</strong> <span class="label label-danger">{{recording.title}}</span><span class="number pull-right">{{recording.start_datetime}}</span>
+                      <hr>
                       {% if not recording.description %}
                       <p class="info"></p>
                       {% else %}

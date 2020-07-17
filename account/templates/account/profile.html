@@ -19,9 +19,9 @@
             <div class="row ">
                 <div class="col-lg-12">
                     <ul class=" nav nav-tabs justify-content-center s-nav">
-                        <li><a class="active" href="#">Overview</a></li>
-                        <li><a href="#">All Recordings</a></li>
-                        <li><a href="#">Settings</a></li>
+                        <li><a class="active" href="{% url 'profile' username=request.user.username %}">Overview</a></li>
+                        <li><a href="{% url 'myrecordings' username=user.username %}">All Recordings</a></li>
+                        <li><a href="{% url 'settings' username=request.user.username %}">Settings</a></li>
                     </ul>
                 </div>
             </div>
@@ -96,6 +96,7 @@
                     <div class="media-body">
                       <strong>{{recording.radio_station.name}}: </strong> <span class="label label-danger"><a href="{% url 'recording' pk=recording.id%}">{{recording.title}}</a></span><span class="number pull-right">{{recording.start_datetime}}</span>
                       {% if not recording.description %}
+                      <hr class="mt-1 mb-1">
                       <p class="info">Add a description <strong><a href="#">here</a></strong>.</p>
                       {% else %}
                       <p class="info">{{recording.description}}</p>

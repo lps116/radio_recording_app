@@ -228,12 +228,7 @@ body {
   border-radius: 0px;
 }
 
-
-/*HOMEPAGE BACKGROUND*/
-
-.fa-spinner {
-  font-size: 4em;
-  margin: 1rem;
+hr {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
 }
-
-

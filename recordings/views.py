@@ -9,8 +9,6 @@ def recordings_index(response):
   recordings = Recording.objects.filter(status="complete", public=True).order_by('-end_datetime')
   popular_tags = Tag.objects.annotate(recordings_count=Count('recordings')).order_by('-recordings_count')[:10]
 
-  print(response.GET)
-
   recording_filter = RecordingFilter(response.GET, queryset=recordings)
   recordings = recording_filter.qs
 
