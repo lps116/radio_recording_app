@@ -48,36 +48,29 @@
         </ul>
         <hr>
         {% endif %}
+          <p><strong>Pending</strong></p>
+          <ul>
+            {% if scheduled_recordings %}
+            {% for recording in scheduled_recordings %}
+            <li>{{recording.radio_station.name}}<span class="pull-right"><img src="{% static 'images/calendar.svg'%}" style="height: 20px; width: 20px;"alt=""></span></li>
+            {% endfor%}
+            {% else %}
+            <li>No upcoming recordings...<span class="pull-right"></span></li>
+            {% endif %}
+          </ul>
+          <hr>
+
           {% if request.user == user %}
           <p><strong>Schedule a Recording</strong></p>
             <form action="." method="POST">
               {% csrf_token %}
               {{form|crispy}}
-<!--               {{form.title}}
-              {{form.radio_station}}
-              {{form.start_date}}
-              {{form.start_time}}
-              {{form.end_date}}
-              {{form.end_time}}
-              {{form.public}} -->
               <input type="Submit" class="btn btn-primary" value="Schedule">
             </form>
-          <hr>
           {% endif %}
-
-          <p><strong>Pending</strong></p>
-          <ul>
-            {% for recording in scheduled_recordings %}
-            <li>{{recording.radio_station.name}}<span class="pull-right"><img src="{% static 'images/calendar.svg'%}" style="height: 20px; width: 20px;"alt=""></span></li>
-            {% endfor%}
-          </ul>
         </div>
       </div>
     </div>
-
-
-<!-- <h3>Your completed recordings</h3> -->
-
 
     <!-- BEGIN TICKET -->
     <div class="col-md-9">
@@ -92,7 +85,7 @@
               {% for recording in completed_recordings %}
                 <li class="list-group-item" data-toggle="modal" data-target="#issue">
                   <div class="media">
-                    <i class="fa fa-check pull-left text-success"></i>
+                    <a class="mr-3" href="{% url 'myrecording' username=user.username recording_id=recording.id %}"><i class="fas fa-file-audio text-primary"></i></a>
                     <div class="media-body">
                       <strong>{{recording.radio_station.name}}: </strong> <span class="label label-danger"><a href="{% url 'recording' pk=recording.id%}">{{recording.title}}</a></span><span class="number pull-right">{{recording.start_datetime}}</span>
                       {% if not recording.description %}
