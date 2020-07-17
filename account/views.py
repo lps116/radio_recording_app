@@ -58,3 +58,23 @@ def account_view(response, username):
     return render(response, 'account/profile.html', context)
   else:
     return render(response, 'account/profile.html', context)
+
+@login_required(login_url='/login/')
+def recordings_view(response, username):
+  user = User.objects.get(username=username)
+  recordings = user.recordings.order_by('-end_datetime')
+  context = {
+  "recordings" : recordings,
+  }
+  return render(response, 'account/my_recordings.html', context)
+
+
+@login_required(login_url='/login/')
+def settings_view(response, username):
+  context = {}
+  return render(response, 'account/settings.html', context)
+
+
+
+
+

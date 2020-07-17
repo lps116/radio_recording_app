@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<!-- https://www.bootdey.com/snippets/view/bs4-social-about -->
+<section class="mt-2">
+<div class="container">
+    <div class="img" style=" background-image:linear-gradient(to right, #1A4C84, #379CCA);
+    height: 170px;background-size: cover;"></div>
+    <div class="card social-prof">
+        <div class="card-body">
+            <div class="wrapper">
+                <img src="{% static 'images/profile_picture.png' %}" alt="" class="user-profile">
+                <h3>{{user.username}}</h3>
+                <p></p>
+            </div>
+            <div class="row ">
+                <div class="col-lg-12">
+                    <ul class=" nav nav-tabs justify-content-center s-nav">
+                        <li><a href="{% url 'profile' username=request.user.username %}">Overview</a></li>
+                        <li><a class="active" href="{% url 'myrecordings' username=request.user.username %}">All Recordings</a></li>
+                        <li><a href="{% url 'settings' username=request.user.username %}">Settings</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="container">
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body pb-0">
+                <p><strong>All Recordings</strong></p>
+            </div>
+            <div class="table-responsive-xl">
+                <table class="table mb-0">
+                  <thead>
+                    <tr>
+                      <th class="border-0  pl-4">#</th>
+                      <th class="border-0 ">Title</th>
+                      <th class="border-0">Station</th>
+                      <th class="border-0 ">Start Time</th>
+                      <th class="border-0 ">End Time</th>
+                      <th class="border-0 ">Status</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    {% for recording in recordings %}
+
+                    <tr>
+                      <td class="pl-4">{{ forloop.counter }}</td>
+                      <td>
+                          <span class=""><strong>{{recording.title|slice:":25"}}...</strong></span>
+                      </td>
+                      <td>
+                          <span class="">{{recording.radio_station.name}}</span>
+                      </td>
+                      <td>
+                          <span class="">{{recording.start_datetime|date:"SHORT_DATE_FORMAT"}} {{recording.start_datetime|time:"h:i a"}}</span>
+                      </td>
+                      <td>
+                          <span class="">{{recording.end_datetime|time:"h:i "}}</span>
+                      </td>
+                      <td>
+                          <span class="">{{recording.status}}</span>
+                      </td>
+                      <td>
+                        <a class="mr-1 mb-1"href="" style="color: black;"><i class="far fa-edit"></i></i></a>
+                        <a class="mr-1 mb-1"href="" style="color: black;"><i class="far fa-trash-alt"></i></i></a>
+                      </td>
+                    </tr>
+
+                    {% endfor %}
+
+                  </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+
