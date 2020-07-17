@@ -68,6 +68,14 @@ def recordings_view(response, username):
   }
   return render(response, 'account/my_recordings.html', context)
 
+@login_required(login_url='/login/')
+def edit_view(response, username, recording_id):
+  recording = Recording.objects.get(pk=recording_id)
+  context = {
+    "recording" : recording,
+  }
+  return render(response, 'account/edit.html', context)
+
 
 @login_required(login_url='/login/')
 def settings_view(response, username):

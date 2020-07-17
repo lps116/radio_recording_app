@@ -85,7 +85,7 @@
               {% for recording in completed_recordings %}
                 <li class="list-group-item" data-toggle="modal" data-target="#issue">
                   <div class="media">
-                    <a class="mr-3" href="{% url 'recording' pk=recording.id %}"><i class="fas fa-file-audio text-primary"></i></a>
+                    <a class="mr-3" href="{% url 'myrecording' username=user.username recording_id=recording.id %}"><i class="fas fa-file-audio text-primary"></i></a>
                     <div class="media-body">
                       <strong>{{recording.radio_station.name}}: </strong> <span class="label label-danger"><a href="{% url 'recording' pk=recording.id%}">{{recording.title}}</a></span><span class="number pull-right">{{recording.start_datetime}}</span>
                       {% if not recording.description %}

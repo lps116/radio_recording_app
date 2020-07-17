@@ -73,7 +73,7 @@
                           <span class="">{{recording.status}}</span>
                       </td>
                       <td>
-                        <a class="mr-1 mb-1"href="" style="color: black;"><i class="far fa-edit"></i></i></a>
+                        <a class="mr-1 mb-1"href="{% url 'myrecording' username=user.username recording_id=recording.id %}" style="color: black;"><i class="far fa-edit"></i></i></a>
                         <a class="mr-1 mb-1"href="" style="color: black;"><i class="far fa-trash-alt"></i></i></a>
                         <a class="mr-1 mb-1"href="" style="color: black;"><i class="fas fa-file-download"></i></a>
                       </td>
