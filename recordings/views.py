@@ -22,7 +22,16 @@ def recordings_index(response):
 @login_required(login_url='/login/')
 def recording_view(response, pk):
   recording = Recording.objects.get(pk=pk)
+  recordings = Recording.objects.filter(user=recording.user, status="complete", public=True).order_by('-end_datetime')
+  recordings = recordings.exclude(pk=pk)
+
+  recording_filter = RecordingFilter(response.GET, queryset=recordings)
+  recordings = recording_filter.qs
+
+
   context = {
-    "recording" : recording
+    "recording" : recording,
+    "recordings" :recordings,
+    "recording_filter" :recording_filter,
   }
   return render(response, 'recordings/view.html', context)
