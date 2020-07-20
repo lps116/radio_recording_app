@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from .forms import CreateRecordingForm
+from .forms import CreateRecordingForm, EditRecordingFormComplete
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from recordings.models import Recording, RadioStation
@@ -74,9 +74,19 @@ def recordings_view(response, username):
 
 @login_required(login_url='/login/')
 def edit_view(response, username, recording_id):
+  if response.method == "POST":
+    recording = Recording.objects.get(pk=recording_id)
+    form = EditRecordingFormComplete(response.POST)
+    if form.is_valid():
+      recording.title = form.cleaned_data['title']
+      recording.description = form.cleaned_data['description']
+      recording.public = form.cleaned_data['public']
+      recording.save()
   recording = Recording.objects.get(pk=recording_id)
+  form = EditRecordingFormComplete(instance=recording)
   context = {
     "recording" : recording,
+    "form" : form
   }
   return render(response, 'account/edit.html', context)
 
@@ -100,6 +110,3 @@ def delete_view(response, username, recording_id):
 def settings_view(response, username):
   context = {}
   return render(response, 'account/settings.html', context)
-
-
-
