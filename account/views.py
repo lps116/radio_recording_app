@@ -82,6 +82,7 @@ def edit_view(response, username, recording_id):
       recording.description = form.cleaned_data['description']
       recording.public = form.cleaned_data['public']
       recording.save()
+      messages.success(response, "Recording information has been updated.")
   recording = Recording.objects.get(pk=recording_id)
   form = EditRecordingFormComplete(instance=recording)
   context = {
