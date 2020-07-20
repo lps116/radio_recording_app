@@ -8,6 +8,7 @@ from datetime import datetime
 import pytz
 from recordings.tasks import record_show
 from django.shortcuts import get_object_or_404
+from celery.task.control import revoke
 
 
 
@@ -38,8 +39,9 @@ def account_view(response, username):
         end_datetime   = end_datetime_aware
         )
 
+      task = record_show.apply_async(args=[recording.id], eta=recording.start_datetime)
+      recording.task_id = task.id
       recording.save()
-      record_show.apply_async(args=[recording.id], eta=recording.start_datetime)
       # record_show.delay(recording.id)
       string = "Your " + radio_station.name + " recording has been scheduled."
       messages.success(response, "Your recording has been scheduled.")
@@ -83,6 +85,8 @@ def edit_view(response, username, recording_id):
 def delete_view(response, username, recording_id):
   try:
     recording = Recording.objects.get(pk=recording_id)
+    if recording.status != 'complete':
+      revoke(recording.task_id)
     recording.delete()
     messages.success(response, "Your recording has been deleted.")
   except:

@@ -59,15 +59,11 @@ class Recording(models.Model):
                                         blank=True,
                                         null=True)
   public             = models.BooleanField(default=True)
+  task_id            = models.CharField(max_length=100,
+                                        blank = True,
+                                        null=True)
 
   @property
   def time_till_recording(self):
     if self.status == "pending":
       return self.start_datetime - timezone.now()
-
-  # def save(self, *args, **kwargs):
-  #   if self.start_datetime < timezone.now():
-  #     raise ValidationError("Set a later start date")
-  #   if self.start_datetime > self.end_datetime:
-  #     raise ValidationError("Recording must end later")
-  #   super(Recording, self).save(*args, **kwargs)
