@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from .forms import CreateRecordingForm, EditRecordingFormComplete
+from .forms import CreateRecordingForm, EditRecordingFormComplete, EditRecordingFormPending
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from recordings.models import Recording, RadioStation
@@ -74,17 +74,48 @@ def recordings_view(response, username):
 
 @login_required(login_url='/login/')
 def edit_view(response, username, recording_id):
-  if response.method == "POST":
-    recording = Recording.objects.get(pk=recording_id)
-    form = EditRecordingFormComplete(response.POST)
-    if form.is_valid():
-      recording.title = form.cleaned_data['title']
-      recording.description = form.cleaned_data['description']
-      recording.public = form.cleaned_data['public']
-      recording.save()
-      messages.success(response, "Recording information has been updated.")
   recording = Recording.objects.get(pk=recording_id)
-  form = EditRecordingFormComplete(instance=recording)
+  if not recording.status == "pending":
+    if response.method == "POST":
+      form = EditRecordingFormComplete(response.POST)
+      if form.is_valid():
+        recording.title = form.cleaned_data['title']
+        recording.description = form.cleaned_data['description']
+        recording.public = form.cleaned_data['public']
+        recording.save()
+        messages.success(response, "Recording information has been updated.")
+  else:
+    if response.method == "POST":
+      form = EditRecordingFormPending(response.POST)
+      if form.is_valid():
+        title = form.cleaned_data['title']
+        radio_station = form.cleaned_data['radio_station']
+        public = form.cleaned_data['public']
+        start_datetime = datetime.combine(form.cleaned_data['start_date'],
+                                        form.cleaned_data['start_time'])
+        end_datetime = datetime.combine(form.cleaned_data['end_date'],
+                                      form.cleaned_data['end_time'])
+
+        timezone = pytz.timezone("Europe/London")
+        start_datetime_aware = timezone.localize(start_datetime)
+        end_datetime_aware = timezone.localize(end_datetime)
+        recording.title = title
+        recording.radio_station = radio_station
+        recording.public = public
+        recording.start_datetime = start_datetime_aware
+        recording.end_datetime = end_datetime_aware
+        revoke(recording.task_id)
+        task = record_show.apply_async(args=[recording.id], eta=recording.start_datetime)
+        recording.task_id = task.id
+        recording.save()
+        messages.success(response, "Recording information has been updated.")
+
+  recording = Recording.objects.get(pk=recording_id)
+  if not recording.status == "pending":
+    form = EditRecordingFormComplete(instance=recording)
+  else:
+    form = EditRecordingFormPending(instance=recording)
+
   context = {
     "recording" : recording,
     "form" : form
