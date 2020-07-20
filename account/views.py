@@ -1,12 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from .forms import CreateRecordingForm
+from .forms import CreateRecordingForm, EditRecordingFormComplete
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from recordings.models import Recording, RadioStation
 from datetime import datetime
 import pytz
 from recordings.tasks import record_show
+from django.shortcuts import get_object_or_404
+from celery.task.control import revoke
+
 
 
 # Create your views here.
@@ -36,8 +39,9 @@ def account_view(response, username):
         end_datetime   = end_datetime_aware
         )
 
+      task = record_show.apply_async(args=[recording.id], eta=recording.start_datetime)
+      recording.task_id = task.id
       recording.save()
-      record_show.apply_async(args=[recording.id], eta=recording.start_datetime)
       # record_show.delay(recording.id)
       string = "Your " + radio_station.name + " recording has been scheduled."
       messages.success(response, "Your recording has been scheduled.")
@@ -70,19 +74,40 @@ def recordings_view(response, username):
 
 @login_required(login_url='/login/')
 def edit_view(response, username, recording_id):
+  if response.method == "POST":
+    recording = Recording.objects.get(pk=recording_id)
+    form = EditRecordingFormComplete(response.POST)
+    if form.is_valid():
+      recording.title = form.cleaned_data['title']
+      recording.description = form.cleaned_data['description']
+      recording.public = form.cleaned_data['public']
+      recording.save()
+      messages.success(response, "Recording information has been updated.")
   recording = Recording.objects.get(pk=recording_id)
+  form = EditRecordingFormComplete(instance=recording)
   context = {
     "recording" : recording,
+    "form" : form
   }
   return render(response, 'account/edit.html', context)
 
 
 @login_required(login_url='/login/')
+def delete_view(response, username, recording_id):
+  try:
+    recording = Recording.objects.get(pk=recording_id)
+    if recording.status != 'complete':
+      revoke(recording.task_id)
+    recording.delete()
+    messages.success(response, "Your recording has been deleted.")
+  except:
+    pass
+  finally:
+    user = User.objects.get(username=username)
+    redirect_string = "/" + str(user.username) + "/myrecordings"
+    return redirect(redirect_string)
+
+@login_required(login_url='/login/')
 def settings_view(response, username):
   context = {}
   return render(response, 'account/settings.html', context)
-
-
-
-
-
