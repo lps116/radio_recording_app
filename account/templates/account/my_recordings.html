@@ -36,7 +36,10 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-body pb-0">
-          <p><strong>All Recordings</strong></p>
+          <div style="overflow: hidden;">
+            <p style="float: left;"><strong>All Recordings</strong></p>
+            <a href="{% url 'create_recording' username=user.username %}" style="float: right;" class="mr-3 mt-1"><button class="btn btn-sm btn-primary">New</button></a>
+          </div>
         </div>
         <div class="table-responsive-xl">
           <table class="table mb-0">

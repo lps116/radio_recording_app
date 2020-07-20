@@ -91,6 +91,47 @@ def edit_view(response, username, recording_id):
   }
   return render(response, 'account/edit.html', context)
 
+@login_required(login_url='/login/')
+def create_view(response, username):
+  user = response.user
+  if response.method == "POST":
+    form = CreateRecordingForm(response.POST)
+    if form.is_valid():
+      title = form.cleaned_data['title']
+      radio_station = form.cleaned_data['radio_station']
+      public = form.cleaned_data['public']
+      user = response.user
+      start_datetime = datetime.combine(form.cleaned_data['start_date'],
+                                        form.cleaned_data['start_time'])
+      end_datetime = datetime.combine(form.cleaned_data['end_date'],
+                                      form.cleaned_data['end_time'])
+
+      timezone = pytz.timezone("Europe/London")
+      start_datetime_aware = timezone.localize(start_datetime)
+      end_datetime_aware = timezone.localize(end_datetime)
+      recording = Recording.objects.create(
+        user           = user,
+        title          = title,
+        radio_station  = radio_station,
+        public         = public,
+        start_datetime = start_datetime_aware,
+        end_datetime   = end_datetime_aware
+        )
+
+      task = record_show.apply_async(args=[recording.id], eta=recording.start_datetime)
+      recording.task_id = task.id
+      recording.save()
+      # record_show.delay(recording.id)
+      string = "Your " + radio_station.name + " recording has been scheduled."
+      messages.success(response, "Your recording has been scheduled.")
+      redirect_string = "/" + str(user.username) + "/myrecordings"
+      return redirect(redirect_string)
+  form = CreateRecordingForm()
+  context = {
+  "user" : user,
+  "form" : form
+  }
+  return render(response, 'account/create.html', context)
 
 @login_required(login_url='/login/')
 def delete_view(response, username, recording_id):
