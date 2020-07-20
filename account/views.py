@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from .forms import CreateRecordingForm
 from django.contrib import messages
@@ -7,6 +7,8 @@ from recordings.models import Recording, RadioStation
 from datetime import datetime
 import pytz
 from recordings.tasks import record_show
+from django.shortcuts import get_object_or_404
+
 
 
 # Create your views here.
@@ -78,11 +80,22 @@ def edit_view(response, username, recording_id):
 
 
 @login_required(login_url='/login/')
+def delete_view(response, username, recording_id):
+  try:
+    recording = Recording.objects.get(pk=recording_id)
+    recording.delete()
+    messages.success(response, "Your recording has been deleted.")
+  except:
+    pass
+  finally:
+    user = User.objects.get(username=username)
+    redirect_string = "/" + str(user.username) + "/myrecordings"
+    return redirect(redirect_string)
+
+@login_required(login_url='/login/')
 def settings_view(response, username):
   context = {}
   return render(response, 'account/settings.html', context)
-
-
 
 
 
