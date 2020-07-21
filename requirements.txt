@@ -11,7 +11,6 @@ Django==3.0.7
 django-crispy-forms==1.9.2
 django-environ==0.4.5
 django-filter==2.3.0
-django-filters==0.2.1
 django-storages==1.9.1
 django-widget-tweaks==1.4.8
 docutils==0.15.2
