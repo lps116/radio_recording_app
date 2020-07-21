@@ -29,10 +29,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY ='3-timcn76gx#-0mechn8x_8w5e%*me$+f#&rytg#^#z49d2fha'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # ALLOWED_HOSTS = ['soundcapture.herokuapp.com/', '127.0.0.1', '0.0.0.0']
 ALLOWED_HOSTS = ['*']
@@ -160,13 +160,8 @@ LOGOUT_REDIRECT_URL = "/"
 
 # Celery Settings
 # https://stackabuse.com/asynchronous-tasks-in-django-with-redis-and-celery/
-# if DEBUG:
 CELERY_BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-# else:
-#   CELERY_BROKER_URL = os.environ['REDIS_URL']
-#   CELERY_RESULT_BACKEND = os.environ['REDIS_URL']
-
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
