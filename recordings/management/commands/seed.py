@@ -108,8 +108,8 @@ def get_radio_stations_with_links(country="UK", station="bbc", genre='ALL'):
   querystring = {"country":country,"keyword":station,"genre":genre}
   headers = {
       'x-rapidapi-host': "30-000-radio-stations-and-music-charts.p.rapidapi.com",
-      'x-rapidapi-key': "81f9bb4c51msh270013cb0fdf3fdp1f75dejsnfa321cc6bd26"
-      # 'x-rapidapi-key': "deffea4b89msha39476b3fcfbd63p14289djsn599001cd7c59"
+      # 'x-rapidapi-key': "81f9bb4c51msh270013cb0fdf3fdp1f75dejsnfa321cc6bd26"
+      'x-rapidapi-key': "deffea4b89msha39476b3fcfbd63p14289djsn599001cd7c59"
   }
   response = requests.request("GET", url, headers=headers, params=querystring)
   return json.loads(response.text)
