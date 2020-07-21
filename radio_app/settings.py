@@ -16,10 +16,6 @@ import dj_database_url
 
 # https://stackoverflow.com/questions/54721931/improperlyconfigured-set-the-xxxx-environment-variable-django-environ
 # Might have to set up path at some point
-# env = environ.Env(
-#   DEBUG = (bool, False)
-# )
-# environ.Env.read_env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -32,7 +28,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # ALLOWED_HOSTS = ['soundcapture.herokuapp.com/', '127.0.0.1', '0.0.0.0']
 ALLOWED_HOSTS = ['*']
@@ -160,13 +156,8 @@ LOGOUT_REDIRECT_URL = "/"
 
 # Celery Settings
 # https://stackabuse.com/asynchronous-tasks-in-django-with-redis-and-celery/
-# if DEBUG:
 CELERY_BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-# else:
-#   CELERY_BROKER_URL = os.environ.get('REDIS_URL')
-#   CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL')
-
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
