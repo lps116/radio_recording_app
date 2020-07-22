@@ -13,7 +13,7 @@ def record_show(id):
   url              = radio_station.streaming_link
   if not streaming_link_is_valid(url):
     new_link = find_new_link(radio_station.id)
-    if  new_link is not None:
+    if new_link is not None:
       url = new_link
       radio_station.streaming_link = url
       radio_station.save()
@@ -22,6 +22,7 @@ def record_show(id):
       recording.save()
       return
   try:
+    print("recording started")
     recording.status = "in progress"
     recording.save()
     print(url)
@@ -30,8 +31,11 @@ def record_show(id):
     file_path        = settings.MEDIA_ROOT + 'media/' + recording.user.username + "-rec" + str(recording.id) + ".mp3"
     session          = requests.Session()
     request          = session.get(url, stream=True)
+    print('trying to open file')
     with open(file_path, "wb") as file:
+      print('managed to open file')
       for chunk in request.iter_content(chunk_size = chunk_size):
+        print('writing content')
         file.write(chunk)
         if timezone.now() > end_time:
           file.close()
@@ -39,8 +43,10 @@ def record_show(id):
           recording.status = "complete"
           recording.save()
           request.connection.close()
+          print('saved')
           return
   except:
+    print('recoridng failed')
     recording.status = "complete"
     recording.save()
     return
@@ -51,6 +57,8 @@ def streaming_link_is_valid(url):
   try:
     session = requests.Session()
     request = session.get(url, stream=True)
+    print('checking if url valid...')
+    print(request.status_code)
     if request.status_code == 200 and request.headers.get('content-type') == 'audio/mpeg':
       request.connection.close()
       return True
