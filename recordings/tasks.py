@@ -32,6 +32,8 @@ def record_show(id):
     session          = requests.Session()
     request          = session.get(url, stream=True)
     print('trying to open file')
+    print(file_path)
+    print(open(file_path, "wb"))
     with open(file_path, "wb") as file:
       print('managed to open file')
       for chunk in request.iter_content(chunk_size = chunk_size):
