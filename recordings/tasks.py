@@ -28,7 +28,7 @@ def record_show(id):
     print(url)
     end_time         = recording.end_datetime
     chunk_size       = 256
-    file_path        = settings.MEDIA_ROOT + 'media/' + recording.user.username + "-rec" + str(recording.id) + ".mp3"
+    file_path        = settings.MEDIA_ROOT + 'tmp/' + recording.user.username + "-rec" + str(recording.id) + ".mp3"
     session          = requests.Session()
     request          = session.get(url, stream=True)
     print('trying to open file')
@@ -41,7 +41,7 @@ def record_show(id):
         file.write(chunk)
         if timezone.now() > end_time:
           file.close()
-          recording.file = 'media/' + recording.user.username + "-rec" + str(recording.id) + ".mp3"
+          recording.file = 'tmp/' + recording.user.username + "-rec" + str(recording.id) + ".mp3"
           recording.status = "complete"
           recording.save()
           request.connection.close()
