@@ -46,6 +46,7 @@ def record_show(id):
           recording.save()
           request.connection.close()
           print('saved')
+          print(recording.file)
           return
   except:
     print('recoridng failed')
