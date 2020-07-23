@@ -54,7 +54,7 @@ class Recording(models.Model):
                                         ("complete", "complete"),
                                         ),
                                        default="pending")
-  file               = models.FileField(upload_to="media/",
+  file               = models.FileField(upload_to="",
                                         validators=[is_mp3_file],
                                         blank=True,
                                         null=True)
