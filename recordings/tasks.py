@@ -5,6 +5,12 @@ import requests
 from django.conf import settings
 from django.utils import timezone
 import json
+import boto3
+from botocore.exceptions import ClientError
+import logging
+
+AWS_ACCESS_KEY_ID = 'AKIA5LS7FIRFIXSJIJ7I'
+AWS_SECRET_ACCESS_KEY = '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'
 
 @shared_task
 def record_show(id):
@@ -28,7 +34,8 @@ def record_show(id):
     print(url)
     end_time         = recording.end_datetime
     chunk_size       = 256
-    file_path        = settings.BASE_DIR + "/" + recording.user.username + "-rec" + str(recording.id) + ".mp3"
+    file_name        = recording.user.username + "-rec" + str(recording.id) + ".mp3"
+    file_path        = settings.BASE_DIR + "/" + file_name
     session          = requests.Session()
     request          = session.get(url, stream=True)
     print('trying to open file')
@@ -40,6 +47,23 @@ def record_show(id):
         print('writing content')
         file.write(chunk)
         if timezone.now() > end_time:
+          session = boto3.Session(
+                  aws_access_key_id=AWS_ACCESS_KEY_ID,
+                  aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+                  )
+          s3 = session.resource('s3')
+          bucket_name = "test-bucket-for-radio"
+          s3.meta.client.upload_file(Filename=file_path,
+                                    Bucket=bucket_name,
+                                    Key=file_name)
+
+          # print('saving file to s3')
+          # s3_client = boto3.client('s3')
+          # try:
+          #   response = s3_client.upload_file(file_path, bucket, 'test.mp3')
+          # except ClientError as e:
+          #   logging.error(e)
+
           file.close()
           recording.file = recording.user.username + "-rec" + str(recording.id) + ".mp3"
           recording.status = "complete"
