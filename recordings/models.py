@@ -54,10 +54,11 @@ class Recording(models.Model):
                                         ("complete", "complete"),
                                         ),
                                        default="pending")
-  file               = models.FileField(upload_to="",
-                                        validators=[is_mp3_file],
-                                        blank=True,
-                                        null=True)
+  file                 = models.URLField(max_length=200, blank=True, null=True)
+  # file               = models.FileField(upload_to="",
+                                        # validators=[is_mp3_file],
+                                        # blank=True,
+                                        # null=True)
   public             = models.BooleanField(default=True)
   task_id            = models.CharField(max_length=100,
                                         blank = True,

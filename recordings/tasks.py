@@ -38,13 +38,8 @@ def record_show(id):
     file_path        = settings.BASE_DIR + "/" + file_name
     session          = requests.Session()
     request          = session.get(url, stream=True)
-    print('trying to open file')
-    print(file_path)
-    print(open(file_path, "wb"))
     with open(file_path, "wb") as file:
-      print('managed to open file')
       for chunk in request.iter_content(chunk_size = chunk_size):
-        print('writing content')
         file.write(chunk)
         if timezone.now() > end_time:
           session = boto3.Session(
@@ -57,6 +52,8 @@ def record_show(id):
                                     Bucket=bucket_name,
                                     Key=file_name)
 
+          recording_url = "https://%s.s3.eu-west-2.amazonaws.com/%s" % (bucket_name, file_name)
+          print(recording_url)
           # print('saving file to s3')
           # s3_client = boto3.client('s3')
           # try:
@@ -65,7 +62,8 @@ def record_show(id):
           #   logging.error(e)
 
           file.close()
-          recording.file = recording.user.username + "-rec" + str(recording.id) + ".mp3"
+          recording.file = recording_url
+          print(recording.file)
           recording.status = "complete"
           recording.save()
           request.connection.close()

@@ -14,7 +14,7 @@
                 <h3 class="mb-2">{{recording.title}}</h3>
                 <p>{{recording.description}}</p>
                 <p class="mb-2">{{recording.user.username}} on {{recording.radio_station.name}}</p>
-                <audio controls='controls' autoplay src="{{MEDIA_URL}}/media/{{recording.file}}" type="audio/mpeg"></audio>
+                <audio controls='controls' autoplay src="{{recording.file}}" type="audio/mpeg"></audio>
             </div>
             <div class="row ">
                 <div class="col-lg-12">
