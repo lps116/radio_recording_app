@@ -41,7 +41,7 @@ def record_show(id):
         file.write(chunk)
         if timezone.now() > end_time:
           file.close()
-          recording.file = settings.BASE_DIR + "/" + recording.user.username + "-rec" + str(recording.id) + ".mp3"
+          recording.file = recording.user.username + "-rec" + str(recording.id) + ".mp3"
           recording.status = "complete"
           recording.save()
           request.connection.close()
