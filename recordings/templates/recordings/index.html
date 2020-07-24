@@ -56,15 +56,19 @@
                       <strong><a href="{% url 'profile' username=recording.user.username %}">{{recording.user.username}}</a></strong> on <strong>{{recording.radio_station.name}}</strong><span class="number pull-right">{{recording.start_datetime}}</span>
                       <hr>
                       <p class="info"><strong>{{recording.title}}</strong></p>
-                      {% if not recording.description %}
-                      <p class="info"></p>
+                      {% if recording.description %}
+                      <p class="info">{{recording.description}}</p>
                       {% else %}
-                      <p class="info">{{recording.description}} Tags:
+                      <p class="info">No description</p>
+                      {% endif %}
+                      <p class="info">
+                                              Tags:
                         {% for tag in recording.tags.all %}
                         {{tag.tag}},
+                        {% empty %}
+                        None
                         {% endfor %}
-                      </p>
-                      {% endif %}
+                    </p>
                     </div>
                   </li>
                   {% endfor %}

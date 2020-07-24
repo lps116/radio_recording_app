@@ -57,7 +57,18 @@
                         <div class="card-header">
                             <h5 class="card-title mb-0">Recording</h5>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body text-center">
+                          <h5>{{recording.title}}</h5>
+                          <audio controls src="{{recording.file}}" ></audio>
+                          <p>Station: {{recording.radio_station.name}}</p>
+                          <p>Description: {{recording.description}}</p>
+
+                          <p>Tags: {% for tag in recording.tags.all %}
+                            {{tag.tag}},
+                            {% empty %}
+                            None
+                            {% endfor %}
+                          </p>
 
                         </div>
                     </div>

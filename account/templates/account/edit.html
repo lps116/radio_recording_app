@@ -61,9 +61,9 @@
             <form action="." method="POST">
               {% csrf_token %}
               {{ form|crispy }}
-              <input type="Submit" class="btn btn-primary" value="Edit Recording">
+              <input type="Submit" class="btn btn-primary mb-2" value="Edit Recording">
             </form>
-            <a href="{% url 'delete_recording' username=user.username recording_id=recording.id %}"><button class='btn btn-primary mt-1 mb-2'>Download</button></a>
+            <a href="{% url 'delete_recording' username=user.username recording_id=recording.id %}"><button class='btn btn-danger'>Delete</button></a>
 
           </div>
         </div>
