@@ -19,8 +19,6 @@ import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-print(BASE_DIR)
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -30,7 +28,7 @@ print(BASE_DIR)
 SECRET_KEY = '3-timcn76gx#-0mechn8x_8w5e%*me$+f#&rytg#^#z49d2fha'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG') == 'True'
 
 # ALLOWED_HOSTS = ['soundcapture.herokuapp.com/', '127.0.0.1', '0.0.0.0']
 ALLOWED_HOSTS = ['*']
