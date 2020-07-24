@@ -37,8 +37,8 @@
   <section class="content">
     <div class="row">
       <div class="col-md-3">
-        <div class="grid support">
-          <div class="grid-body">
+        <div class="card grid support">
+          <div class="card-body grid-body">
             {% if inprogress_recordings.all %}
             <p><strong>In Progress</strong></p>
             <ul class="support-label">
@@ -84,8 +84,8 @@
 
       <!-- BEGIN TICKET -->
       <div class="col-md-9">
-        <div class="grid support-content">
-         <div class="grid-body">
+        <div class="card grid support-content">
+         <div class="card-body grid-body">
           {% if request.user == user %}
           <p><strong>My recordings</strong></p>
           {% else %}
