@@ -54,6 +54,7 @@ def record_show(id):
           recording.status = "complete"
           recording.save()
           request.connection.close()
+          os.remove(file_path)
           return
   except:
     print('recoridng failed')
