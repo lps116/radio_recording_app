@@ -8,9 +8,7 @@ import json
 import boto3
 from botocore.exceptions import ClientError
 import logging
-
-AWS_ACCESS_KEY_ID = 'AKIA5LS7FIRFIXSJIJ7I'
-AWS_SECRET_ACCESS_KEY = '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'
+import os
 
 @shared_task
 def record_show(id):
@@ -28,10 +26,8 @@ def record_show(id):
       recording.save()
       return
   try:
-    print("recording started")
     recording.status = "in progress"
     recording.save()
-    print(url)
     end_time         = recording.end_datetime
     chunk_size       = 256
     file_name        = recording.user.username + "-rec" + str(recording.id) + ".mp3"
@@ -43,32 +39,21 @@ def record_show(id):
         file.write(chunk)
         if timezone.now() > end_time:
           session = boto3.Session(
-                  aws_access_key_id=AWS_ACCESS_KEY_ID,
-                  aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+                  aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
+                  aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
                   )
           s3 = session.resource('s3')
-          bucket_name = "test-bucket-for-radio"
           s3.meta.client.upload_file(Filename=file_path,
-                                    Bucket=bucket_name,
+                                    Bucket=os.environ.get('AWS_BUCKET_NAME'),
                                     Key=file_name)
 
-          recording_url = "https://%s.s3.eu-west-2.amazonaws.com/%s" % (bucket_name, file_name)
-          print(recording_url)
-          # print('saving file to s3')
-          # s3_client = boto3.client('s3')
-          # try:
-          #   response = s3_client.upload_file(file_path, bucket, 'test.mp3')
-          # except ClientError as e:
-          #   logging.error(e)
+          recording_url = "https://%s.s3.eu-west-2.amazonaws.com/%s" % (os.environ.get('AWS_BUCKET_NAME'), file_name)
 
           file.close()
           recording.file = recording_url
-          print(recording.file)
           recording.status = "complete"
           recording.save()
           request.connection.close()
-          print('saved')
-          print(recording.file)
           return
   except:
     print('recoridng failed')
@@ -82,8 +67,6 @@ def streaming_link_is_valid(url):
   try:
     session = requests.Session()
     request = session.get(url, stream=True)
-    print('checking if url valid...')
-    print(request.status_code)
     if request.status_code == 200 and request.headers.get('content-type') == 'audio/mpeg':
       request.connection.close()
       return True
@@ -105,8 +88,7 @@ def get_radio_links(station, country="UK", genre="ALL" ):
   querystring = {"country":country,"keyword":station,"genre":genre}
   headers = {
       'x-rapidapi-host': "30-000-radio-stations-and-music-charts.p.rapidapi.com",
-      # 'x-rapidapi-key': "81f9bb4c51msh270013cb0fdf3fdp1f75dejsnfa321cc6bd26"
-      'x-rapidapi-key': "deffea4b89msha39476b3fcfbd63p14289djsn599001cd7c59"
+      'x-rapidapi-key' : os.environ.get("RAPID_API_KEY_ONE")
       }
   response = requests.request("GET", url, headers=headers, params=querystring)
   return json.loads(response.text)
