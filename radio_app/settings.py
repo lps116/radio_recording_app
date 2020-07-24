@@ -19,18 +19,16 @@ import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-print(BASE_DIR)
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = os.environ.get('SECRET_KEY')
-SECRET_KEY = '3-timcn76gx#-0mechn8x_8w5e%*me$+f#&rytg#^#z49d2fha'
+SECRET_KEY = os.environ.get('SECRET_KEY')
+# SECRET_KEY = '3-timcn76gx#-0mechn8x_8w5e%*me$+f#&rytg#^#z49d2fha'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG') == "True"
 
 # ALLOWED_HOSTS = ['soundcapture.herokuapp.com/', '127.0.0.1', '0.0.0.0']
 ALLOWED_HOSTS = ['*']
@@ -126,13 +124,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'Europe/London'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 
@@ -158,10 +152,10 @@ LOGOUT_REDIRECT_URL = "/"
 
 # Celery Settings
 # https://stackabuse.com/asynchronous-tasks-in-django-with-redis-and-celery/
-CELERY_BROKER_URL = 'redis://h:pde3be7906537df051b7dafd1a0463bb5a06e75f7346968b68c65db8688a61c1f@ec2-23-21-1-196.compute-1.amazonaws.com:14969'
-CELERY_RESULT_BACKEND = 'redis://h:pde3be7906537df051b7dafd1a0463bb5a06e75f7346968b68c65db8688a61c1f@ec2-23-21-1-196.compute-1.amazonaws.com:14969'
-# CELERY_BROKER_URL = 'redis://localhost:6379'
-# CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+# CELERY_BROKER_URL = 'redis://h:pde3be7906537df051b7dafd1a0463bb5a06e75f7346968b68c65db8688a61c1f@ec2-23-21-1-196.compute-1.amazonaws.com:14969'
+# CELERY_RESULT_BACKEND = 'redis://h:pde3be7906537df051b7dafd1a0463bb5a06e75f7346968b68c65db8688a61c1f@ec2-23-21-1-196.compute-1.amazonaws.com:14969'
+CELERY_BROKER_URL = os.environ.get('REDIS_URL')
+CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL')
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
