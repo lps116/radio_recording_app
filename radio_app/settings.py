@@ -29,6 +29,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG') == "True"
+print(DEBUG)
 
 # ALLOWED_HOSTS = ['soundcapture.herokuapp.com/', '127.0.0.1', '0.0.0.0']
 ALLOWED_HOSTS = ['*']
@@ -156,6 +157,7 @@ LOGOUT_REDIRECT_URL = "/"
 # CELERY_RESULT_BACKEND = 'redis://h:pde3be7906537df051b7dafd1a0463bb5a06e75f7346968b68c65db8688a61c1f@ec2-23-21-1-196.compute-1.amazonaws.com:14969'
 CELERY_BROKER_URL = os.environ.get('REDIS_URL')
 CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL')
+print(CELERY_RESULT_BACKEND)
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
