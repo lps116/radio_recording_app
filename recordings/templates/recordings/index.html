@@ -7,40 +7,40 @@
 <!-- https://www.bootdey.com/snippets/view/support-tickets#html -->
 <div class="padding"></div>
 <div class="container">
-<section class="content">
-  <div class="row">
-    <div class="col-md-3">
-      <div class="grid support">
-        <div class="grid-body">
+  <section class="content">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="card grid support">
+          <div class="card-body grid-body">
 
-          <p><strong>Search Recordings</strong></p>
+            <p><strong>Search Recordings</strong></p>
             <form action="." method="POST">
               <input type="text" class="form-control">
               <button type="submit" value="Search" class="btn btn-primary mt-2 mb-2">Search</button>
             </form>
-          <hr>
-          <p><strong>Filter by Station & Topic</strong></p>
-          <form method="GET">
-            {{recording_filter.form|crispy}}
-             <button type="submit" value="Search" class="btn btn-primary mb-2">Filter</button>
-          </form>
-          <hr>
+            <hr>
+            <p><strong>Filter by Station & Topic</strong></p>
+            <form method="GET">
+              {{recording_filter.form|crispy}}
+              <button type="submit" value="Search" class="btn btn-primary mb-2">Filter</button>
+            </form>
+            <hr>
 
-          <p><strong>Popular Topics</strong></p>
+            <p><strong>Popular Topics</strong></p>
 
-          <ul>
-            {% for tag in popular_tags%}
-            <li>{{tag.tag}}<span class="pull-right">{{tag.recordings.count}}</span></li>
-            {% endfor %}
-          </ul>
+            <ul>
+              {% for tag in popular_tags%}
+              <li>{{tag.tag}}<span class="pull-right">{{tag.recordings.count}}</span></li>
+              {% endfor %}
+            </ul>
 
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- BEGIN TICKET -->
-    <div class="col-md-9">
-      <div class="grid support-content">
+      <!-- BEGIN TICKET -->
+      <div class="col-md-9">
+        <div class="grid support-content">
          <div class="grid-body">
           <p><strong>Public Recordings</strong></p>
           <div class="row">
@@ -48,34 +48,39 @@
             <div class="col-md-12">
               <ul class="list-group fa-padding">
 
-              {% for recording in recordings %}
+                {% for recording in recordings %}
                 <li class="list-group-item" data-toggle="modal" data-target="#issue">
                   <div class="media">
                     <a class="mr-3" href="{% url 'recording' pk=recording.id %}"><i class="fas fa-file-audio text-primary"></i></a>
                     <div class="media-body">
-                      <strong><a href="{% url 'profile' username=recording.user.username %}">{{recording.user.username}}</a></strong> on <strong>{{recording.radio_station.name}}</strong> <span class="label label-danger">{{recording.title}}</span><span class="number pull-right">{{recording.start_datetime}}</span>
+                      <strong><a href="{% url 'profile' username=recording.user.username %}">{{recording.user.username}}</a></strong> on <strong>{{recording.radio_station.name}}</strong><span class="number pull-right">{{recording.start_datetime}}</span>
                       <hr>
-                      {% if not recording.description %}
-                      <p class="info"></p>
+                      <p class="info"><strong>{{recording.title}}</strong></p>
+                      {% if recording.description %}
+                      <p class="info">{{recording.description}}</p>
                       {% else %}
-                      <p class="info">{{recording.description}} - Tags:
+                      <p class="info">No description</p>
+                      {% endif %}
+                      <p class="info">
+                                              Tags:
                         {% for tag in recording.tags.all %}
                         {{tag.tag}},
+                        {% empty %}
+                        None
                         {% endfor %}
-                      </p>
-                      {% endif %}
-                  </div>
-                </li>
-                {% endfor %}
+                    </p>
+                    </div>
+                  </li>
+                  {% endfor %}
 
-              </ul>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 </div>
 
 {% endblock %}

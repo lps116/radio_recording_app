@@ -19,8 +19,7 @@
           <div class="col-lg-12">
             <ul class=" nav nav-tabs justify-content-center s-nav">
               <li><a href="{% url 'profile' username=request.user.username %}">Overview</a></li>
-              <li><a href="{% url 'myrecordings' username=user.username %}">All Recordings</a></li>
-              <li><a class="active" href="#">Edit View</a></li>
+              <li><a class="active" href="{% url 'myrecordings' username=user.username %}">All Recordings</a></li>
               <li><a href="{% url 'settings' username=request.user.username %}">Settings</a></li>
             </ul>
           </div>
@@ -30,24 +29,50 @@
   </div>
 </section>
 
-
-
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-3">
       <div class="card">
-        <div class="card-body pb-0">
-          <form action="." method="POST">
-            {% csrf_token %}
-            {{ form|crispy }}
-            <input type="Submit" class="btn btn-primary" value="Edit Recording">
-          </form>
-          <a href="{% url 'delete_recording' username=user.username recording_id=recording.id %}"><button class='btn btn-primary mt-1 mb-2'>Delete</button></a>
+        <div class="card-header">
+          <h5 class="card-title mb-0">Rec-{{recording.id}}</h5>
+        </div>
+
+        <div class="list-group list-group-flush" role="tablist">
+          <a class="list-group-item list-group-item-action" href="{% url 'myrecording_listen' username=user.username recording_id=recording.id %}">
+            Listen
+          </a>
+          <a class="list-group-item list-group-item-action active" href="{% url 'myrecording' username=user.username recording_id=recording.id %}">
+            Edit
+          </a>
+          <a class="list-group-item list-group-item-action" href="{{recording.file}}">
+            Download
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="tab-content">
+
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title mb-0">Edit Recording</h5>
+          </div>
+          <div class="card-body">
+            <form action="." method="POST">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <input type="Submit" class="btn btn-primary mb-2" value="Edit Recording">
+            </form>
+            <a href="{% url 'delete_recording' username=user.username recording_id=recording.id %}"><button class='btn btn-danger'>Delete</button></a>
+
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
 
 
 

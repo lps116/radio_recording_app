@@ -179,6 +179,16 @@ def delete_view(response, username, recording_id):
     redirect_string = "/" + str(user.username) + "/myrecordings"
     return redirect(redirect_string)
 
+def listen_view(response, username, recording_id):
+  recording = Recording.objects.get(pk=recording_id)
+  user = response.user
+  context = {
+  "recording" : recording,
+  "user"      : user,
+  }
+  return render(response, 'account/listen.html', context)
+
+
 @login_required(login_url='/login/')
 def settings_view(response, username):
   context = {}
