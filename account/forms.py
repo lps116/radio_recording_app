@@ -47,7 +47,7 @@ class EditRecordingFormComplete(forms.ModelForm):
 
   class Meta:
     model = Recording
-    fields = ['title', 'description', 'public']
+    fields = ['title', 'description', 'tags', 'public']
     widgets = {
       'description' : forms.Textarea(attrs={'rows':2, 'cols':15})
     }
@@ -64,6 +64,7 @@ class EditRecordingFormPending(forms.ModelForm):
     fields = ['title',
               'description',
               'radio_station',
+              'tags',
               'public'
               ]
 

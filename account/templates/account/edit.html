@@ -44,9 +44,15 @@
           <a class="list-group-item list-group-item-action active" href="{% url 'myrecording' username=user.username recording_id=recording.id %}">
             Edit
           </a>
+          {% if recording.file %}
           <a class="list-group-item list-group-item-action" href="{{recording.file}}">
             Download
           </a>
+          {% else %}
+          <a class="list-group-item list-group-item-action" href="#">
+            Download
+          </a>
+          {% endif %}
         </div>
       </div>
     </div>
