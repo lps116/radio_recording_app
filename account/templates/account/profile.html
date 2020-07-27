@@ -101,7 +101,14 @@
                   <div class="media">
                     <!-- <a class="mr-3" href="{% url 'myrecording' username=user.username recording_id=recording.id %}"><i class="fas fa-file-audio text-primary"></i></a> -->
                     <div class="media-body">
-                      <strong>{{recording.radio_station.name}}: </strong> <span class="label label-danger"><a href="{% url 'recording' pk=recording.id%}">{{recording.title}}</a></span><span class="number pull-right">{{recording.start_datetime}}</span>
+                      <strong>{{recording.radio_station.name}}: </strong> <span class="label label-danger">
+                        {% if request.user == user %}
+                        <a href="{% url 'myrecording_listen' username=request.user.username recording_id=recording.id%}">{{recording.title}}</a>
+                        {% else %}
+                        <a href="{% url 'recording' pk=recording.id%}">{{recording.title}}</a>
+                        {% endif %}
+
+                      </span><span class="number pull-right">{{recording.start_datetime}}</span>
 
                       {% if not recording.description %}
                       <hr class="mt-1 mb-1">

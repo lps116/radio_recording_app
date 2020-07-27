@@ -82,6 +82,7 @@ def edit_view(response, username, recording_id):
         recording.title = form.cleaned_data['title']
         recording.description = form.cleaned_data['description']
         recording.public = form.cleaned_data['public']
+        recording.tags.set(form.cleaned_data['tags'])
         recording.save()
         messages.success(response, "Recording information has been updated.")
   else:
@@ -96,6 +97,7 @@ def edit_view(response, username, recording_id):
         end_datetime = datetime.combine(form.cleaned_data['end_date'],
                                       form.cleaned_data['end_time'])
 
+        recording.tags.set(form.cleaned_data['tags'])
         timezone = pytz.timezone("Europe/London")
         start_datetime_aware = timezone.localize(start_datetime)
         end_datetime_aware = timezone.localize(end_datetime)

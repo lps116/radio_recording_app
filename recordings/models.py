@@ -37,13 +37,15 @@ class Recording(models.Model):
                                          related_name="recordings",
                                          null=True,
                                          on_delete=models.CASCADE)
-  tags               = models.ManyToManyField(Tag, related_name='recordings')
+  tags               = models.ManyToManyField(Tag,
+                                              related_name='recordings',
+                                              blank=True)
   title              = models.CharField(max_length=50,
                                         null=True,
-                                        validators=[validate_title_over_ten_characters])
+                                        validators=[validate_over_one_character])
   description        = models.TextField(max_length=500,
                                         blank=True, null=True,
-                                        validators=[validate_description_over_thirty_characters])
+                                        validators=[validate_over_one_character])
   start_datetime     = models.DateTimeField(auto_now=False, auto_now_add=False)
   end_datetime       = models.DateTimeField(auto_now=False, auto_now_add=False)
   requested_datetime = models.DateTimeField(auto_now=False, auto_now_add=True)
@@ -52,18 +54,15 @@ class Recording(models.Model):
                                         ("pending" , "pending"),
                                         ("in progress", "in progress"),
                                         ("complete", "complete"),
+                                        ("failed", "failed")
                                         ),
                                        default="pending")
-  file                 = models.URLField(max_length=200, blank=True, null=True)
-  # file               = models.FileField(upload_to="",
-                                        # validators=[is_mp3_file],
-                                        # blank=True,
-                                        # null=True)
+  file               = models.URLField(max_length=200, blank=True, null=True)
   public             = models.BooleanField(default=True)
   task_id            = models.CharField(max_length=100,
                                         blank = True,
                                         null=True)
-
+  # Might delete this
   @property
   def time_till_recording(self):
     if self.status == "pending":
