@@ -79,7 +79,6 @@ def recordings_view(response, username):
 def edit_view(response, username, recording_id):
   if not check_profile_owner(response, username):
     redirect_string = "/" + username
-    print('wrong user')
     return redirect(redirect_string)
   recording = Recording.objects.get(pk=recording_id)
   if not recording.status == "pending":
@@ -94,7 +93,6 @@ def edit_view(response, username, recording_id):
         messages.success(response, "Recording information has been updated.")
   else:
     if response.method == "POST":
-      print('creating edit form')
       form = EditRecordingFormPending(response.POST)
       if form.is_valid():
         title = form.cleaned_data['title']
@@ -104,7 +102,6 @@ def edit_view(response, username, recording_id):
                                         form.cleaned_data['start_time'])
         end_datetime = datetime.combine(form.cleaned_data['end_date'],
                                       form.cleaned_data['end_time'])
-
         recording.tags.set(form.cleaned_data['tags'])
         timezone = pytz.timezone("Europe/London")
         start_datetime_aware = timezone.localize(start_datetime)
@@ -118,7 +115,6 @@ def edit_view(response, username, recording_id):
         task = record_show.apply_async(args=[recording.id], eta=recording.start_datetime)
         recording.task_id = task.id
         recording.save()
-        print('recording edited...')
         messages.success(response, "Recording information has been updated.")
 
   recording = Recording.objects.get(pk=recording_id)
@@ -137,7 +133,6 @@ def edit_view(response, username, recording_id):
 def create_view(response, username):
   if not check_profile_owner(response, username):
     redirect_string = "/" + username
-    print('create not the right user')
     return redirect(redirect_string)
   user = response.user
   if response.method == "POST":
@@ -181,6 +176,9 @@ def create_view(response, username):
 
 @login_required(login_url='/login/')
 def delete_view(response, username, recording_id):
+  if not check_profile_owner(response, username):
+    redirect_string = "/" + username
+    return redirect(redirect_string)
   try:
     recording = Recording.objects.get(pk=recording_id)
     if recording.status != 'complete':
@@ -194,12 +192,16 @@ def delete_view(response, username, recording_id):
     redirect_string = "/" + str(user.username) + "/myrecordings"
     return redirect(redirect_string)
 
+@login_required(login_url='/login/')
 def listen_view(response, username, recording_id):
+  if not check_profile_owner(response, username):
+    redirect_string = "/recordings/" + str(recording_id)
+    return redirect(redirect_string)
   recording = Recording.objects.get(pk=recording_id)
   user = response.user
   context = {
-  "recording" : recording,
-  "user"      : user,
+    "recording" : recording,
+    "user"      : user,
   }
   return render(response, 'account/listen.html', context)
 
