@@ -88,6 +88,9 @@ def edit_view(response, username, recording_id):
   else:
     if response.method == "POST":
       form = EditRecordingFormPending(response.POST)
+      print(form)
+      print("---------")
+      print(form.cleaned_data['tags'])
       if form.is_valid():
         title = form.cleaned_data['title']
         radio_station = form.cleaned_data['radio_station']
