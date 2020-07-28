@@ -65,6 +65,9 @@ def account_view(response, username):
 
 @login_required(login_url='/login/')
 def recordings_view(response, username):
+  if not check_profile_owner(response, username):
+    redirect_string = "/" + username
+    return redirect(redirect_string)
   user = User.objects.get(username=username)
   recordings = user.recordings.order_by('-end_datetime')
   context = {
@@ -74,6 +77,10 @@ def recordings_view(response, username):
 
 @login_required(login_url='/login/')
 def edit_view(response, username, recording_id):
+  if not check_profile_owner(response, username):
+    redirect_string = "/" + username
+    print('wrong user')
+    return redirect(redirect_string)
   recording = Recording.objects.get(pk=recording_id)
   if not recording.status == "pending":
     if response.method == "POST":
@@ -87,10 +94,8 @@ def edit_view(response, username, recording_id):
         messages.success(response, "Recording information has been updated.")
   else:
     if response.method == "POST":
+      print('creating edit form')
       form = EditRecordingFormPending(response.POST)
-      print(form)
-      print("---------")
-      print(form.cleaned_data['tags'])
       if form.is_valid():
         title = form.cleaned_data['title']
         radio_station = form.cleaned_data['radio_station']
@@ -113,6 +118,7 @@ def edit_view(response, username, recording_id):
         task = record_show.apply_async(args=[recording.id], eta=recording.start_datetime)
         recording.task_id = task.id
         recording.save()
+        print('recording edited...')
         messages.success(response, "Recording information has been updated.")
 
   recording = Recording.objects.get(pk=recording_id)
@@ -129,6 +135,10 @@ def edit_view(response, username, recording_id):
 
 @login_required(login_url='/login/')
 def create_view(response, username):
+  if not check_profile_owner(response, username):
+    redirect_string = "/" + username
+    print('create not the right user')
+    return redirect(redirect_string)
   user = response.user
   if response.method == "POST":
     form = CreateRecordingForm(response.POST)
@@ -196,5 +206,13 @@ def listen_view(response, username, recording_id):
 
 @login_required(login_url='/login/')
 def settings_view(response, username):
+  if not check_profile_owner(response, username):
+    redirect_string = "/" + username
+    return redirect(redirect_string)
   context = {}
   return render(response, 'account/settings.html', context)
+
+def check_profile_owner(response, username):
+  if response.user.username != username:
+    return False
+  return True
