@@ -85,7 +85,11 @@
                 </td>
                 <td>
                   <a class="mr-1 mb-1"href="{% url 'myrecording_listen' username=user.username recording_id=recording.id %}" style="color: black;"><i class="far fa-play-circle"></i></a>
+                  {% if recording.file %}
                   <a class="mr-1 mb-1"href="{{recording.file}}" style="color: black;"><i class="fas fa-file-download"></i></a>
+                  {% else %}
+                  <a class="mr-1 mb-1"href="#" style="color: black;"><i class="fas fa-file-download"></i></a>
+                  {% endif %}
                   <a class="mr-1 mb-1"href="{% url 'myrecording' username=user.username recording_id=recording.id %}" style="color: black;"><i class="far fa-edit"></i></i></a>
                   <a href="{% url 'delete_recording' username=user.username recording_id=recording.id %}" class="mb-1"href="" style="color: black;"><i class="far fa-trash-alt"></i></i></a>
                 </td>

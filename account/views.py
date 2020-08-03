@@ -45,8 +45,8 @@ def account_view(response, username):
       # record_show.delay(recording.id)
       string = "Your " + radio_station.name + " recording has been scheduled."
       messages.success(response, "Your recording has been scheduled.")
-
-  form = CreateRecordingForm()
+  else:
+    form = CreateRecordingForm()
   user = User.objects.get(username=username)
   scheduled_recordings = user.recordings.filter(status="pending").order_by('start_datetime')
   completed_recordings = user.recordings.filter(status="complete").order_by('-end_datetime')
@@ -82,6 +82,7 @@ def edit_view(response, username, recording_id):
     return redirect(redirect_string)
   recording = Recording.objects.get(pk=recording_id)
   if not recording.status == "pending":
+    form = EditRecordingFormComplete(instance=recording)
     if response.method == "POST":
       form = EditRecordingFormComplete(response.POST)
       if form.is_valid():
@@ -92,6 +93,7 @@ def edit_view(response, username, recording_id):
         recording.save()
         messages.success(response, "Recording information has been updated.")
   else:
+    form = EditRecordingFormPending(instance=recording)
     if response.method == "POST":
       form = EditRecordingFormPending(response.POST)
       if form.is_valid():
@@ -116,12 +118,6 @@ def edit_view(response, username, recording_id):
         recording.task_id = task.id
         recording.save()
         messages.success(response, "Recording information has been updated.")
-
-  recording = Recording.objects.get(pk=recording_id)
-  if not recording.status == "pending":
-    form = EditRecordingFormComplete(instance=recording)
-  else:
-    form = EditRecordingFormPending(instance=recording)
 
   context = {
     "recording" : recording,
@@ -167,7 +163,8 @@ def create_view(response, username):
       messages.success(response, "Your recording has been scheduled.")
       redirect_string = "/" + str(user.username) + "/myrecordings"
       return redirect(redirect_string)
-  form = CreateRecordingForm()
+  else:
+    form = CreateRecordingForm()
   context = {
   "user" : user,
   "form" : form
