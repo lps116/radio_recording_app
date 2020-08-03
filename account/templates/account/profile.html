@@ -2,8 +2,8 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-{% block content %}
 
+{% block content %}
 <!-- https://www.bootdey.com/snippets/view/bs4-social-about -->
 <section class="mt-2">
   <div class="container">
@@ -37,115 +37,127 @@
   <section class="content">
     <div class="row">
       <div class="col-md-3">
-        <div class="card grid support">
-          <div class="card-body grid-body">
-            {% if inprogress_recordings.all %}
-            <p><strong>In Progress</strong></p>
-            <ul class="support-label">
-              {% for recording in inprogress_recordings %}
-              {% if recording.radio_station.name|length > 20 %}
-              <li>{{recording.radio_station.name|slice:":20"}}...<span class="pull-right"><div class="spinner-grow text-success spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div></span></li>
-              {% else %}
-              <li>{{recording.radio_station.name}}<span class="pull-right"><div class="spinner-grow text-success spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div></span></li>
-              {% endif %}
-              {% endfor %}
-            </ul>
-            <hr>
-            {% endif %}
-            <p><strong>Pending</strong></p>
-            <ul>
-              {% if scheduled_recordings %}
-              {% for recording in scheduled_recordings %}
+        <div class="tab-content">
 
-              {% if recording.radio_station.name|length > 20 %}
-              <li>{{recording.radio_station.name|slice:":20"}}...<span class="pull-right"><img src="{% static 'images/calendar.svg'%}" style="height: 20px; width: 20px;"alt=""></span></li>
-              {% else %}
-              <li>{{recording.radio_station.name}}<span class="pull-right"><img src="{% static 'images/calendar.svg'%}" style="height: 20px; width: 20px;"alt=""></span></li>
-              {% endif %}
+          <div class="card support">
+            <div class="card-header">
+              <h5 class="card-title mb-0">Overview</h5>
+            </div>
 
-              {% endfor%}
-              {% else %}
-              <li>No upcoming recordings...<span class="pull-right"></span></li>
+            <div class="card-body">
+              {% if inprogress_recordings.all %}
+              <p><strong>In Progress</strong></p>
+              <ul class="support-label">
+                {% for recording in inprogress_recordings %}
+                {% if recording.radio_station.name|length > 20 %}
+                <li>{{recording.radio_station.name|slice:":20"}}...<span class="pull-right"><div class="spinner-grow text-success spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div></span></li>
+                {% else %}
+                <li>{{recording.radio_station.name}}<span class="pull-right"><div class="spinner-grow text-success spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div></span></li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+              <hr>
               {% endif %}
-            </ul>
-            <hr>
+              <p><strong>Pending</strong></p>
+              <ul>
+                {% if scheduled_recordings %}
+                {% for recording in scheduled_recordings %}
 
-            {% if request.user == user %}
-            <p><strong>Schedule a Recording</strong></p>
-            <form action="." method="POST">
-              {% csrf_token %}
-              {{form|crispy}}
-              <p>Timezone set to British Summer Time. Current time in BST: {% now "H:i" %}</p>
-              <input type="Submit" class="btn btn-primary" value="Schedule">
-            </form>
-            {% endif %}
+                {% if recording.radio_station.name|length > 20 %}
+                <li>{{recording.radio_station.name|slice:":20"}}...<span class="pull-right"><img src="{% static 'images/calendar.svg'%}" style="height: 20px; width: 20px;"alt=""></span></li>
+                {% else %}
+                <li>{{recording.radio_station.name}}<span class="pull-right"><img src="{% static 'images/calendar.svg'%}" style="height: 20px; width: 20px;"alt=""></span></li>
+                {% endif %}
+
+                {% endfor%}
+                {% else %}
+                <li>No upcoming recordings...<span class="pull-right"></span></li>
+                {% endif %}
+              </ul>
+              <hr>
+
+              {% if request.user == user %}
+              <p class="mt-2"><strong>Schedule a Recording</strong></p>
+              <form action="." method="POST">
+                {% csrf_token %}
+                {{form|crispy}}
+                <p>Timezone set to British Summer Time. Current time in BST: {% now "H:i" %}</p>
+                <input type="Submit" class="btn btn-primary" value="Schedule">
+              </form>
+              {% endif %}
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- BEGIN TICKET -->
-      <div class="col-md-9">
-        <div class="card grid support-content">
-         <div class="card-body grid-body">
-          {% if request.user == user %}
-          <p><strong>My recordings</strong></p>
-          {% else %}
-          <p><strong>{{user.username}}'s recoridngs</strong></p>
-          {% endif %}
-          <div class="row">
-            <!-- BEGIN TICKET CONTENT -->
-            <div class="col-md-12">
-              <ul class="list-group fa-padding">
 
-                {% for recording in completed_recordings %}
-                <li class="list-group-item" data-toggle="modal" data-target="#issue">
-                  <div class="media">
-                    <!-- <a class="mr-3" href="{% url 'myrecording' username=user.username recording_id=recording.id %}"><i class="fas fa-file-audio text-primary"></i></a> -->
-                    <div class="media-body">
-                      <strong>{{recording.radio_station.name}}: </strong> <span class="label label-danger">
+      <div class="col-md-9">
+        <div class="tab-content">
+          <div class="card support-content">
+
+            <div class="card-header">
+              {% if request.user == user %}
+              <h5 class="card-title mb-0">My Completed Recordings</h5>
+              {% else %}
+              <h5 class="card-title mb-0">{{user.username}}'s Recordings</h5>
+              {% endif %}
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <ul class="list-group fa-padding">
+
+                  {% for recording in completed_recordings %}
+                  <li class="list-group-item">
+                    <div class="media">
+                      <div class="media-body">
+                        <strong>{{recording.radio_station.name}}: </strong> <span class="label label-danger">{{recording.title}}
+                        </span><span class="number pull-right">{{recording.start_datetime}}</span>
+
+                        <hr class="mt-1 mb-1">
+                        {% if not recording.description %}
                         {% if request.user == user %}
-                        <a href="{% url 'myrecording_listen' username=request.user.username recording_id=recording.id%}">{{recording.title}}</a>
+                        <p class="info">Add a description <strong><a href="#">here</a></strong>.</p>
+
                         {% else %}
-                        <a href="{% url 'recording' pk=recording.id%}">{{recording.title}}</a>
+                        <p class="info">No description.</p>
+
                         {% endif %}
 
-                      </span><span class="number pull-right">{{recording.start_datetime}}</span>
-
-                      {% if not recording.description %}
-                      <hr class="mt-1 mb-1">
-                      {% if request.user == user %}
-                      <p class="info">Add a description <strong><a href="#">here</a></strong>.</p>
-
-                      {% else %}
-                      <p class="info">No description.</p>
-
-                      {% endif %}
-
-                      {% else %}
-                      <p class="info">{{recording.description}}</p>
-                      {% endif %}
+                        {% else %}
+                        <p class="info">{{recording.description}}</p>
+                        {% endif %}
 
 
-                      <p class="info">Tags:
-                        {% for tag in recording.tags.all %}
-                        {{tag.tag}},
-                        {% empty %}
-                        None
-                        {% endfor %}
-                      </p>
+                        <div style="overflow: hidden;">
+                          <p class="info" style="float:left;">
+                            Tags:
+                            {% for tag in recording.tags.all %}
+                            {{tag.tag}},
+                            {% empty %}
+                            None
+                            {% endfor %}
+                          </p>
+                          <p  style="float: right;" class="info">
+                            {% if request.user == user %}
+                            <a href="{% url 'myrecording_listen' username=request.user.username recording_id=recording.id%}">Listen here</a>
+                            {% else %}
+                            <a href="{% url 'recording' pk=recording.id%}">Listen here</a>
+                            {% endif %}
+                          </p>
 
-                    </div>
-                  </li>
-                  {% endfor %}
+                        </div>
+                      </div>
+                    </li>
+                    {% endfor %}
 
-                </ul>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-</div>
+    </section>
+  </div>
 
-{% endblock %}
+  {% endblock %}

@@ -30,57 +30,57 @@
 </section>
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Rec-{{recording.id}}</h5>
-                </div>
-
-                <div class="list-group list-group-flush" role="tablist">
-                    <a class="list-group-item list-group-item-action active" href="{% url 'myrecording_listen' username=user.username recording_id=recording.id %}">
-                      Listen
-                    </a>
-                    <a class="list-group-item list-group-item-action" href="{% url 'myrecording' username=user.username recording_id=recording.id %}">
-                      Edit
-                    </a>
-                    {% if recording.file %}
-                    <a class="list-group-item list-group-item-action" href="{{recording.file}}">
-                      Download
-                    </a>
-                    {% else %}
-                    <a class="list-group-item list-group-item-action" href="#">
-                      Download
-                    </a>
-                    {% endif %}
-                </div>
-            </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title mb-0">Actions</h5>
         </div>
-        <div class="col-md-9">
-            <div class="tab-content">
 
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Recording</h5>
-                        </div>
-                        <div class="card-body text-center">
-                          <h5>{{recording.title}}</h5>
-                          <audio controls src="{{recording.file}}" ></audio>
-                          <p>Station: {{recording.radio_station.name}}</p>
-                          <p>Description: {{recording.description}}</p>
-
-                          <p>Tags: {% for tag in recording.tags.all %}
-                            {{tag.tag}},
-                            {% empty %}
-                            None
-                            {% endfor %}
-                          </p>
-
-                        </div>
-                    </div>
-            </div>
+        <div class="list-group list-group-flush" role="tablist">
+          <a class="list-group-item list-group-item-action active" href="{% url 'myrecording_listen' username=user.username recording_id=recording.id %}">
+            Listen
+          </a>
+          <a class="list-group-item list-group-item-action" href="{% url 'myrecording' username=user.username recording_id=recording.id %}">
+            Edit
+          </a>
+          {% if recording.file %}
+          <a class="list-group-item list-group-item-action" href="{{recording.file}}">
+            Download
+          </a>
+          {% else %}
+          <a class="list-group-item list-group-item-action" href="#">
+            Download
+          </a>
+          {% endif %}
         </div>
+      </div>
     </div>
+    <div class="col-md-9">
+      <div class="tab-content">
+
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title mb-0">Recording</h5>
+          </div>
+          <div class="card-body text-center">
+            <h5>{{recording.title}}</h5>
+            <audio controls src="{{recording.file}}" ></audio>
+            <p>Station: {{recording.radio_station.name}}</p>
+            <p>Description: {{recording.description}}</p>
+
+            <p>Tags: {% for tag in recording.tags.all %}
+              {{tag.tag}},
+              {% empty %}
+              None
+              {% endfor %}
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

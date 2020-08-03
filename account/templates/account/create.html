@@ -33,14 +33,21 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <div class="card">
-        <div class="card-body pb-0">
-          <form action="." method="POST">
-            {% csrf_token %}
-            {{form|crispy}}
-            <p>Timezone set to British Summer Time. Current time in BST: {% now "H:i" %}</p>
-            <input type="Submit" class="btn btn-primary mb-2" value="Create">
-          </form>
+      <div class="tab-content">
+
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title mb-0">Create New Recording</h5>
+          </div>
+
+          <div class="card-body">
+            <form action="." method="POST">
+              {% csrf_token %}
+              {{form|crispy}}
+              <p>Timezone set to British Summer Time. Current time in BST: {% now "H:i" %}</p>
+              <input type="Submit" class="btn btn-primary mb-2" value="Create">
+            </form>
+          </div>
         </div>
       </div>
     </div>

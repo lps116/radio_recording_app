@@ -34,71 +34,74 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <div class="card">
-        <div class="card-body pb-0">
-          <div style="overflow: hidden;">
-            <p style="float: left;"><strong>All Recordings</strong></p>
-            <a href="{% url 'create_recording' username=user.username %}" style="float: right;" class="mr-3 mt-1"><button class="btn btn-sm btn-primary">New</button></a>
+      <div class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <div style="overflow: hidden;">
+              <h5 style=" float:left; "class="card-title mb-0">My Recordings</h5>
+              <a href="{% url 'create_recording' username=user.username %}" style="float: right;" class="mr-3"><button class="btn btn-sm btn-primary">New</button></a>
+            </div>
+
           </div>
-        </div>
-        <div class="table-responsive-xl">
-          <table class="table mb-0">
-            <thead>
-              <tr>
-                <th class="border-0  pl-4">#</th>
-                <th class="border-0 ">Title</th>
-                <th class="border-0">Station</th>
-                <th class="border-0 ">Date</th>
-                <th class="border-0 ">Time</th>
-                <th class="border-0 ">Status</th>
+          <div class="table-responsive-xl">
+            <table class="table mb-0">
+              <thead>
+                <tr>
+                  <th class="border-0  pl-4">#</th>
+                  <th class="border-0 ">Title</th>
+                  <th class="border-0">Station</th>
+                  <th class="border-0 ">Date</th>
+                  <th class="border-0 ">Time</th>
+                  <th class="border-0 ">Status</th>
 
-              </tr>
-            </thead>
-            <tbody>
+                </tr>
+              </thead>
+              <tbody>
 
-              {% for recording in recordings %}
+                {% for recording in recordings %}
 
-              <tr>
-                <td class="pl-4">{{ forloop.counter }}</td>
+                <tr>
+                  <td class="pl-4">{{ forloop.counter }}</td>
 
-                {% if recording.title|length > 25%}
-                <td>
-                  <span><strong>{{recording.title|slice:":25"}}...</strong></span>
-                </td>
-                {% else %}
-                <td>
-                  <span><strong>{{recording.title}}</strong></span>
-                </td>
-                {% endif %}
-
-                <td>
-                  <span>{{recording.radio_station.name}}</span>
-                </td>
-                <td>
-                  <span>{{recording.start_datetime|date:"SHORT_DATE_FORMAT"}}</span>
-                </td>
-                <td>
-                  <span>{{recording.start_datetime|time:"h:i"}} - {{recording.end_datetime|time:"h:i a"}}</span>
-                </td>
-                <td>
-                  <span>{{recording.status}}</span>
-                </td>
-                <td>
-                  <a class="mr-1 mb-1"href="{% url 'myrecording_listen' username=user.username recording_id=recording.id %}" style="color: black;"><i class="far fa-play-circle"></i></a>
-                  {% if recording.file %}
-                  <a class="mr-1 mb-1"href="{{recording.file}}" style="color: black;"><i class="fas fa-file-download"></i></a>
+                  {% if recording.title|length > 25%}
+                  <td>
+                    <span><strong>{{recording.title|slice:":25"}}...</strong></span>
+                  </td>
                   {% else %}
-                  <a class="mr-1 mb-1"href="#" style="color: black;"><i class="fas fa-file-download"></i></a>
+                  <td>
+                    <span><strong>{{recording.title}}</strong></span>
+                  </td>
                   {% endif %}
-                  <a class="mr-1 mb-1"href="{% url 'myrecording' username=user.username recording_id=recording.id %}" style="color: black;"><i class="far fa-edit"></i></i></a>
-                  <a href="{% url 'delete_recording' username=user.username recording_id=recording.id %}" class="mb-1"href="" style="color: black;"><i class="far fa-trash-alt"></i></i></a>
-                </td>
-              </tr>
 
-              {% endfor %}
+                  <td>
+                    <span>{{recording.radio_station.name}}</span>
+                  </td>
+                  <td>
+                    <span>{{recording.start_datetime|date:"SHORT_DATE_FORMAT"}}</span>
+                  </td>
+                  <td>
+                    <span>{{recording.start_datetime|time:"h:i"}} - {{recording.end_datetime|time:"h:i a"}}</span>
+                  </td>
+                  <td>
+                    <span>{{recording.status}}</span>
+                  </td>
+                  <td>
+                    <a class="mr-1 mb-1"href="{% url 'myrecording_listen' username=user.username recording_id=recording.id %}" style="color: black;"><i class="far fa-play-circle"></i></a>
+                    {% if recording.file %}
+                    <a class="mr-1 mb-1"href="{{recording.file}}" style="color: black;"><i class="fas fa-file-download"></i></a>
+                    {% else %}
+                    <a class="mr-1 mb-1"href="#" style="color: black;"><i class="fas fa-file-download"></i></a>
+                    {% endif %}
+                    <a class="mr-1 mb-1"href="{% url 'myrecording' username=user.username recording_id=recording.id %}" style="color: black;"><i class="far fa-edit"></i></i></a>
+                    <a href="{% url 'delete_recording' username=user.username recording_id=recording.id %}" class="mb-1"href="" style="color: black;"><i class="far fa-trash-alt"></i></i></a>
+                  </td>
+                </tr>
 
-            </tbody>
-          </table>
+                {% endfor %}
+
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

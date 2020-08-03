@@ -14,9 +14,6 @@
           <a class="nav-link" href="{% url 'register' %}">Sign Up</a>
         </li>
         {% else %}
-<!--         <li class="nav-item">
-          <a class="nav-link" href="{% url 'home' %}">Home</a>
-        </li> -->
         <li class="nav-item">
           <a class="nav-link" href="{% url 'recordings' %}">Public Recordings</a>
         </li>
@@ -24,10 +21,10 @@
           <a class="nav-link" href="{% url 'profile' username=request.user.username %}">My Profile</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'create_recording' username=request.user.username %}">Schedule Recording</a>
+          <a class="nav-link" href="{% url 'create_recording' username=request.user.username %}">Schedule Recording</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
         </li>
         {% endif %}
       </ul>
