@@ -6,6 +6,7 @@ from django.contrib import messages
 # Create your views here.
 
 def registration_view(response):
+  form = RegistrationForm()
   if response.method == "POST":
     form = RegistrationForm(response.POST)
     if form.is_valid():
@@ -15,7 +16,6 @@ def registration_view(response):
     else:
       messages.error(response, 'The form is invalid.')
 
-  form = RegistrationForm()
   context = {
     "form" : form
   }
