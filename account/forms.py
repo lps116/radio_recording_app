@@ -37,8 +37,11 @@ class CreateRecordingForm(forms.ModelForm):
       if start_datetime > end_datetime:
         raise ValidationError("Set an earlier start date.")
 
-      if datetime.now() + timedelta(seconds=30) > start_datetime:
-        raise ValidationError("Earliest start time in 1 minute.")
+      if start_datetime < datetime.now():
+        raise ValidationError("Set a later start date.")
+
+      # if datetime.now() + timedelta(seconds=30) > start_datetime:
+      #   raise ValidationError("Earliest start time in 1 minute.")
 
       if int((end_datetime - start_datetime).total_seconds()) / 60 > 120:
         raise ValidationError("Max recording length 2 hours.")

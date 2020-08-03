@@ -38,6 +38,7 @@
           <form action="." method="POST">
             {% csrf_token %}
             {{form|crispy}}
+            <p>Timezone set to British Summer Time. Current time in BST: {% now "H:i" %}</p>
             <input type="Submit" class="btn btn-primary mb-2" value="Create">
           </form>
         </div>
