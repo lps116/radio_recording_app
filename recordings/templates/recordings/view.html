@@ -5,84 +5,91 @@
 {% block content %}
 
 <section class="mt-2">
-<div class="container">
+  <div class="container">
     <div class="img" style=" background-image:linear-gradient(to right, #1A4C84, #379CCA);
     height: 170px;background-size: cover;"></div>
     <div class="card social-prof">
-        <div class="card-body">
-            <div style="color: white;" class="wrapper">
-                <h3 class="mb-2">{{recording.title}}</h3>
-                <p>{{recording.description}}</p>
-                <p class="mb-2">{{recording.user.username}} on {{recording.radio_station.name}}</p>
-                <audio controls='controls' autoplay src="{{recording.file}}" type="audio/mpeg"></audio>
-            </div>
-            <div class="row ">
-                <div class="col-lg-12">
-                    <ul class=" nav nav-tabs justify-content-center s-nav">
-                      <li><h3></h3></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-  </div>
-</section>
-
-
-<div class="padding"></div>
-<div class="container">
-<section class="content">
-  <div class="row">
-    <div class="col-md-3">
-      <div class="grid support">
-        <div class="grid-body">
-          <p><strong>Filter by Station & Topic</strong></p>
-          <form method="GET">
-            {{recording_filter.form|crispy}}
-             <button type="submit" value="Search" class="btn btn-primary">Filter</button>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <!-- BEGIN TICKET -->
-    <div class="col-md-9">
-      <div class="grid support-content">
-         <div class="grid-body">
-          <p><strong>More Recordings by {{recording.user.username}}</strong></p>
-          <div class="row">
-            <!-- BEGIN TICKET CONTENT -->
-            <div class="col-md-12">
-              <ul class="list-group fa-padding">
-
-              {% for other_recording in recordings %}
-                <li class="list-group-item" data-toggle="modal" data-target="#issue">
-                  <div class="media">
-                    <i class="fa fa-check pull-left text-success"></i>
-                    <div class="media-body">
-                      <strong><a href="{% url 'profile' username=recording.user.username %}">{{other_recording.user.username}}</a></strong> on <strong>{{other_recording.radio_station.name}}</strong> <span class="label label-danger">{{recording.title}}</span><span class="number pull-right">{{other_recording.start_datetime}}</span>
-                      <hr>
-                      {% if not other_recording.description %}
-                      <p class="info"></p>
-                      {% else %}
-                      <p class="info">{{other_recording.description}} - Tags:
-                        {% for tag in other_recording.tags.all %}
-                        {{tag.tag}},
-                        {% endfor %}
-                      </p>
-                      {% endif %}
-                  </div>
-                </li>
-                {% endfor %}
-
+      <div class="card-body">
+        <div style="color: white;" class="wrapper">
+          <h4 class="mb-2">{{recording.title}}</h3>
+            <p>{{recording.description}}</p>
+            <p class="mb-2">{{recording.user.username}} on {{recording.radio_station.name}}</p>
+            <audio controls='controls' autoplay src="{{recording.file}}" type="audio/mpeg"></audio>
+          </div>
+          <div class="row ">
+            <div class="col-lg-12">
+              <ul class=" nav nav-tabs justify-content-center s-nav">
+                <li><h3></h3></li>
               </ul>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-</div>
+  </section>
 
-{% endblock %}
+
+  <div class="padding"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="tab-content">
+          <div class="card support">
+            <div class="card-header">
+              <h5 class="card-title mb-0">Topics</h5>
+            </div>
+            <div class="card-body">
+              <p><strong>Filter by Station & Topic</strong></p>
+              <form method="GET">
+                {{recording_filter.form|crispy}}
+                <button type="submit" value="Search" class="btn btn-primary">Filter</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BEGIN TICKET -->
+      <div class="col-md-9">
+        <div class="tab-content"></div>
+        <div class="card support-content">
+          <div class="card-header">
+            <h5 class="card-title mb-0">More Recordings by {{recording.user.username}}</h5>
+          </div>
+          <div class="">
+            <div class="row">
+              <!-- BEGIN TICKET CONTENT -->
+              <div class="col-md-12">
+                <ul class="list-group fa-padding">
+
+                  {% for other_recording in recordings %}
+                  <li class="list-group-item" data-toggle="modal" data-target="#issue">
+                    <div class="media">
+                      <div class="media-body">
+                        <strong><a href="{% url 'profile' username=recording.user.username %}">{{other_recording.user.username}}</a></strong> on <strong>{{other_recording.radio_station.name}}</strong> <span class="label label-danger">{{recording.title}}</span><span class="number pull-right">{{other_recording.start_datetime}}</span>
+                        <hr>
+                        {% if not other_recording.description %}
+                        <p class="info"></p>
+                        {% else %}
+
+                        <p class="info">{{other_recording.description}} - Tags:
+                          {% for tag in other_recording.tags.all %}
+                          {{tag.tag}},
+                          {% endfor %}
+                        </p>
+                        {% endif %}
+                      </div>
+                    </li>
+                    {% endfor %}
+
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}

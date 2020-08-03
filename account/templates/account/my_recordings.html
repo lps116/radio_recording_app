@@ -34,13 +34,15 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
+      <div class="tab-content">
       <div class="card">
-        <div class="card-body pb-0">
-          <div style="overflow: hidden;">
-            <p style="float: left;"><strong>All Recordings</strong></p>
-            <a href="{% url 'create_recording' username=user.username %}" style="float: right;" class="mr-3 mt-1"><button class="btn btn-sm btn-primary">New</button></a>
+          <div class="card-header">
+            <div style="overflow: hidden;">
+              <h5 style=" float:left; "class="card-title mb-0">My Recordings</h5>
+              <a href="{% url 'create_recording' username=user.username %}" style="float: right;" class="mr-3"><button class="btn btn-sm btn-primary">New</button></a>
+            </div>
+
           </div>
-        </div>
         <div class="table-responsive-xl">
           <table class="table mb-0">
             <thead>
@@ -100,6 +102,7 @@
             </tbody>
           </table>
         </div>
+      </div>
       </div>
     </div>
   </div>
