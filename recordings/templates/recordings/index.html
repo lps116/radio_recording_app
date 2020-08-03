@@ -11,81 +11,74 @@
     <div class="row">
       <div class="col-md-3">
         <div class="tab-content">
-        <div class="card support">
-          <div class="card-header">
-            <h5 class="card-title mb-0">Topics</h5>
-          </div>
-          <div class="card-body">
-            <p><strong>Filter by Station & Topic</strong></p>
-            <form method="GET">
-              {{recording_filter.form|crispy}}
-              <button type="submit" value="Search" class="btn btn-primary mb-3">Filter</button>
-            </form>
-            <hr>
+          <div class="card support">
+            <div class="card-header">
+              <h5 class="card-title mb-0">Topics</h5>
+            </div>
+            <div class="card-body">
+              <p><strong>Filter by Station & Topic</strong></p>
+              <form method="GET">
+                {{recording_filter.form|crispy}}
+                <button type="submit" value="Search" class="btn btn-primary mb-3">Filter</button>
+              </form>
+              <hr>
 
-            <p class="mt-3"><strong>Popular Topics</strong></p>
+              <p class="mt-3"><strong>Popular Topics</strong></p>
 
-            <ul>
-              {% for tag in popular_tags%}
-              <li>{{tag.tag}}<span class="pull-right">{{tag.recordings.count}}</span></li>
-              {% endfor %}
-            </ul>
+              <ul>
+                {% for tag in popular_tags%}
+                <li>{{tag.tag}}<span class="pull-right">{{tag.recordings.count}}</span></li>
+                {% endfor %}
+              </ul>
 
+            </div>
           </div>
         </div>
       </div>
-      </div>
 
-      <!-- BEGIN TICKET -->
       <div class="col-md-9">
         <div class="tab-content">
-        <div class="card support-content">
-          <div class="card-header">
-            <h5 class="card-title mb-0">Public Recordings</h5>
-          </div>
-          <div class="row">
-            <!-- BEGIN TICKET CONTENT -->
-            <div class="col-md-12">
-              <ul class="list-group fa-padding">
-
-                {% for recording in recordings %}
-                <li class="list-group-item">
-                  <div class="media">
-                    <div class="media-body">
-                      <strong><a href="{% url 'profile' username=recording.user.username %}">{{recording.user.username}}</a></strong> on <strong>{{recording.radio_station.name}}</strong><span class="number pull-right">{{recording.start_datetime}}</span>
-                      <hr>
-                      <p class="info"><strong>{{recording.title}}</strong></p>
-                      {% if recording.description %}
-                      <p class="info">{{recording.description}}</p>
-                      {% else %}
-                      <p class="info">No description</p>
-                      {% endif %}
-                      <div style="overflow: hidden;">
-                        <p class="info" style="float:left;">
-                          Tags:
-                          {% for tag in recording.tags.all %}
-                          {{tag.tag}},
-                          {% empty %}
-                          None
-                          {% endfor %}
-                        </p>
-                        <p  style="float: right;" class="info"><a href="{% url 'recording' pk=recording.id %}">Listen here</a></p>
+          <div class="card support-content">
+            <div class="card-header">
+              <h5 class="card-title mb-0">Public Recordings</h5>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <ul class="list-group fa-padding">
+                  {% for recording in recordings %}
+                  <li class="list-group-item">
+                    <div class="media">
+                      <div class="media-body">
+                        <strong><a href="{% url 'profile' username=recording.user.username %}">{{recording.user.username}}</a></strong> on <strong>{{recording.radio_station.name}}</strong><span class="number pull-right">{{recording.start_datetime}}</span>
+                        <hr>
+                        <p class="info"><strong>{{recording.title}}</strong></p>
+                        {% if recording.description %}
+                        <p class="info">{{recording.description}}</p>
+                        {% else %}
+                        <p class="info">No description</p>
+                        {% endif %}
+                        <div style="overflow: hidden;">
+                          <p class="info" style="float:left;">
+                            Tags:
+                            {% for tag in recording.tags.all %}
+                            {{tag.tag}},
+                            {% empty %}
+                            None
+                            {% endfor %}
+                          </p>
+                          <p  style="float: right;" class="info"><a href="{% url 'recording' pk=recording.id %}">Listen here</a></p>
+                        </div>
                       </div>
-
-                    </div>
-                  </li>
-                  {% endfor %}
-
-                </ul>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
+        </div>
       </div>
-      </div>
+    </section>
+  </div>
 
-
-    </div>
-  </section>
-</div>
-
-{% endblock %}
+  {% endblock %}

@@ -66,19 +66,27 @@
                   <li class="list-group-item" data-toggle="modal" data-target="#issue">
                     <div class="media">
                       <div class="media-body">
-                        <strong><a href="{% url 'profile' username=recording.user.username %}">{{other_recording.user.username}}</a></strong> on <strong>{{other_recording.radio_station.name}}</strong> <span class="label label-danger">{{recording.title}}</span><span class="number pull-right">{{other_recording.start_datetime}}</span>
-                        <hr>
-                        {% if not other_recording.description %}
-                        <p class="info"></p>
-                        {% else %}
-
-                        <p class="info">{{other_recording.description}} - Tags:
+                      <strong><a href="{% url 'profile' username=recording.user.username %}">{{other_recording.user.username}}</a></strong> on <strong>{{other_recording.radio_station.name}}</strong><span class="number pull-right">{{other_recording.start_datetime}}</span>
+                      <hr>
+                      <p class="info"><strong>{{other_recording.title}}</strong></p>
+                      {% if other_recording.description %}
+                      <p class="info">{{other_recording.description}}</p>
+                      {% else %}
+                      <p class="info">No description</p>
+                      {% endif %}
+                      <div style="overflow: hidden;">
+                        <p class="info" style="float:left;">
+                          Tags:
                           {% for tag in other_recording.tags.all %}
                           {{tag.tag}},
+                          {% empty %}
+                          None
                           {% endfor %}
                         </p>
-                        {% endif %}
+                        <p  style="float: right;" class="info"><a href="{% url 'recording' pk=other_recording.id %}">Listen here</a></p>
                       </div>
+
+                    </div>
                     </li>
                     {% endfor %}
 
