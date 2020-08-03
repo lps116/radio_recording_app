@@ -82,6 +82,7 @@ def edit_view(response, username, recording_id):
     return redirect(redirect_string)
   recording = Recording.objects.get(pk=recording_id)
   if not recording.status == "pending":
+    form = EditRecordingFormComplete(instance=recording)
     if response.method == "POST":
       form = EditRecordingFormComplete(response.POST)
       if form.is_valid():
@@ -92,6 +93,7 @@ def edit_view(response, username, recording_id):
         recording.save()
         messages.success(response, "Recording information has been updated.")
   else:
+    form = EditRecordingFormPending(instance=recording)
     if response.method == "POST":
       form = EditRecordingFormPending(response.POST)
       if form.is_valid():
@@ -116,12 +118,6 @@ def edit_view(response, username, recording_id):
         recording.task_id = task.id
         recording.save()
         messages.success(response, "Recording information has been updated.")
-
-  recording = Recording.objects.get(pk=recording_id)
-  if not recording.status == "pending":
-    form = EditRecordingFormComplete(instance=recording)
-  else:
-    form = EditRecordingFormPending(instance=recording)
 
   context = {
     "recording" : recording,
