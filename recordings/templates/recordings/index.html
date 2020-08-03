@@ -12,13 +12,13 @@
       <div class="col-md-3">
         <div class="card grid support">
           <div class="card-body grid-body">
-
+<!--
             <p><strong>Search Recordings</strong></p>
             <form action="." method="POST">
               <input type="text" class="form-control">
               <button type="submit" value="Search" class="btn btn-primary mt-2 mb-2">Search</button>
             </form>
-            <hr>
+            <hr> -->
             <p><strong>Filter by Station & Topic</strong></p>
             <form method="GET">
               {{recording_filter.form|crispy}}
@@ -26,7 +26,7 @@
             </form>
             <hr>
 
-            <p><strong>Popular Topics</strong></p>
+            <p class="mt-2"><strong>Popular Topics</strong></p>
 
             <ul>
               {% for tag in popular_tags%}
