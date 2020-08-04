@@ -208,7 +208,10 @@ def settings_view(response, username):
   if not check_profile_owner(response, username):
     redirect_string = "/" + username
     return redirect(redirect_string)
-  context = {}
+  settings = ["General", "Security and Login", "Privacy", "Language and Region", "Notifications", "Mobile"]
+  context = {
+    "settings" : settings
+  }
   return render(response, 'account/settings.html', context)
 
 def check_profile_owner(response, username):
