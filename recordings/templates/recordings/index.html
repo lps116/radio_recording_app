@@ -9,9 +9,7 @@
   <div class="row">
     <div class="col-md-3">
       <div class="card support">
-        <div class="card-header">
-          <h5 class="card-title mb-0">Topics</h5>
-        </div>
+        {% include 'components/card_header.html' with header="Topics"%}
         <div class="card-body">
           {% include 'components/filter_recording_form.html' with recording_filter=recording_filter%}
           <hr>
@@ -27,9 +25,7 @@
 
     <div class="col-md-9">
       <div class="card support-content">
-        <div class="card-header">
-          <h5 class="card-title mb-0">Public Recordings</h5>
-        </div>
+        {% include 'components/card_header.html' with header="Public Recordings"%}
         <div class="row">
           <div class="col-md-12">
             <ul class="list-group fa-padding">

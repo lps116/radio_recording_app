@@ -28,9 +28,8 @@ def recording_view(response, pk):
   recordings = recording_filter.qs
   recordings = recordings.exclude(pk=pk)
 
-
   context = {
-    "recording" : recording,
+    "view_recording" : recording,
     "recordings" :recordings,
     "recording_filter" :recording_filter,
   }

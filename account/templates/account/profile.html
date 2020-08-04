@@ -13,9 +13,7 @@
     <div class="row">
       <div class="col-md-3">
         <div class="card support">
-          <div class="card-header">
-            <h5 class="card-title mb-0">Overview</h5>
-          </div>
+          {% include 'components/card_header.html' with header="Overview"%}
 
           <div class="card-body">
             {% if inprogress_recordings.all %}
@@ -65,13 +63,13 @@
 
       <div class="col-md-9">
         <div class="card support-content">
-          <div class="card-header">
             {% if request.user == user %}
-            <h5 class="card-title mb-0">My Completed Recordings</h5>
+            {% include 'components/card_header.html' with header="My Completed Recordings"%}
             {% else %}
+          <div class="card-header">
             <h5 class="card-title mb-0">{{user.username}}'s Recordings</h5>
-            {% endif %}
           </div>
+            {% endif %}
           <div class="row">
             <div class="col-md-12">
                 <ul class="list-group fa-padding">

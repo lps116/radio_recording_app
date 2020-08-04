@@ -1,0 +1,35 @@
+                <tr>
+                  <td class="pl-4">{{ forloop.counter }}</td>
+                  {% if recording.title|length > 25%}
+                  <td>
+                    <span><strong>{{recording.title|slice:":25"}}...</strong></span>
+                  </td>
+                  {% else %}
+                  <td>
+                    <span><strong>{{recording.title}}</strong></span>
+                  </td>
+                  {% endif %}
+
+                  <td>
+                    <span>{{recording.radio_station.name}}</span>
+                  </td>
+                  <td>
+                    <span>{{recording.start_datetime|date:"SHORT_DATE_FORMAT"}}</span>
+                  </td>
+                  <td>
+                    <span>{{recording.start_datetime|time:"h:i"}} - {{recording.end_datetime|time:"h:i a"}}</span>
+                  </td>
+                  <td>
+                    <span>{{recording.status}}</span>
+                  </td>
+                  <td>
+                    <a class="mr-1 mb-1"href="{% url 'myrecording_listen' username=user.username recording_id=recording.id %}" style="color: black;"><i class="far fa-play-circle"></i></a>
+                    {% if recording.file %}
+                    <a class="mr-1 mb-1"href="{{recording.file}}" style="color: black;"><i class="fas fa-file-download"></i></a>
+                    {% else %}
+                    <a class="mr-1 mb-1"href="#" style="color: black;"><i class="fas fa-file-download"></i></a>
+                    {% endif %}
+                    <a class="mr-1 mb-1"href="{% url 'myrecording' username=user.username recording_id=recording.id %}" style="color: black;"><i class="far fa-edit"></i></i></a>
+                    <a href="{% url 'delete_recording' username=user.username recording_id=recording.id %}" class="mb-1"href="" style="color: black;"><i class="far fa-trash-alt"></i></i></a>
+                  </td>
+                </tr>

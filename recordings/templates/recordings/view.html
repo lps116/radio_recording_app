@@ -11,10 +11,10 @@
   <div class="card social-prof">
     <div class="card-body">
       <div style="color: white;" class="wrapper">
-        <h4 class="mb-2">{{recording.title}}</h3>
-          <p>{{recording.description}}</p>
-          <p class="mb-2">{{recording.user.username}} on {{recording.radio_station.name}}</p>
-          <audio controls='controls' autoplay src="{{recording.file}}" type="audio/mpeg"></audio>
+        <h4 class="mb-2">{{view_recording.title}}</h3>
+          <p>{{view_recording.description}}</p>
+          <p class="mb-2">{{view_recording.user.username}} on {{view_recording.radio_station.name}}</p>
+          <audio controls='controls' autoplay src="{{view_recording.file}}" type="audio/mpeg"></audio>
         </div>
       </div>
     </div>
@@ -24,40 +24,32 @@
     <div class="row">
       <div class="col-md-3">
         <div class="card support">
-          <div class="card-header">
-            <h5 class="card-title mb-0">Topics</h5>
-          </div>
+          {% include 'components/card_header.html' with header="Topics"%}
           <div class="card-body">
+           {% include 'components/filter_recording_form.html' with recording_filter=recording_filter%}
+         </div>
+       </div>
+     </div>
 
+     <div class="col-md-9">
+      <div class="card support-content">
 
-            <p><strong>Filter by Station & Topic</strong></p>
-            <form method="GET">
-              {{recording_filter.form|crispy}}
-              <button type="submit" value="Search" class="btn btn-primary">Filter</button>
-            </form>
-
-
-          </div>
+        <div class="card-header">
+          <h5 class="card-title mb-0">More Recordings by {{view_recording.user.username}}</h5>
         </div>
-      </div>
 
-      <div class="col-md-9">
-        <div class="card support-content">
-          <div class="card-header">
-            <h5 class="card-title mb-0">More Recordings by {{recording.user.username}}</h5>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <ul class="list-group fa-padding">
-                {% for other_recording in recordings %}
-                {% include 'components/recording_card.html' with recording=recording user=user page="View"%}
-                {% endfor %}
-              </ul>
-            </div>
+        <div class="row">
+          <div class="col-md-12">
+            <ul class="list-group fa-padding">
+              {% for other_recording in recordings %}
+              {% include 'components/recording_card.html' with recording=other_recording user=user page="View"%}
+              {% endfor %}
+            </ul>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  {% endblock %}
+{% endblock %}
