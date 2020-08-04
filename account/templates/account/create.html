@@ -4,31 +4,7 @@
 
 {% block content %}
 
-<section class="mt-2">
-  <div class="container">
-    <div class="img" style=" background-image:linear-gradient(to right, #1A4C84, #379CCA);
-    height: 170px;background-size: cover;"></div>
-    <div class="card social-prof">
-      <div class="card-body">
-        <div class="wrapper">
-          <img src="{% static 'images/profile_picture.png' %}" alt="" class="user-profile">
-          <h3>{{user.username}}</h3>
-          <p></p>
-        </div>
-        <div class="row ">
-          <div class="col-lg-12">
-            <ul class=" nav nav-tabs justify-content-center s-nav">
-              <li><a href="{% url 'profile' username=request.user.username %}">Overview</a></li>
-              <li><a href="{% url 'myrecordings' username=user.username %}">All Recordings</a></li>
-              <li><a class="active" href="#">New</a></li>
-              <li><a href="{% url 'settings' username=request.user.username %}">Settings</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+{% include 'components/profile_navigation.html' with user=user active="myrecordings"%}
 
 <div class="container">
   <div class="row">
