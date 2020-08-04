@@ -5,12 +5,11 @@
 {% block content %}
 
 <!-- https://www.bootdey.com/snippets/view/support-tickets#html -->
-<div class="padding"></div>
-<div class="container">
-  <section class="content">
-    <div class="row">
-      <div class="col-md-3">
-        <div class="tab-content">
+<div class="mt-2">
+  <div class="container">
+    <section class="content">
+      <div class="row">
+        <div class="col-md-3">
           <div class="card support">
             <div class="card-header">
               <h5 class="card-title mb-0">Topics</h5>
@@ -34,10 +33,8 @@
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="col-md-9">
-        <div class="tab-content">
+        <div class="col-md-9">
           <div class="card support-content">
             <div class="card-header">
               <h5 class="card-title mb-0">Public Recordings</h5>
@@ -46,33 +43,9 @@
               <div class="col-md-12">
                 <ul class="list-group fa-padding">
                   {% for recording in recordings %}
-                  <li class="list-group-item">
-                    <div class="media">
-                      <div class="media-body">
-                        <strong><a href="{% url 'profile' username=recording.user.username %}">{{recording.user.username}}</a></strong> on <strong>{{recording.radio_station.name}}</strong><span class="number pull-right">{{recording.start_datetime}}</span>
-                        <hr>
-                        <p class="info"><strong>{{recording.title}}</strong></p>
-                        {% if recording.description %}
-                        <p class="info">{{recording.description}}</p>
-                        {% else %}
-                        <p class="info">No description</p>
-                        {% endif %}
-                        <div style="overflow: hidden;">
-                          <p class="info" style="float:left;">
-                            Tags:
-                            {% for tag in recording.tags.all %}
-                            {{tag.tag}},
-                            {% empty %}
-                            None
-                            {% endfor %}
-                          </p>
-                          <p  style="float: right;" class="info"><a href="{% url 'recording' pk=recording.id %}">Listen here</a></p>
-                        </div>
-                      </div>
-                    </li>
-                    {% endfor %}
-                  </ul>
-                </div>
+                  {% include 'components/recording_card.html' with recording=recording user=user page="Public"%}
+                  {% endfor %}
+                </ul>
               </div>
             </div>
           </div>
@@ -80,5 +53,5 @@
       </div>
     </section>
   </div>
-
-  {% endblock %}
+</div>
+{% endblock %}

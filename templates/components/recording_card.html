@@ -1,0 +1,44 @@
+<li class="list-group-item">
+  <div class="media">
+    <div class="media-body">
+
+      {% if page == "Public" %}
+      <strong><a href="{% url 'profile' username=recording.user.username %}">{{recording.user.username}}</a></strong> on <strong>{{recording.radio_station.name}}</strong><span class="number pull-right">{{recording.start_datetime}}</span>
+      {% elif page == "View" %}
+      <strong><a href="{% url 'profile' username=recording.user.username %}">{{recording.user.username}}</a></strong> on <strong>{{recording.radio_station.name}}</strong><span class="number pull-right">{{recording.start_datetime}}</span>
+      {% elif page == "Profile" %}
+      <strong>{{recording.radio_station.name}}: </strong> <span class="label label-danger">{{recording.title}}
+      </span><span class="number pull-right">{{recording.start_datetime}}</span>
+      {% endif %}
+      <hr class="mt-1 mb-1">
+      {% if page != "Profile"%}
+      <p class="info"><strong>{{recording.title}}</strong></p>
+      {% endif %}
+      {% if not recording.description %}
+      {% if request.user == user %}
+      <p class="info">Add a description <strong><a href="{% url 'myrecording' username=user.username recording_id=recording.id %}">here</a></strong>.</p>
+      {% else %}
+      <p class="info">No description.</p>
+      {% endif %}
+      {% else %}
+      <p class="info">{{recording.description}}</p>
+      {% endif %}
+      <div style="overflow: hidden;">
+        <p class="info" style="float:left;">
+          Tags:
+          {% for tag in recording.tags.all %}
+          {{tag.tag}},
+          {% empty %}
+          None
+          {% endfor %}
+        </p>
+        <p style="float: right;" class="info">
+          {% if request.user == recording.user %}
+          <a href="{% url 'myrecording_listen' username=request.user.username recording_id=recording.id%}">Listen here</a>
+          {% else %}
+          <a href="{% url 'recording' pk=recording.id%}">Listen here</a>
+          {% endif %}
+        </p>
+      </div>
+    </div>
+  </li>

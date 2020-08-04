@@ -63,6 +63,12 @@
                 <ul class="list-group fa-padding">
 
                   {% for other_recording in recordings %}
+                  {% include 'components/recording_card.html' with recording=recording user=user page="View"%}
+                  {% endfor %}
+
+                  {% if False %}
+
+                  {% for other_recording in recordings %}
                   <li class="list-group-item" data-toggle="modal" data-target="#issue">
                     <div class="media">
                       <div class="media-body">
@@ -89,6 +95,7 @@
                     </div>
                     </li>
                     {% endfor %}
+                    {% endif %}
 
                   </ul>
                 </div>
