@@ -23,10 +23,10 @@ def recordings_index(response):
 def recording_view(response, pk):
   recording = Recording.objects.get(pk=pk)
   recordings = Recording.objects.filter(user=recording.user, status="complete", public=True).order_by('-end_datetime')
-  recordings = recordings.exclude(pk=pk)
 
   recording_filter = RecordingFilter(response.GET, queryset=recordings)
   recordings = recording_filter.qs
+  recordings = recordings.exclude(pk=pk)
 
 
   context = {

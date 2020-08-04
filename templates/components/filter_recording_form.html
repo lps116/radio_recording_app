@@ -1,0 +1,6 @@
+{% load crispy_forms_tags %}
+<p><strong>Filter by Station & Topic</strong></p>
+<form method="GET">
+  {{recording_filter.form|crispy}}
+  <button type="submit" value="Search" class="btn btn-primary mb-3">Filter</button>
+</form>

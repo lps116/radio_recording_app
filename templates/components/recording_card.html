@@ -1,7 +1,6 @@
 <li class="list-group-item">
   <div class="media">
     <div class="media-body">
-
       {% if page == "Public" %}
       <strong><a href="{% url 'profile' username=recording.user.username %}">{{recording.user.username}}</a></strong> on <strong>{{recording.radio_station.name}}</strong><span class="number pull-right">{{recording.start_datetime}}</span>
       {% elif page == "View" %}
