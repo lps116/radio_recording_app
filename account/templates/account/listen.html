@@ -6,13 +6,11 @@
 
 {% include 'components/profile_navigation.html' with user=user active="myrecordings"%}
 
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
       <div class="card">
-        <div class="card-header">
-          <h5 class="card-title mb-0">Actions</h5>
-        </div>
+        {% include 'components/card_header.html' with header="Actions"%}
 
         <div class="list-group list-group-flush" role="tablist">
           <a class="list-group-item list-group-item-action active" href="{% url 'myrecording_listen' username=user.username recording_id=recording.id %}">
@@ -33,13 +31,11 @@
         </div>
       </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-7">
       <div class="tab-content">
 
         <div class="card">
-          <div class="card-header">
-            <h5 class="card-title mb-0">Recording</h5>
-          </div>
+          {% include 'components/card_header.html' with header="Listen to Recording"%}
           <div class="card-body text-center">
             <h5>{{recording.title}}</h5>
             <audio controls src="{{recording.file}}" ></audio>
@@ -54,6 +50,24 @@
             </p>
 
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        {% include 'components/card_header.html' with header="More Recordings"%}
+        <div class="list-group list-group-flush" role="tablist">
+          {% for other_recording in recordings %}
+          {% if other_recording.id == recording.id %}
+          <a class="list-group-item list-group-item-action active" href="{% url 'myrecording_listen' username=user.username recording_id=recording.id %}">
+            {{other_recording.title}} --- {{other_recording.radio_station.name}}
+          </a>
+          {% else %}
+          <a class="list-group-item list-group-item-action" href="{% url 'myrecording_listen' username=user.username recording_id=other_recording.id %}">
+            {{other_recording.title}} --- {{other_recording.radio_station.name}}
+          </a>
+          {% endif %}
+          {% endfor %}
         </div>
       </div>
     </div>

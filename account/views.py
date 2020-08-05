@@ -119,8 +119,11 @@ def edit_view(response, username, recording_id):
         recording.save()
         messages.success(response, "Recording information has been updated.")
 
+  user = User.objects.get(username=username)
+  recordings = user.recordings.order_by('-end_datetime')
   context = {
     "recording" : recording,
+    "recordings" : recordings,
     "form" : form
   }
   return render(response, 'account/edit.html', context)
@@ -195,9 +198,11 @@ def listen_view(response, username, recording_id):
     redirect_string = "/recordings/" + str(recording_id)
     return redirect(redirect_string)
   recording = Recording.objects.get(pk=recording_id)
-  user = response.user
+  user = User.objects.get(username=username)
+  recordings = user.recordings.order_by('-end_datetime')
   context = {
     "recording" : recording,
+    "recordings" : recordings,
     "user"      : user,
   }
   return render(response, 'account/listen.html', context)

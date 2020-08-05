@@ -4,12 +4,11 @@
 
 {% block content %}
 
-{% include 'components/profile_navigation.html' with user=user active="myrecordings"%}
+{% include 'components/profile_navigation.html' with user=user active="new"%}
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="tab-content">
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
         <div class="card">
           <div class="card-header">
             <h5 class="card-title mb-0">Create New Recording</h5>
@@ -23,7 +22,6 @@
             </form>
           </div>
         </div>
-      </div>
     </div>
   </div>
 </div>

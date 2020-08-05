@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<div class="container mt-2">
+<div class="container-fluid mt-3">
   <div class="img" style=" background-image:linear-gradient(to right, #1A4C84, #379CCA);
   height: 170px;background-size: cover;">
   </div>
@@ -20,20 +20,22 @@
     </div>
   </div>
 
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
+
+
+
       <div class="col-md-3">
         <div class="card support">
-          {% include 'components/card_header.html' with header="Topics"%}
+          {% include 'components/card_header.html' with header="Filter"%}
           <div class="card-body">
            {% include 'components/filter_recording_form.html' with recording_filter=recording_filter%}
          </div>
        </div>
      </div>
 
-     <div class="col-md-9">
+     <div class="col-md-7">
       <div class="card support-content">
-
         <div class="card-header">
           <h5 class="card-title mb-0">More Recordings by {{view_recording.user.username}}</h5>
         </div>
@@ -49,6 +51,23 @@
         </div>
       </div>
     </div>
+
+    <div class="col-md-2">
+        <div class="card support">
+          {% include 'components/card_header.html' with header="Related"%}
+          <div class="card-body">
+           <ul>
+             <li>rec1</li>
+             <li>rec2</li>
+             <li>rec3</li>
+             <li>rec4</li>
+           </ul>
+         </div>
+       </div>
+     </div>
+
+
+
   </div>
 </div>
 

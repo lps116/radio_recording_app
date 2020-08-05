@@ -6,13 +6,11 @@
 
 {% include 'components/profile_navigation.html' with user=user active="myrecordings"%}
 
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
       <div class="card">
-        <div class="card-header">
-          <h5 class="card-title mb-0">Actions</h5>
-        </div>
+        {% include 'components/card_header.html' with header="Actions"%}
 
         <div class="list-group list-group-flush" role="tablist">
           <a class="list-group-item list-group-item-action" href="{% url 'myrecording_listen' username=user.username recording_id=recording.id %}">
@@ -33,25 +31,42 @@
         </div>
       </div>
     </div>
-    <div class="col-md-9">
-      <div class="tab-content">
+    <div class="col-md-7">
 
-        <div class="card">
-          <div class="card-header">
-            <h5 class="card-title mb-0">Edit Recording</h5>
-          </div>
-          <div class="card-body">
-            <form action="." method="POST">
-              {% csrf_token %}
-              {{ form|crispy }}
-              <input type="Submit" class="btn btn-primary mb-2" value="Edit Recording">
-            </form>
-            <a href="{% url 'delete_recording' username=user.username recording_id=recording.id %}"><button class='btn btn-danger'>Delete</button></a>
+      <div class="card">
+        {% include 'components/card_header.html' with header="Edit Recording"%}
+        <div class="card-body">
+          <form action="." method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="Submit" class="btn btn-primary mb-2" value="Edit Recording">
+          </form>
+          <a href="{% url 'delete_recording' username=user.username recording_id=recording.id %}"><button class='btn btn-danger'>Delete</button></a>
 
-          </div>
         </div>
       </div>
     </div>
+
+
+    <div class="col-md-3">
+      <div class="card">
+        {% include 'components/card_header.html' with header="More Recordings"%}
+        <div class="list-group list-group-flush" role="tablist">
+          {% for other_recording in recordings %}
+          {% if other_recording.id == recording.id %}
+          <a class="list-group-item list-group-item-action active" href="{% url 'myrecording' username=user.username recording_id=recording.id %}">
+            {{other_recording.title}} --- {{other_recording.radio_station.name}}
+          </a>
+          {% else %}
+          <a class="list-group-item list-group-item-action" href="{% url 'myrecording' username=user.username recording_id=other_recording.id %}">
+            {{other_recording.title}} --- {{other_recording.radio_station.name}}
+          </a>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
