@@ -1,6 +1,7 @@
 body {
   font-family: 'Roboto', sans-serif;
-  /*background:#eee;*/
+  background-color: #3B3F42;
+  color: white;
 }
 
 /*NAVBAR SECTION*/
@@ -66,15 +67,12 @@ body {
 
 /*PROFILE PAGE LAYOUT*/
 /*https://www.bootdey.com/snippets/view/support-tickets#html*/
-.padding {
-    padding: 10px;
-}
 
 /* GRID */
 .col {
   padding: 10px 20px;
   margin-bottom: 10px;
-  background: #fff;
+  background: #202227;
   color: #666666;
   text-align: center;
   font-weight: 400;
@@ -88,21 +86,26 @@ body {
   margin-left: 0;
 }
 
-.grid {
+/*.grid {
   position: relative;
   width: 100%;
   color: #666666;
   margin-bottom: 25px;
-}
+}*/
 
-.grid .grid-body {
+/*.grid .grid-body {
   padding: 15px 20px 15px 20px;
   font-size: 0.9em;
   line-height: 1.9em;
+}*/
+
+
+a {
+  color: white;
 }
 
 .support ul {
-    list-style: none;
+  list-style: none;
   padding: 0px;
 }
 
@@ -112,7 +115,7 @@ body {
 }
 
 .support-content .list-group li:hover {
-  background: #eee;
+  background: #3B3F42;
 }
 
 .support-content .fa-padding .fa {
@@ -133,6 +136,7 @@ body {
     width: 300px;
     background: #fff;
     box-shadow: 0 10px 7px -5px rgba(0, 0, 0, 0.4);
+    background-color: #212329;
 }
 
 .card {
@@ -184,6 +188,11 @@ body {
     border: none;
 }
 
+.card {
+  background-color: #212329;
+  color: white;
+}
+
 .card .nav>li {
     position: relative;
     display: block;
@@ -209,6 +218,11 @@ body {
     color: #fff;
 }
 
+.list-group-item {
+  background-color: #212329;
+  color: white;
+}
+
 /*FLASH MESSAGE STYLE*/
 
 .flash-message {
@@ -224,7 +238,10 @@ body {
   border-radius: 0px;
 }
 
-hr {
-  margin-top: 0px !important;
-  margin-bottom: 0px !important;
+.table {
+  color: white;
+}
+
+.icon:hover {
+  color: #37A2F2;
 }

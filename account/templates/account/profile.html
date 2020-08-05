@@ -2,16 +2,16 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-
 {% block content %}
 <!-- https://www.bootdey.com/snippets/view/bs4-social-about -->
 {% include 'components/profile_navigation.html' with user=user active="profile"%}
 
 <!-- https://www.bootdey.com/snippets/view/support-tickets#html -->
-<div class="container">
+<div class="container-fluid">
   <section class="content">
     <div class="row">
-      <div class="col-md-3">
+
+      <div class="col-md-2">
         <div class="card support">
           {% include 'components/card_header.html' with header="Overview"%}
 
@@ -45,8 +45,36 @@
               <li>No upcoming recordings...<span class="pull-right"></span></li>
               {% endif %}
             </ul>
-            <hr>
+          </div>
+        </div>
+      </div>
 
+
+      <div class="col-md-7">
+        <div class="card support-content">
+          {% if request.user == user %}
+          {% include 'components/card_header.html' with header="My Completed Recordings"%}
+          {% else %}
+          <div class="card-header">
+            <h5 class="card-title mb-0">{{user.username}}'s Recordings</h5>
+          </div>
+          {% endif %}
+          <div class="row">
+            <div class="col-md-12">
+              <ul class="list-group fa-padding">
+                {% for recording in completed_recordings %}
+                {% include 'components/recording_card.html' with recording=recording user=user page="Profile" %}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card support">
+          {% include 'components/card_header.html' with header="Quick Record"%}
+          <div class="card-body">
             {% if request.user == user %}
             <p class="mt-2"><strong>Schedule a Recording</strong></p>
             <form action="." method="POST">
@@ -59,30 +87,8 @@
           </div>
         </div>
       </div>
-
-
-      <div class="col-md-9">
-        <div class="card support-content">
-            {% if request.user == user %}
-            {% include 'components/card_header.html' with header="My Completed Recordings"%}
-            {% else %}
-          <div class="card-header">
-            <h5 class="card-title mb-0">{{user.username}}'s Recordings</h5>
-          </div>
-            {% endif %}
-          <div class="row">
-            <div class="col-md-12">
-                <ul class="list-group fa-padding">
-                  {% for recording in completed_recordings %}
-                  {% include 'components/recording_card.html' with recording=recording user=user page="Profile" %}
-                  {% endfor %}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    </div>
   </div>
+</section>
 </div>
-  {% endblock %}
+{% endblock %}
