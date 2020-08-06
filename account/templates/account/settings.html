@@ -8,8 +8,9 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-2">
-      <div class="card">
+
         {% include 'components/card_header.html' with header="Options"%}
+      <div class="card">
         <div class="list-group list-group-flush" role="tablist">
           {% for setting in settings %}
           <a class="list-group-item list-group-item-action" href="#">
@@ -18,12 +19,13 @@
           {% endfor %}
         </div>
       </div>
+
     </div>
 
     <div class="col-md-8">
       <div class="tab-content">
-        <div class="card">
           {% include 'components/card_header.html' with header="User Settings"%}
+        <div class="card">
           <div class="card-body">
             <p>Settings coming soon...</p>
           </div>

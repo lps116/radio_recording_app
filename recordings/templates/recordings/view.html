@@ -23,15 +23,9 @@
   <div class="container-fluid">
     <div class="row">
 
-
-
       <div class="col-md-3">
-        <div class="card support">
           {% include 'components/card_header.html' with header="Filter"%}
-          <div class="card-body">
            {% include 'components/filter_recording_form.html' with recording_filter=recording_filter%}
-         </div>
-       </div>
      </div>
 
      <div class="col-md-7">
@@ -39,35 +33,34 @@
         <div class="card-header">
           <h5 class="card-title mb-0">More Recordings by {{view_recording.user.username}}</h5>
         </div>
-
+      </div>
         <div class="row">
           <div class="col-md-12">
-            <ul class="list-group fa-padding">
               {% for other_recording in recordings %}
               {% include 'components/recording_card.html' with recording=other_recording user=user page="View"%}
               {% endfor %}
-            </ul>
           </div>
         </div>
-      </div>
     </div>
 
     <div class="col-md-2">
-        <div class="card support">
           {% include 'components/card_header.html' with header="Related"%}
-          <div class="card-body">
-           <ul>
-             <li>rec1</li>
-             <li>rec2</li>
-             <li>rec3</li>
-             <li>rec4</li>
-           </ul>
-         </div>
+        <div class="card support">
+          {% if related_recordings.all %}
+          <div class="list-group list-group-flush" role="tablist">
+          {% for related_recording in related_recordings %}
+          <a class="list-group-item list-group-item-action" href="{% url 'recording' pk=related_recording.id%}">
+            {{related_recording.user.username}}: {{related_recording.title}} on {{related_recording.radio_station.name}}
+          </a>
+          {% endfor %}
+          </div>
+           {% else %}
+           <div class="card-body">
+           <p>No related recordings</p>
+           </div>
+           {% endif %}
        </div>
      </div>
-
-
-
   </div>
 </div>
 
