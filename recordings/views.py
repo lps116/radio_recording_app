@@ -34,13 +34,15 @@ def recording_view(response, pk):
 
   tags = recording.tags.all()
 
-  tags_search = []
-  for tag in tags:
-    tags_search.append(Q(**{"tags":tag.id}))
-
-  tags_query = reduce(or_, tags_search)
-  related_recordings = Recording.objects.filter(tags_query).distinct()
-  related_recordings = related_recordings.filter(status="complete").exclude(user=recording.user).exclude(user=response.user)
+  if tags:
+    tags_search = []
+    for tag in tags:
+      tags_search.append(Q(**{"tags":tag.id}))
+      tags_query = reduce(or_, tags_search)
+      related_recordings = Recording.objects.filter(tags_query).distinct()
+      related_recordings = related_recordings.filter(status="complete").exclude(user=recording.user).exclude(user=response.user)
+  else:
+    related_recordings = None
 
   context = {
     "view_recording" : recording,
