@@ -7,45 +7,32 @@
 <!-- https://www.bootdey.com/snippets/view/support-tickets#html -->
 <div class="container-fluid mt-3">
   <div class="row">
-
-
     <div class="col-md-3">
-      <div class="card support">
-        {% include 'components/card_header.html' with header="Filter"%}
-        <div class="card-body">
-          {% include 'components/filter_recording_form.html' with recording_filter=recording_filter%}
-        </div>
-      </div>
+      {% include 'components/card_header.html' with header="Filter"%}
+      {% include 'components/filter_recording_form.html' with recording_filter=recording_filter%}
     </div>
 
     <div class="col-md-7">
-      <div class="card support-content">
-        {% include 'components/card_header.html' with header="Public Recordings"%}
-        <div class="row">
-          <div class="col-md-12">
-            <ul class="list-group fa-padding">
-              {% for recording in recordings %}
-              {% include 'components/recording_card.html' with recording=recording user=user page="Public"%}
-              {% endfor %}
-            </ul>
-          </div>
+      {% include 'components/card_header.html' with header="Public Recordings"%}
+      <div class="row">
+        <div class="col-md-12">
+          {% for recording in recordings %}
+          {% include 'components/recording_card.html' with recording=recording user=user page="Public"%}
+          {% endfor %}
         </div>
       </div>
     </div>
 
     <div class="col-md-2">
-      <div class="card support">
-        {% include 'components/card_header.html' with header="Popular Topics"%}
-        <div class="card-body">
-          <ul>
-            {% for tag in popular_tags%}
-            <li>{{tag.tag}}<span class="pull-right">{{tag.recordings.count}}</span></li>
-            {% endfor %}
-          </ul>
-        </div>
+      {% include 'components/card_header.html' with header="Popular Topics"%}
+      <div class="card-body support">
+        <ul>
+          {% for tag in popular_tags%}
+          <li>{{tag.tag}}<span class="pull-right">{{tag.recordings.count}}</span></li>
+          {% endfor %}
+        </ul>
       </div>
     </div>
-
   </div>
 </div>
 {% endblock %}

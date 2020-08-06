@@ -1,6 +1,9 @@
 {% load crispy_forms_tags %}
-<p><strong>Filter by Station & Topic</strong></p>
-<form method="GET">
-  {{recording_filter.form|crispy}}
-  <button type="submit" value="Search" class="btn btn-primary mt-2 mb-2">Filter</button>
-</form>
+<div class="card support">
+  <div class="card-body support">
+    <form method="GET">
+      {{recording_filter.form|crispy}}
+      <button type="submit" value="Search" class="btn btn-primary mt-2 mb-2">Filter</button>
+    </form>
+  </div>
+</div>

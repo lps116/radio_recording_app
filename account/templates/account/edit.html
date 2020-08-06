@@ -9,9 +9,9 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-2">
-      <div class="card">
         {% include 'components/card_header.html' with header="Actions"%}
 
+      <div class="card">
         <div class="list-group list-group-flush" role="tablist">
           <a class="list-group-item list-group-item-action" href="{% url 'myrecording_listen' username=user.username recording_id=recording.id %}">
             Listen
@@ -33,8 +33,8 @@
     </div>
     <div class="col-md-7">
 
-      <div class="card">
         {% include 'components/card_header.html' with header="Edit Recording"%}
+      <div class="card">
         <div class="card-body">
           <form action="." method="POST">
             {% csrf_token %}
@@ -49,8 +49,8 @@
 
 
     <div class="col-md-3">
-      <div class="card">
         {% include 'components/card_header.html' with header="More Recordings"%}
+      <div class="card">
         <div class="list-group list-group-flush" role="tablist">
           {% for other_recording in recordings %}
           {% if other_recording.id == recording.id %}

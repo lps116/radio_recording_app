@@ -3,6 +3,10 @@ from .models import Recording, Tag
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from .filters import RecordingFilter
+from django.db.models import Q
+from functools import reduce
+from operator import or_
+
 
 @login_required(login_url='/login/')
 def recordings_index(response):
@@ -28,9 +32,21 @@ def recording_view(response, pk):
   recordings = recording_filter.qs
   recordings = recordings.exclude(pk=pk)
 
+  tags = recording.tags.all()
+
+  tags_search = []
+  for tag in tags:
+    tags_search.append(Q(**{"tags":tag.id}))
+
+  tags_query = reduce(or_, tags_search)
+  related_recordings = Recording.objects.filter(tags_query).distinct()
+  related_recordings = related_recordings.filter(status="complete").exclude(user=recording.user).exclude(user=response.user)
+
   context = {
     "view_recording" : recording,
     "recordings" :recordings,
     "recording_filter" :recording_filter,
+    "related_recordings" : related_recordings,
   }
+
   return render(response, 'recordings/view.html', context)
