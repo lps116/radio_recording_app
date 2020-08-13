@@ -13,6 +13,7 @@
         <a href="{% url 'register' %}"><button class="btn btn-primary mr-2">Sign Up</button></a>
         <a href="{% url 'login' %}"><button class="btn btn-outline-primary">Login</button></a>
         {% else %}
+        <a href="url 'create_recording' username=request.user.username"><button class="btn btn-primary mr-2">Create Recording</button></a>
         <a href="{% url 'recordings' %}"><button class="btn btn-outline-primary">Browse Recordings</button></a>
         {% endif %}
       </div>
@@ -45,7 +46,7 @@
       <div class="col-xs-12 col-md-4">
         <img src="{% static 'images/schedule.png' %}" class="bottom-img" style="height: 250px; width: 250px;">
         <h3>Set Time</h3>
-        <p>Only takes two clicks</p>
+        <p>Only takes a few clicks</p>
       </div>
       <div class="col-xs-12 col-md-4">
         <img src="{% static 'images/relax.png' %}" class="bottom-img" style="height: 250px; width: 250px;">
@@ -98,8 +99,8 @@
 <div class="pt-5" style="background-color: white;">
 </div>
 
-<section id="banner" class="py-4 bg-dark text-white">
-  <div class="container text-center">
+<section id="banner" class="py-4">
+  <div class="container-fluid text-center">
     <small>Dissertation Project by Linus Strobel || University of Bath 2020</small>
   </div>
 </section>

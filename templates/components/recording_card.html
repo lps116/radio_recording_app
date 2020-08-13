@@ -3,12 +3,12 @@
   <div class="media">
     <div class="media-body">
       {% if page == "Public" %}
-      <strong><a href="{% url 'profile' username=recording.user.username %}">{{recording.user.username}}</a></strong> on <strong>{{recording.radio_station.name}}</strong><span class="number pull-right">{{recording.start_datetime}}</span>
+      <strong><a href="{% url 'profile' username=recording.user.username %}">{{recording.user.username}}</a></strong> on <strong>{{recording.radio_station.name}}</strong><span class="number pull-right">{{recording.start_datetime|date:'d/m/Y H:i'}}</span>
       {% elif page == "View" %}
-      <strong><a href="{% url 'profile' username=recording.user.username %}">{{recording.user.username}}</a></strong> on <strong>{{recording.radio_station.name}}</strong><span class="number pull-right">{{recording.start_datetime}}</span>
+      <strong><a href="{% url 'profile' username=recording.user.username %}">{{recording.user.username}}</a></strong> on <strong>{{recording.radio_station.name}}</strong><span class="number pull-right">{{recording.start_datetime|date:'d/m/Y H:i'}}</span>
       {% elif page == "Profile" %}
       <strong>{{recording.radio_station.name}}: </strong> <span class="label label-danger">{{recording.title}}
-      </span><span class="number pull-right">{{recording.start_datetime}}</span>
+      </span><span class="number pull-right">{{recording.start_datetime|date:'d/m/Y H:i'}}</span>
       {% endif %}
       <hr class="mt-1 mb-1">
       {% if page != "Profile"%}
