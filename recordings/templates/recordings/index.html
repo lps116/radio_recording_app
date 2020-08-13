@@ -28,7 +28,11 @@
       <div class="card-body support">
         <ul>
           {% for tag in popular_tags%}
+          {% if tag.tag|length > 17 %}
+          <li>{{tag.tag|slice:'17'}}...<span class="pull-right">{{tag.recordings.count}}</span></li>
+          {% else %}
           <li>{{tag.tag}}<span class="pull-right">{{tag.recordings.count}}</span></li>
+          {% endif %}
           {% endfor %}
         </ul>
       </div>
