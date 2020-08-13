@@ -9,7 +9,7 @@ class DateInput(forms.DateInput):
 class TimeInput(forms.TimeInput):
   input_type = 'time'
 
-class CreateRecordingForm(forms.ModelForm):
+class QuickCreateRecordingForm(forms.ModelForm):
 
   start_date = forms.DateField(widget=DateInput())
   start_time = forms.TimeField(widget=TimeInput())
@@ -20,7 +20,6 @@ class CreateRecordingForm(forms.ModelForm):
     model = Recording
     fields = ['title',
               'radio_station',
-              'public'
               ]
 
   def clean(self):
@@ -45,6 +44,55 @@ class CreateRecordingForm(forms.ModelForm):
 
       if int((end_datetime - start_datetime).total_seconds()) / 60 > 120:
         raise ValidationError("Max recording length 2 hours.")
+
+class CreateRecordingForm(forms.ModelForm):
+
+  start_date = forms.DateField(widget=DateInput())
+  start_time = forms.TimeField(widget=TimeInput())
+  end_date   = forms.DateField(widget=DateInput())
+  end_time   = forms.TimeField(widget=TimeInput())
+
+  class Meta:
+    model = Recording
+    fields = ['title',
+              'description',
+              'radio_station',
+              'tags',
+              'public'
+              ]
+    widgets = {
+      'description' : forms.Textarea(attrs={'rows':2, 'cols':15})
+    }
+
+  def clean(self):
+    cleaned_data = super().clean()
+    start_date = cleaned_data.get("start_date")
+    start_time = cleaned_data.get("start_time")
+    end_date   = cleaned_data.get("end_date")
+    end_time   = cleaned_data.get("end_time")
+
+    if start_date and start_time and end_date and end_time:
+      start_datetime = datetime.combine(start_date, start_time)
+      end_datetime   = datetime.combine(end_date, end_time)
+
+      if start_datetime > end_datetime:
+        raise ValidationError("Set an earlier start date.")
+
+      if start_datetime < datetime.now():
+        raise ValidationError("Set a later start date.")
+
+      if datetime.now() + timedelta(seconds=30) > start_datetime:
+        raise ValidationError("Earliest start time in 1 minute.")
+
+      if int((end_datetime - start_datetime).total_seconds()) / 60 > 120:
+        raise ValidationError("Max recording length 2 hours.")
+
+
+
+
+
+
+
 
 class EditRecordingFormComplete(forms.ModelForm):
 

@@ -32,9 +32,9 @@
 
               <li>
                 {% if active == "new" %}
-                <a class="active" href="{% url 'create_recording' username=user.username %}">New</a>
+                <a class="active" href="{% url 'create_recording' username=user.username %}">Create Recording</a>
                 {% else %}
-                <a href="{% url 'create_recording' username=user.username %}">New</a>
+                <a href="{% url 'create_recording' username=user.username %}">Create Recording</a>
                 {% endif %}
               </li>
 
