@@ -71,17 +71,17 @@
       </div>
 
       <div class="col-md-3">
+          {% if request.user == user %}
           {% include 'components/card_header.html' with header="Quick Record"%}
           <div class="card-body">
-            {% if request.user == user %}
             <form action="." method="POST">
               {% csrf_token %}
               {{form|crispy}}
               <p>Timezone set to British Summer Time. Current time in BST: {% now "H:i" %}</p>
               <input type="Submit" class="btn btn-primary" value="Schedule">
             </form>
-            {% endif %}
           </div>
+          {% endif %}
       </div>
     </div>
   </div>
