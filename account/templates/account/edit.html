@@ -39,6 +39,10 @@
           <form action="." method="POST">
             {% csrf_token %}
             {{ form|crispy }}
+
+            {% if display_time %}
+            <p>Timezone set to British Summer Time. Current time in BST: {% now "H:i" %}</p>
+            {% endif %}
             <input type="Submit" class="btn btn-primary mb-2" value="Edit Recording">
           </form>
           <a href="{% url 'delete_recording' username=user.username recording_id=recording.id %}"><button class='btn btn-danger'>Delete</button></a>
