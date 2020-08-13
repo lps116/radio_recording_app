@@ -4,13 +4,11 @@ from .forms import CreateRecordingForm, EditRecordingFormComplete, EditRecording
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from recordings.models import Recording, RadioStation
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 from recordings.tasks import record_show
 from django.shortcuts import get_object_or_404
 from celery.task.control import revoke
-
-
 
 # Create your views here.
 @login_required(login_url='/login/')
@@ -20,7 +18,6 @@ def account_view(response, username):
     if form.is_valid():
       title = form.cleaned_data['title']
       radio_station = form.cleaned_data['radio_station']
-      # public = form.cleaned_data['public']
       user = response.user
       start_datetime = datetime.combine(form.cleaned_data['start_date'],
                                         form.cleaned_data['start_time'])
@@ -77,11 +74,14 @@ def recordings_view(response, username):
 
 @login_required(login_url='/login/')
 def edit_view(response, username, recording_id):
+  timezone = pytz.timezone("Europe/London")
   if not check_profile_owner(response, username):
     redirect_string = "/" + username
     return redirect(redirect_string)
   recording = Recording.objects.get(pk=recording_id)
-  if not recording.status == "pending":
+  start_within_minute = timezone.localize(datetime.now()) + timedelta(seconds=60) > recording.start_datetime.astimezone(timezone)
+  if not recording.status == "pending" or start_within_minute:
+    display_time = False
     form = EditRecordingFormComplete(instance=recording)
     if response.method == "POST":
       form = EditRecordingFormComplete(response.POST)
@@ -93,7 +93,20 @@ def edit_view(response, username, recording_id):
         recording.save()
         messages.success(response, "Recording information has been updated.")
   else:
-    form = EditRecordingFormPending(instance=recording)
+    display_time = True
+    start_datetime_aware = recording.start_datetime.astimezone(timezone)
+    end_datetime_aware   = recording.end_datetime.astimezone(timezone)
+    form = EditRecordingFormPending({
+      'title' : recording.title,
+      'description' : recording.description,
+      'radio_station' : recording.radio_station.id,
+      'public'        : recording.public,
+      'start_time' : start_datetime_aware.strftime("%H:%M:%S"),
+      'end_time'   : end_datetime_aware.strftime("%H:%M:%S"),
+      'start_date' : start_datetime_aware.date(),
+      'end_date' : end_datetime_aware.date()
+      })
+
     if response.method == "POST":
       form = EditRecordingFormPending(response.POST)
       if form.is_valid():
@@ -124,7 +137,8 @@ def edit_view(response, username, recording_id):
   context = {
     "recording" : recording,
     "recordings" : recordings,
-    "form" : form
+    "form" : form,
+    "display_time" : display_time
   }
   return render(response, 'account/edit.html', context)
 

@@ -87,13 +87,6 @@ class CreateRecordingForm(forms.ModelForm):
       if int((end_datetime - start_datetime).total_seconds()) / 60 > 120:
         raise ValidationError("Max recording length 2 hours.")
 
-
-
-
-
-
-
-
 class EditRecordingFormComplete(forms.ModelForm):
 
   class Meta:
