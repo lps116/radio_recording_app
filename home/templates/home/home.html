@@ -13,7 +13,7 @@
         <a href="{% url 'register' %}"><button class="btn btn-primary mr-2">Sign Up</button></a>
         <a href="{% url 'login' %}"><button class="btn btn-outline-primary">Login</button></a>
         {% else %}
-        <a href="url 'create_recording' username=request.user.username"><button class="btn btn-primary mr-2">Create Recording</button></a>
+        <a href="{%url 'create_recording' username=request.user.username%}"><button class="btn btn-primary mr-2">Create Recording</button></a>
         <a href="{% url 'recordings' %}"><button class="btn btn-outline-primary">Browse Recordings</button></a>
         {% endif %}
       </div>
