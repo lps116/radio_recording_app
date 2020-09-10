@@ -7,6 +7,7 @@ class TestViews(TestCase):
     self.client = Client()
     self.home_url = reverse('home')
 
+  # make sure right template loaded by home view
   def test_home_view_GET(self):
     response = self.client.get(self.home_url)
     self.assertEquals(response.status_code, 200)
