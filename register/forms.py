@@ -5,7 +5,10 @@ from django.contrib.auth.models import User
 
 from django.contrib.auth.forms import AuthenticationForm
 
+# user registration form class
 class RegistrationForm(UserCreationForm):
+  # initialize form fields with bootstrap form-control class and placeholder
+  # value
   def __init__(self, *args, **kwargs):
     super(RegistrationForm, self).__init__(*args, **kwargs)
     self.fields['first_name'].widget.attrs = {'class' : 'form-control', 'placeholder': 'John'}
@@ -21,4 +24,5 @@ class RegistrationForm(UserCreationForm):
 
   class Meta:
     model  = User
+    # fields which need to be completed
     fields = ["first_name", "last_name", "username", "email", "password1", "password2"]

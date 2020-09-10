@@ -5,6 +5,8 @@ from django.contrib.auth import login, authenticate
 
 # Create your views here.
 
+# registration form view
+# if form is valid, data saved and user signed in and redirected to home page
 def registration_view(response):
   form = RegistrationForm()
   if response.method == "POST":
