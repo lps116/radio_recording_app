@@ -21,13 +21,20 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    # path to admin page - superuser only
     path('admin/', admin.site.urls),
+    # home app path relative to this
     path('', include("home.urls")),
+    # default paths for user login and logout
     path('', include("django.contrib.auth.urls")),
+    # register view path
     path('register/', register_views.registration_view, name='register'),
+    # paths in recording app relative to this
     path('recordings/', include("recordings.urls")),
+    # paths in account app relative to this
     path('<slug:username>/', include("account.urls")),
 ]
 
+# url pattern to static and media files
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

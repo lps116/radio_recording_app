@@ -4,6 +4,7 @@ from recordings.views import recordings_index, recording_view
 
 class TestUrls(SimpleTestCase):
 
+  # check that urls call the right view methods
   def test_recordings_url_is_resolved(self):
     url = reverse('recordings')
     self.assertEquals(resolve(url).func, recordings_index)

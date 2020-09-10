@@ -1,6 +1,6 @@
 import os
 from celery import Celery
-
+# setting up celery task queue
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'radio_app.settings')
 
 celery_app = Celery('radio_app')

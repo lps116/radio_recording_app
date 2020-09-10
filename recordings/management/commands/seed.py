@@ -14,6 +14,8 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('--mode', type=str, help="Mode")
 
+    # methods run when seeding proccess starts
+    # first clear the database and then populate with new data
     def handle(self, *args, **options):
         print("clearing database...")
         clear_database(self, options['mode'])
@@ -22,6 +24,7 @@ class Command(BaseCommand):
         run_seed(self, options['mode'])
         print('done.')
 
+# adds all the data to database
 def run_seed(self, mode):
   print("adding users...")
   create_users()
@@ -33,6 +36,7 @@ def run_seed(self, mode):
   create_recordings()
 
 
+# clears all the data in the databse
 def clear_database(self, mode):
   user = User.objects.all().first()
   User.objects.all().delete()
@@ -42,6 +46,8 @@ def clear_database(self, mode):
   Tag.objects.all().delete()
 
 
+# creates recordings with fake names, descriptions
+# random users, radio station, tags
 def create_recordings():
   faker = Faker()
   for i in range(0, 10):
@@ -62,6 +68,7 @@ def create_recordings():
     random_tags = Tag.objects.order_by("?")
     recording.tags.add(random_tags[0], random_tags[1])
 
+# creates users with Fake information
 def create_users():
   faker = Faker()
   for i in range(0, 6):
@@ -76,7 +83,9 @@ def create_users():
       )
     user.save()
 
+# populates the database with some tags
 def create_tags():
+  # api for course subjects - subjects used as tags
   response = requests.request("GET", "https://www.reed.co.uk/courses/api/v4/subjects")
   if response.status_code == 200:
     data = json.loads(response.text)
@@ -89,11 +98,14 @@ def create_tags():
     response.connection.close()
 
 
+# adds radio stations to DB
 def create_radio_stations():
+  # get links with BBC in name (default of method)
   stations = get_radio_stations_with_links()
   for station in stations['results']:
+    # change BBC station names
     station_name = modify_bbc_names(station['n'])
-    # print(station_name)
+    # if streaming link is valid save the station name and link to DB
     if streaming_link_is_valid(station['u']):
       streaming_link = station['u']
       new_radio_station = RadioStation(
@@ -104,6 +116,8 @@ def create_radio_stations():
     else:
       continue
 
+# requests radio station information from API
+# returns data in JSON format.
 def get_radio_stations_with_links(country="UK", station="bbc", genre='ALL'):
   url = "https://30-000-radio-stations-and-music-charts.p.rapidapi.com/rapidapi"
   querystring = {"country":country,"keyword":station,"genre":genre}
@@ -114,6 +128,8 @@ def get_radio_stations_with_links(country="UK", station="bbc", genre='ALL'):
   response = requests.request("GET", url, headers=headers, params=querystring)
   return json.loads(response.text)
 
+# converts BBC radio names to official name
+# to be displayed on website and stored in DB
 def modify_bbc_names(name):
   if name == "BBC 1":
     return "BBC Radio 1"
@@ -128,6 +144,8 @@ def modify_bbc_names(name):
   else:
     return name
 
+# check streaming link is valid by checking if status is 200
+# and content type is audio/mpeg
 def streaming_link_is_valid(link):
   if not len(link):
     return False
