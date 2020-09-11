@@ -26,11 +26,12 @@ class TestViews(TestCase):
     self.recordings_url = reverse('recordings')
     self.recording_url  = reverse('recording', args=[recording.id])
 
-
+  # test that redirect user when logged out and tries to access page
   def test_recordings_index_GET_logged_out(self):
     response = self.clientLoggedOut.get(self.recordings_url)
     self.assertEquals(response.status_code, 302)
-
+  # check that right template loaded when user logged in and
+  # user request successful
   def test_recordings_index_GET_logged_in(self):
     response = self.clientLoggedIn.get(self.recordings_url)
     self.assertEquals(response.status_code, 200)

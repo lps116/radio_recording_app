@@ -10,8 +10,15 @@ from botocore.exceptions import ClientError
 import logging
 import os
 
+# function which records radio broadcasts
+# steps
+# find and check for valid streaming URL
+# make temp file and write URL content to file
+# send file to the cloud
+# save the file URL to database
 @shared_task
 def record_show(id):
+  # getting valid radio streaming link
   recording        = Recording.objects.get(id=id)
   radio_station    = recording.radio_station
   url              = radio_station.streaming_link
@@ -26,6 +33,7 @@ def record_show(id):
       recording.save()
       return
   try:
+    # set up files for recording
     recording.status = "in progress"
     recording.save()
     end_time         = recording.end_datetime
@@ -34,10 +42,12 @@ def record_show(id):
     file_path        = settings.BASE_DIR + "/" + file_name
     session          = requests.Session()
     request          = session.get(url, stream=True)
+    # start writing content to new file
     with open(file_path, "wb") as file:
       for chunk in request.iter_content(chunk_size = chunk_size):
         file.write(chunk)
         if timezone.now() > end_time:
+          # when endtime pass send file to amazon cloud
           session = boto3.Session(
                   aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
                   aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
@@ -46,7 +56,7 @@ def record_show(id):
           s3.meta.client.upload_file(Filename=file_path,
                                     Bucket=os.environ.get('AWS_BUCKET_NAME'),
                                     Key=file_name)
-
+          # store file link
           recording_url = "https://%s.s3.eu-west-2.amazonaws.com/%s" % (os.environ.get('AWS_BUCKET_NAME'), file_name)
 
           file.close()
@@ -57,11 +67,14 @@ def record_show(id):
           os.remove(file_path)
           return
   except:
-    print('recoridng failed')
-    recording.status = "complete"
+    # if failed at any point will set status to failed
+    recording.status = "failed"
     recording.save()
     return
 
+# checks if the streaming link if valid by checking if
+# the response status is 200 and the content type is
+# audio/mpeg
 def streaming_link_is_valid(url):
   if not len(url):
     return False
@@ -74,16 +87,23 @@ def streaming_link_is_valid(url):
   except:
     return False
 
+# finds new streaming URL for specific station
 def find_new_link(id):
   radio_station = RadioStation.objects.get(id=id)
+  # change BBC name is necessary
   radio_station_name = modify_bbc_names_reverse(radio_station.name)
   streaming_links_json = get_radio_links(station=radio_station_name)
+  # check if found new links
   if len(streaming_links_json):
     for link in streaming_links_json['results']:
+      # return first valid link which found
       if streaming_link_is_valid(link['u']):
         return link['u']
+  # return None if no links found
   return None
 
+# requesting list of URLs from API
+# return list in JSON format
 def get_radio_links(station, country="UK", genre="ALL" ):
   url = "https://30-000-radio-stations-and-music-charts.p.rapidapi.com/rapidapi"
   querystring = {"country":country,"keyword":station,"genre":genre}
@@ -94,7 +114,8 @@ def get_radio_links(station, country="UK", genre="ALL" ):
   response = requests.request("GET", url, headers=headers, params=querystring)
   return json.loads(response.text)
 
-
+# API refers to BBC Radio 1 as BBC 1
+# names stored in DB modified to fit API
 def modify_bbc_names_reverse(name):
   if name == "BBC Radio 1":
     return "BBC 1"

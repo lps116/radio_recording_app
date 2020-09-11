@@ -31,11 +31,13 @@ class TestModels(TestCase):
     self.start_time = start_time
     self.end_time = end_time
 
+  # check that the time till recording method works
   def test_time_till_recording_valid_state(self):
     time_until_method = self.recording.time_till_recording
     time_until_calc   = self.start_time - timezone.now()
     self.assertEquals(time_until_method.seconds, time_until_calc.seconds)
 
+  # check that returns None when passed recording time.
   def test_time_till_recording_invalid_state(self):
     self.recording.status = "complete"
     self.recording.save()

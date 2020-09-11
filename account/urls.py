@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+# urls patterns relative to /username/ set in radio_app/urls.py
 urlpatterns = [
   path('', views.account_view, name='profile'),
   path('myrecordings/', views.recordings_view, name='myrecordings'),

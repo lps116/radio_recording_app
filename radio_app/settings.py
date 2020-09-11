@@ -33,11 +33,13 @@ ALLOWED_HOSTS = ['soundcapture.herokuapp.com', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    # default apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    # installed apps
     'django.contrib.staticfiles',
     'home.apps.HomeConfig',
     'register.apps.RegisterConfig',
@@ -57,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # whitenoise for heroku deployment
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
@@ -84,6 +87,7 @@ WSGI_APPLICATION = 'radio_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# setting up DB
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -95,6 +99,7 @@ DATABASES = {
     }
 }
 
+# updates DB in deployed environment
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
 
@@ -147,6 +152,7 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn")
 MEDIA_ROOT = os.path.join(BASE_DIR, '')
 MEDIA_URL = '/media/'
 
+# redirect users to homepage after login and logout
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
@@ -158,6 +164,7 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
 
+# crispy forms bootstrap version used
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 

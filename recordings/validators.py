@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator, MinLengthValidator
 import os
 
+# check that valid URL.
 def validate_streaming_url(value):
   url_validator = URLValidator()
   try:
@@ -31,6 +32,7 @@ def validate_over_one_character(value):
   except:
     raise ValidationError("Title must be atleast 30 characters long")
 
+# check that the file extension is MP3 (right format)
 def is_mp3_file(file):
   _, extension = os.path.splitext(file.name)
   if not extension.lower() in ['.mp3']:
