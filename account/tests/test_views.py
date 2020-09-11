@@ -6,15 +6,6 @@ from datetime import date, time, timedelta
 from django.utils import timezone
 from random import choice
 
-# Create view        - Done
-# Edit view          - Done
-# Listen view        - Done
-# Delete View        - Done
-# My Recordings View - Done
-# Profile View       - Done
-# Settings View      - Done
-# Have to check if jobs been added to delete from queue for edit, create, delete, account
-
 class TestViews(TestCase):
 
   def setUp(self):

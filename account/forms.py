@@ -48,23 +48,18 @@ class CreateRecordingFormBase(forms.ModelForm):
 class QuickCreateRecordingForm(CreateRecordingFormBase):
   class Meta:
     model = Recording
-    fields = ['title',
-              'radio_station',
-              ]
+    fields = ['title','radio_station']
 
+# complete recording form
 class CreateRecordingForm(CreateRecordingFormBase):
   class Meta:
     model = Recording
-    fields = ['title',
-              'description',
-              'radio_station',
-              'tags',
-              'public'
-              ]
+    fields = ['title','description','radio_station','tags','public']
     widgets = {
       'description' : forms.Textarea(attrs={'rows':2, 'cols':15})
     }
 
+# Edit completed recording form
 class EditRecordingFormComplete(forms.ModelForm):
   class Meta:
     model = Recording
@@ -73,12 +68,11 @@ class EditRecordingFormComplete(forms.ModelForm):
       'description' : forms.Textarea(attrs={'rows':2, 'cols':15})
     }
 
+# edit pending recordings form
 class EditRecordingFormPending(CreateRecordingFormBase):
   class Meta:
     model = Recording
-    fields = ['title',
-              'description',
-              'radio_station',
-              'tags',
-              'public'
-              ]
+    fields = ['title','description','radio_station','tags','public']
+    widgets = {
+      'description' : forms.Textarea(attrs={'rows':2, 'cols':15})
+    }
