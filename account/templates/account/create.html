@@ -4,7 +4,9 @@
 
 {% block content %}
 
+<!-- section profile navigation bar start -->
 {% include 'components/profile_navigation.html' with user=user active="new"%}
+<!-- section profile navigation bar end -->
 
 <div class="container-fluid">
   <div class="row justify-content-center">
@@ -14,6 +16,7 @@
             <h5 class="card-title mb-0">Create Recording</h5>
           </div>
         </div>
+        <!-- section create new recording form start -->
         <div class="card">
           <div class="card-body">
             <form action="." method="POST">
@@ -24,6 +27,7 @@
             </form>
           </div>
         </div>
+        <!-- section create new recording form end -->
     </div>
   </div>
 </div>

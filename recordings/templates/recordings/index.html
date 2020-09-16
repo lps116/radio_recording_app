@@ -4,16 +4,18 @@
 
 {% block content %}
 
-<!-- https://www.bootdey.com/snippets/view/support-tickets#html -->
 <div class="container-fluid mt-3">
   <div class="row">
+    <!-- section filter recording form start -->
     <div class="col-md-3">
       {% include 'components/card_header.html' with header="Filter"%}
       {% include 'components/filter_recording_form.html' with recording_filter=recording_filter%}
     </div>
+    <!-- section filter recording form end -->
 
     <div class="col-md-7">
       {% include 'components/card_header.html' with header="Public Recordings"%}
+      <!-- section display recording cards start -->
       <div class="row">
         <div class="col-md-12">
           {% for recording in recordings %}
@@ -21,10 +23,12 @@
           {% endfor %}
         </div>
       </div>
+      <!-- section display recording cards end -->
     </div>
 
     <div class="col-md-2">
       {% include 'components/card_header.html' with header="Popular Topics"%}
+      <!-- section display popular filters start  -->
       <div class="card-body support">
         <ul>
           {% for tag in popular_tags%}
@@ -36,6 +40,7 @@
           {% endfor %}
         </ul>
       </div>
+      <!-- section display popular filters end -->
     </div>
   </div>
 </div>

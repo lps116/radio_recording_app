@@ -1,3 +1,6 @@
+<!-- section table row start -->
+<!-- modified from bootstrap https://getbootstrap.com/docs/4.0/content/tables/ -->
+<!-- also used bootstrap https://getbootstrap.com/docs/4.0/components/tooltips/ -->
 <tr>
   <td class="pl-4">{{ forloop.counter }}</td>
   {% if recording.title|length > 25%}
@@ -33,3 +36,5 @@
     <a data-toggle="tooltip" data-placement="top" title="Delete" href="{% url 'delete_recording' username=user.username recording_id=recording.id %}" class="mb-1 icon"><i class="far fa-trash-alt"></i></i></a>
   </td>
 </tr>
+<!-- section table row end -->
+

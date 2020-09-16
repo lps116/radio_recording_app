@@ -91,9 +91,9 @@ WSGI_APPLICATION = 'radio_app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'radioAppDB',
+        'NAME': 'testdb',
         'USER' : 'linus.strobel',
-        'PASSWORD' : 'demo1234',
+        'PASSWORD' : '',
         'HOST' : 'localhost',
         'PORT' : '5432'
     }

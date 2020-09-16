@@ -4,13 +4,14 @@
 
 {% block content %}
 
-<!-- https://www.bootdey.com/snippets/view/bs4-social-about -->
+<!-- section profile  navigation bar start -->
 {% include 'components/profile_navigation.html' with user=user active="myrecordings"%}
+<!-- section profile  navigation bar end -->
 
 <div class="container-fluid">
   <div class="row justify-content-md-center">
     <div class="col-md-10 center">
-
+      <!-- section head with create recording button start -->
       <div class="card">
         <div class="card-header">
           <div style="overflow: hidden;">
@@ -19,7 +20,9 @@
           </div>
         </div>
       </div>
+      <!-- section head with create recording button end -->
 
+      <!-- section my recordings table start -->
       <div class="card">
         <div class="table-responsive-xl">
           <table class="table mb-0">
@@ -34,13 +37,16 @@
               </tr>
             </thead>
             <tbody>
+              <!-- table rows saved as a component  -->
               {% for recording in recordings %}
               {% include 'components/recording_table_row.html' with recording=recording user=user%}
               {% endfor %}
+              <!--  -->
             </tbody>
           </table>
         </div>
       </div>
+      <!-- section my recordings table end -->
     </div>
   </div>
 </div>
