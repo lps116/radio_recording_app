@@ -5,76 +5,76 @@
 <!-- Website images -->
 <!-- Profile picture placeholder: https://www.kirkham-legal.co.uk/team/bob-bouch/profile-placeholder/ -->
 <!-- Avatar images from: https://stories.freepik.com/
-    and https://pngtree.com/so/storage -->
-<!-- Wave image from: https://drive.google.com/file/d/0BwYz-YrEienXMUQtMXJsUV9jTHc/view -->
+  and https://pngtree.com/so/storage -->
+  <!-- Wave image from: https://drive.google.com/file/d/0BwYz-YrEienXMUQtMXJsUV9jTHc/view -->
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>SoundCapture</title>
-  <!-- https://getbootstrap.com/ importing bootstrap for front-end development -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <head>
+    <meta charset="utf-8">
+    <title>SoundCapture</title>
+    <!-- https://getbootstrap.com/ importing bootstrap for front-end development -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-  <!-- linking to local css styles -->
-  <link rel="stylesheet" href='{% static "css/base.css" %}'>
+    <!-- linking to local css styles -->
+    <link rel="stylesheet" href='{% static "css/base.css" %}'>
 
-  <!-- google font used for the website. -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <!-- google font used for the website. -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 
-  <!-- style files for card design -->
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+    <!-- style files for card design -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
 
-  <!-- importing image for website favicon -->
-  <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
+    <!-- importing image for website favicon -->
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
 
-  <!-- defining meta data / display right information when sending link -->
-  <meta property="og:image" content="{% static 'images/meta_data_image.png' %}"/>
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="SoundCapture" />
-  <meta property="og:description" content="The first radio broadcast recording platform." />
+    <!-- defining meta data / display right information when sending link -->
+    <meta property="og:image" content="{% static 'images/meta_data_image.png' %}"/>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="SoundCapture" />
+    <meta property="og:description" content="The first radio broadcast recording platform." />
 
-</head>
+  </head>
 
-<body>
+  <body>
 
-  <!-- Every page gets navbar -->
-  {% include 'components/navbar.html' %}
+    <!-- Every page gets navbar -->
+    {% include 'components/navbar.html' %}
 
-  <!-- displays user messages if present  -->
-  <!-- modified from bootstrap https://getbootstrap.com/docs/4.0/components/alerts/ -->
-  {% for message in messages %}
-  <div id='flashMessage' class="flash-message alert alert-dismissible fade show" role="alert">
-    <span>{{message}}</span>
-    <a data-dismiss="alert" aria-label="Close">
-      <i class="fas fa-times"></i>
-    </a>
-  </div>
-  {% endfor %}
+    <!-- displays user messages if present  -->
+    <!-- modified from bootstrap https://getbootstrap.com/docs/4.0/components/alerts/ -->
+    {% for message in messages %}
+    <div id='flashMessage' class="flash-message alert alert-dismissible fade show" role="alert">
+      <span>{{message}}</span>
+      <a data-dismiss="alert" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </a>
+    </div>
+    {% endfor %}
 
-  <!-- content from other pages rendered here -->
-  {% block content %}
+    <!-- content from other pages rendered here -->
+    {% block content %}
 
-  {% endblock %}
+    {% endblock %}
 
-  <!-- more files imported from bootstrap  -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <!-- more files imported from bootstrap  -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
   <!-- script makes the messages disappear after 5 sections my removing
-  flash messaage div -->
-  <script>
-    var flashMessage = document.getElementById("flashMessage");
-    setTimeout(function(){ flashMessage.style.display = "none";}, 5000);
-  </script>
+    flash messaage div -->
+    <script>
+      var flashMessage = document.getElementById("flashMessage");
+      setTimeout(function(){ flashMessage.style.display = "none";}, 5000);
+    </script>
   <!-- function required to display bootstrap tool tips
       https://getbootstrap.com/docs/4.0/components/tooltips/
-  -->
-  <script>
-    $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-    })
-  </script>
+    -->
+    <script>
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
+    </script>
 
-</body>
+  </body>
 </html>

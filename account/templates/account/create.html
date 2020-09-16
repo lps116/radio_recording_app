@@ -11,27 +11,25 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-md-10">
-        <div class="card">
-          <div class="card-header">
-            <h5 class="card-title mb-0">Create Recording</h5>
-          </div>
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title mb-0">Create Recording</h5>
         </div>
-        <!-- section create new recording form start -->
-        <div class="card">
-          <div class="card-body">
-            <form action="." method="POST">
-              {% csrf_token %}
-              {{form|crispy}}
-              <p>Timezone set to British Summer Time. Current time in BST: {% now "H:i" %}</p>
-              <input type="Submit" class="btn btn-primary mb-2" value="Create">
-            </form>
-          </div>
+      </div>
+      <!-- section create new recording form start -->
+      <div class="card">
+        <div class="card-body">
+          <form action="." method="POST">
+            {% csrf_token %}
+            {{form|crispy}}
+            <p>Timezone set to British Summer Time. Current time in BST: {% now "H:i" %}</p>
+            <input type="Submit" class="btn btn-primary mb-2" value="Create">
+          </form>
         </div>
-        <!-- section create new recording form end -->
+      </div>
+      <!-- section create new recording form end -->
     </div>
   </div>
 </div>
-
-
 
 {% endblock %}

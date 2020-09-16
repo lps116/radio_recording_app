@@ -81,6 +81,9 @@ ul {
 
 /* CODE MODIFIED FROM https://www.bootdey.com/snippets/view/support-tickets#html*/
 /* RECORDING CARDS RELATED STYLES START */
+/* STYLES UNCHANGED FROM ORIGINAL HIGHLIGHTED */
+
+/*UNCHANGED*/
 .col {
   padding: 10px 20px;
   margin-bottom: 10px;
@@ -125,6 +128,7 @@ ul {
     border: 5px solid var(--profile-border-color);
 }
 
+/* UNCHANGED */
 .wrapper {
     margin: auto;
     margin-top: -175px;
@@ -137,10 +141,12 @@ ul {
     margin-bottom: 0;
 }
 
+/* UNCHANGED */
 .profile-header p {
     font-size: 18px;
 }
 
+/* UNCHANGED */
 .profile-header .nav-tabs {
     border: none;
 }

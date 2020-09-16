@@ -11,93 +11,87 @@
 <div class="container-fluid">
   <section class="content">
     <div class="row">
-
       <div class="col-md-2">
-          {% include 'components/card_header.html' with header="Overview"%}
-          <!-- section recording status column start -->
-          <!-- code significantly modified from https://www.bootdey.com/snippets/view/support-tickets#html -->
-          <!-- additional bootstrap componenets used https://getbootstrap.com/docs/4.0/components/tooltips/ -->
-          <!-- and https://getbootstrap.com/docs/4.4/components/spinners/ -->
-          <div class="card-body support">
+        {% include 'components/card_header.html' with header="Overview"%}
+        <!-- section recording status column start -->
+        <!-- code significantly modified from https://www.bootdey.com/snippets/view/support-tickets#html -->
+        <!-- additional bootstrap componenets used https://getbootstrap.com/docs/4.0/components/tooltips/ -->
+        <!-- and https://getbootstrap.com/docs/4.4/components/spinners/ -->
+        <div class="card-body support">
           {% if inprogress_recordings.all %}
-            <p><strong>In Progress</strong></p>
-            <ul class="support-label">
-              {% for recording in inprogress_recordings %}
-              {% if recording.radio_station.name|length > 17 %}
-              <li div data-toggle="tooltip" data-placement="right" title="Ends at {{recording.end_datetime|time}}">{{recording.radio_station.name|slice:":17"}}...<span class="pull-right"><div class="spinner-grow text-success spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div></span></li>
-              {% else %}
-              <li div data-toggle="tooltip" data-placement="right" title="{{recording.start_datetime|time:'H:i'}} -  {{recording.end_datetime|time:'H:i'}}">{{recording.radio_station.name}}<span class="pull-right"><div class="spinner-grow text-success spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div></span></li>
-              {% endif %}
-              {% endfor %}
-            </ul>
+          <p><strong>In Progress</strong></p>
+          <ul class="support-label">
+            {% for recording in inprogress_recordings %}
+            {% if recording.radio_station.name|length > 17 %}
+            <li div data-toggle="tooltip" data-placement="right" title="Ends at {{recording.end_datetime|time}}">{{recording.radio_station.name|slice:":17"}}...<span class="pull-right"><div class="spinner-grow text-success spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div></span></li>
+            {% else %}
+            <li div data-toggle="tooltip" data-placement="right" title="{{recording.start_datetime|time:'H:i'}} -  {{recording.end_datetime|time:'H:i'}}">{{recording.radio_station.name}}<span class="pull-right"><div class="spinner-grow text-success spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div></span></li>
+            {% endif %}
+            {% endfor %}
+          </ul>
           {% endif %}
-            <p><strong>Pending</strong></p>
-            <ul>
-              {% if scheduled_recordings %}
-              {% for recording in scheduled_recordings %}
+          <p><strong>Pending</strong></p>
+          <ul>
+            {% if scheduled_recordings %}
+            {% for recording in scheduled_recordings %}
 
-              {% if recording.radio_station.name|length > 17 %}
-              <li data-toggle="tooltip" data-placement="right" title="{{recording.start_datetime|date:'d/m/Y H:i'}} - {{recording.end_datetime|time:'H:i'}}">{{recording.radio_station.name|slice:":17"}}...<span class="pull-right">
-                 <i class="far fa-calendar-check" ></i>
-              </span></li>
-              {% else %}
-              <li data-toggle="tooltip" data-placement="right" title="{{recording.start_datetime|date:'d/m/Y H:i'}} - {{recording.end_datetime|time:'H:i'}}">{{recording.radio_station.name}}<span class="pull-right">
-                  <i  class="far fa-calendar-check"></i>
-              </span></li>
-              {% endif %}
+            {% if recording.radio_station.name|length > 17 %}
+            <li data-toggle="tooltip" data-placement="right" title="{{recording.start_datetime|date:'d/m/Y H:i'}} - {{recording.end_datetime|time:'H:i'}}">{{recording.radio_station.name|slice:":17"}}...<span class="pull-right">
+             <i class="far fa-calendar-check" ></i>
+           </span></li>
+           {% else %}
+           <li data-toggle="tooltip" data-placement="right" title="{{recording.start_datetime|date:'d/m/Y H:i'}} - {{recording.end_datetime|time:'H:i'}}">{{recording.radio_station.name}}<span class="pull-right">
+            <i  class="far fa-calendar-check"></i>
+          </span></li>
+          {% endif %}
 
-              {% endfor%}
-              {% else %}
-              <li>No upcoming recordings...<span class="pull-right"></span></li>
-              {% endif %}
-            </ul>
-          </div>
-          <!-- section recording status column end  -->
-      </div>
-
-
-
-      <div class="col-md-7">
-          <!-- section my recordings header start -->
-          {% if request.user == user %}
-          {% include 'components/card_header.html' with header="My Completed Recordings"%}
+          {% endfor%}
           {% else %}
-          <div class="card support-content">
-            <div class="card-header">
-              <h5 class="card-title mb-0">{{user.username}}'s Recordings</h5>
-            </div>
-          </div>
+          <li>No upcoming recordings...<span class="pull-right"></span></li>
           {% endif %}
-          <!-- section my recordings header end -->
-          <div class="row">
-            <!-- section create recording cards start -->
-            <div class="col-md-12">
-                {% for recording in completed_recordings %}
-                {% include 'components/recording_card.html' with recording=recording user=user page="Profile" %}
-                {% endfor %}
-            </div>
-            <!-- section create recording cards end -->
-          </div>
+        </ul>
       </div>
-
-      <!-- section create form if profile user start -->
-      <div class="col-md-3">
-          {% if request.user == user %}
-          {% include 'components/card_header.html' with header="Quick Record"%}
-          <div class="card-body">
-            <form action="." method="POST">
-              {% csrf_token %}
-              {{form|crispy}}
-              <p>Timezone set to British Summer Time. Current time in BST: {% now "H:i" %}</p>
-              <input type="Submit" class="btn btn-primary" value="Create">
-            </form>
-          </div>
-          {% endif %}
-      </div>
-      <!-- section create form if profile user end -->
-
+      <!-- section recording status column end  -->
     </div>
+    <div class="col-md-7">
+      <!-- section my recordings header start -->
+      {% if request.user == user %}
+      {% include 'components/card_header.html' with header="My Completed Recordings"%}
+      {% else %}
+      <div class="card support-content">
+        <div class="card-header">
+          <h5 class="card-title mb-0">{{user.username}}'s Recordings</h5>
+        </div>
+      </div>
+      {% endif %}
+      <!-- section my recordings header end -->
+      <div class="row">
+        <!-- section create recording cards start -->
+        <div class="col-md-12">
+          {% for recording in completed_recordings %}
+          {% include 'components/recording_card.html' with recording=recording user=user page="Profile" %}
+          {% endfor %}
+        </div>
+        <!-- section create recording cards end -->
+      </div>
+    </div>
+    <!-- section create form if profile user start -->
+    <div class="col-md-3">
+      {% if request.user == user %}
+      {% include 'components/card_header.html' with header="Quick Record"%}
+      <div class="card-body">
+        <form action="." method="POST">
+          {% csrf_token %}
+          {{form|crispy}}
+          <p>Timezone set to British Summer Time. Current time in BST: {% now "H:i" %}</p>
+          <input type="Submit" class="btn btn-primary" value="Create">
+        </form>
+      </div>
+      {% endif %}
+    </div>
+    <!-- section create form if profile user end -->
   </div>
+</div>
 </section>
 </div>
 {% endblock %}

@@ -3,105 +3,105 @@
 
 {% block content %}
 <div style="background-color: white;">
-<!-- section homepage banner start -->
-<section id="homepage-background">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 mt-2 mb-2">
-        <p class="main-title">ALWAYS HAVE A RECORD OF YOUR RADIO APPEARANCES</p>
-        <p>The first radio broadcast recording platform.</p>
-        {% if not user.is_authenticated %}
-        <a href="{% url 'register' %}"><button class="btn btn-primary mr-2">Sign Up</button></a>
-        <a href="{% url 'login' %}"><button class="btn btn-outline-primary">Login</button></a>
-        {% else %}
-        <a href="{%url 'create_recording' username=request.user.username%}"><button class="btn btn-primary mr-2">Create Recording</button></a>
-        <a href="{% url 'recordings' %}"><button class="btn btn-outline-primary">Browse Recordings</button></a>
-        {% endif %}
-      </div>
-      <div class="col-md-6 text-center">
-        <!-- https://stories.freepik.com/illustration/podcast/amico -->
-        {% include 'home/banner_image.html' %}
-      </div>
-    </div>
-  </div>
-  <img src="{% static 'images/wave.png' %}" class="bottom-img">
-</section>
-<!-- section homepage banner end -->
-
-<!-- section website explanation section start  -->
-<section style="background-color: white; color: black;"class="mt-3">
-  <!-- Title display from https://gitlab.doc.gold.ac.uk/mmahm002/final-project/-/commit/f1236cb64ecda1334c890ea0c3208b7f5356b58f -->
-  <div class="container-fluid padding">
-    <div class="row welcome text-center">
-      <div class="col-12">
-        <h1 class="display-4">Record in 3 Steps</h1>
-      </div>
-      <hr>
-    </div>
-  </div>
-
-  <div class="container-fluid padding">
-    <div class="row text-center padding">
-      <div class="col-xs-12 col-md-4">
-        <img src="{% static 'images/select.png' %}" class="bottom-img" style="height: 250px; width: 250px;">
-        <h3>Select Station</h3>
-        <p>Select one of the over 100 available stations</p>
-      </div>
-      <div class="col-xs-12 col-md-4">
-        <img src="{% static 'images/schedule.png' %}" class="bottom-img" style="height: 250px; width: 250px;">
-        <h3>Set Time</h3>
-        <p>Only takes a few clicks</p>
-      </div>
-      <div class="col-xs-12 col-md-4">
-        <img src="{% static 'images/relax.png' %}" class="bottom-img" style="height: 250px; width: 250px;">
-        <h3>Sit Back</h3>
-        <p>Recording has never been so easy</p>
+  <!-- section homepage banner start -->
+  <section id="homepage-background">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mt-2 mb-2">
+          <p class="main-title">ALWAYS HAVE A RECORD OF YOUR RADIO APPEARANCES</p>
+          <p>The first radio broadcast recording platform.</p>
+          {% if not user.is_authenticated %}
+          <a href="{% url 'register' %}"><button class="btn btn-primary mr-2">Sign Up</button></a>
+          <a href="{% url 'login' %}"><button class="btn btn-outline-primary">Login</button></a>
+          {% else %}
+          <a href="{%url 'create_recording' username=request.user.username%}"><button class="btn btn-primary mr-2">Create Recording</button></a>
+          <a href="{% url 'recordings' %}"><button class="btn btn-outline-primary">Browse Recordings</button></a>
+          {% endif %}
+        </div>
+        <div class="col-md-6 text-center">
+          <!-- https://stories.freepik.com/illustration/podcast/amico -->
+          {% include 'home/banner_image.html' %}
+        </div>
       </div>
     </div>
-  </div>
-</section>
-<!-- section website explanation section end -->
+    <img src="{% static 'images/wave.png' %}" class="bottom-img">
+  </section>
+  <!-- section homepage banner end -->
 
-<div style="background-color: white; color: black;" class="d-none d-md-block">
-  <section class="mt-3">
-    <!-- title display from https://gitlab.doc.gold.ac.uk/mmahm002/final-project/-/commit/f1236cb64ecda1334c890ea0c3208b7f5356b58f -->
+  <!-- section website explanation section start  -->
+  <section style="background-color: white; color: black;"class="mt-3">
+    <!-- Title display from https://gitlab.doc.gold.ac.uk/mmahm002/final-project/-/commit/f1236cb64ecda1334c890ea0c3208b7f5356b58f -->
     <div class="container-fluid padding">
       <div class="row welcome text-center">
         <div class="col-12">
-          <h5 class="display-4">Featured Stations</h5>
+          <h1 class="display-4">Record in 3 Steps</h1>
         </div>
         <hr>
       </div>
     </div>
 
-    <!-- section featured stations carousel start -->
-    <!-- modified from bootstrap https://getbootstrap.com/docs/4.0/components/carousel/ -->
-    <div class="container-fluid mt-3">
-      <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active row">
-            <div class="col-2 float-left ">
-              <img  style="height: 100px;" class="img-fluid  my-auto" src="https://ichef.bbci.co.uk/images/ic/624x351/p02lrp2x.jpg"></div>
-              <div class="col-2 float-left"><img style="height: 100px;" class="img-fluid" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/BBC_Radio_3.svg/1200px-BBC_Radio_3.svg.png"></div>
-              <div class="col-2 float-left"><img style="height: 100px;" class="img-fluid" src="https://ichef.bbci.co.uk/images/ic/1024x576/p068vd97.jpg"></div>
-              <div class="col-2 float-left"><img style="height: 100px;" class="img-fluid" src="https://ichef.bbci.co.uk/images/ic/1920x1080/p029jc4l.jpg"></div>
-              <div class="col-2 float-left"><img style="height: 100px;" class="img-fluid" src="https://ichef.bbci.co.uk/images/ic/480xn/p068vdv0.jpg"></div>
-              <div class="col-2 float-left"><img style="height: 100px;" class="img-fluid" src="https://engine-lm8yn66n4mjok.netdna-ssl.com/engine/wp-content/uploads/2019/09/1920x1080.png"></div>
-            </div>
-            <div class="carousel-item no-gutters row ">
-              <div class="col-2 float-left"><img style="height: 100px;" class="img-fluid" src="https://ichef.bbci.co.uk/images/ic/624x351/p08bd2z4.jpg"></div>
-              <div class="col-2 float-left"><img style="height: 100px;" class="img-fluid" src="https://allaboutsteph.com/wp-content/uploads/2019/05/p068vjgq.jpg"></div>
-              <div class="col-2 float-left"><img style="height: 100px;" class="img-fluid" src="https://www.witness.org/wp-content/uploads/2018/10/bbc-radio-4.jpg"></div>
-              <div class="col-2 float-left "><img style="height: 100px;" class="img-fluid" src="https://radio-service-information.api.bbci.co.uk/logos/bbc_radio_wiltshire/1920x1080.png"></div>
-              <div class="col-2 float-left "><img style="height: 100px;" class="img-fluid" src="https://shenstonelodge.co.uk/images/images/1xtra.gif"></div>
-              <div class="col-2 float-left"><img style="height: 100px;" class="img-fluid" src="https://cliftonobservatory.com/wp-content/uploads/2019/09/bbc-bristol.jpg"></div>
+    <div class="container-fluid padding">
+      <div class="row text-center padding">
+        <div class="col-xs-12 col-md-4">
+          <img src="{% static 'images/select.png' %}" class="bottom-img" style="height: 250px; width: 250px;">
+          <h3>Select Station</h3>
+          <p>Select one of the over 100 available stations</p>
+        </div>
+        <div class="col-xs-12 col-md-4">
+          <img src="{% static 'images/schedule.png' %}" class="bottom-img" style="height: 250px; width: 250px;">
+          <h3>Set Time</h3>
+          <p>Only takes a few clicks</p>
+        </div>
+        <div class="col-xs-12 col-md-4">
+          <img src="{% static 'images/relax.png' %}" class="bottom-img" style="height: 250px; width: 250px;">
+          <h3>Sit Back</h3>
+          <p>Recording has never been so easy</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- section website explanation section end -->
+
+  <div style="background-color: white; color: black;" class="d-none d-md-block">
+    <section class="mt-3">
+      <!-- title display from https://gitlab.doc.gold.ac.uk/mmahm002/final-project/-/commit/f1236cb64ecda1334c890ea0c3208b7f5356b58f -->
+      <div class="container-fluid padding">
+        <div class="row welcome text-center">
+          <div class="col-12">
+            <h5 class="display-4">Featured Stations</h5>
+          </div>
+          <hr>
+        </div>
+      </div>
+
+      <!-- section featured stations carousel start -->
+      <!-- modified from bootstrap https://getbootstrap.com/docs/4.0/components/carousel/ -->
+      <div class="container-fluid mt-3">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active row">
+              <div class="col-2 float-left ">
+                <img  style="height: 100px;" class="img-fluid  my-auto" src="https://ichef.bbci.co.uk/images/ic/624x351/p02lrp2x.jpg"></div>
+                <div class="col-2 float-left"><img style="height: 100px;" class="img-fluid" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/BBC_Radio_3.svg/1200px-BBC_Radio_3.svg.png"></div>
+                <div class="col-2 float-left"><img style="height: 100px;" class="img-fluid" src="https://ichef.bbci.co.uk/images/ic/1024x576/p068vd97.jpg"></div>
+                <div class="col-2 float-left"><img style="height: 100px;" class="img-fluid" src="https://ichef.bbci.co.uk/images/ic/1920x1080/p029jc4l.jpg"></div>
+                <div class="col-2 float-left"><img style="height: 100px;" class="img-fluid" src="https://ichef.bbci.co.uk/images/ic/480xn/p068vdv0.jpg"></div>
+                <div class="col-2 float-left"><img style="height: 100px;" class="img-fluid" src="https://engine-lm8yn66n4mjok.netdna-ssl.com/engine/wp-content/uploads/2019/09/1920x1080.png"></div>
+              </div>
+              <div class="carousel-item no-gutters row ">
+                <div class="col-2 float-left"><img style="height: 100px;" class="img-fluid" src="https://ichef.bbci.co.uk/images/ic/624x351/p08bd2z4.jpg"></div>
+                <div class="col-2 float-left"><img style="height: 100px;" class="img-fluid" src="https://allaboutsteph.com/wp-content/uploads/2019/05/p068vjgq.jpg"></div>
+                <div class="col-2 float-left"><img style="height: 100px;" class="img-fluid" src="https://www.witness.org/wp-content/uploads/2018/10/bbc-radio-4.jpg"></div>
+                <div class="col-2 float-left "><img style="height: 100px;" class="img-fluid" src="https://radio-service-information.api.bbci.co.uk/logos/bbc_radio_wiltshire/1920x1080.png"></div>
+                <div class="col-2 float-left "><img style="height: 100px;" class="img-fluid" src="https://shenstonelodge.co.uk/images/images/1xtra.gif"></div>
+                <div class="col-2 float-left"><img style="height: 100px;" class="img-fluid" src="https://cliftonobservatory.com/wp-content/uploads/2019/09/bbc-bristol.jpg"></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- section featured stations carousel end  -->
-  </section>
+      <!-- section featured stations carousel end  -->
+    </section>
   </div>
 </div>
 

@@ -1,34 +1,34 @@
 <!-- section navbar start -->
 <!-- modified from bootstrap https://getbootstrap.com/docs/4.0/components/navbar/ -->
-  <nav class="navbar navbar-expand-lg navbar-light" style="background-image: linear-gradient(to right, #12417A, #3DA8D5);">
-    <a class="navbar-brand" href="{% url 'home' %}">SoundCapture</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        {% if not user.is_authenticated %}
-        <li class="nav-item active">
-          <a class="nav-link" href="{% url 'login' %}">Login<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'register' %}">Sign Up</a>
-        </li>
-        {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'recordings' %}">Public Recordings</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'profile' username=request.user.username %}">My Profile</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'create_recording' username=request.user.username %}">Create Recording</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-        </li>
-        {% endif %}
-      </ul>
-    </div>
-  </nav>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-image: linear-gradient(to right, #12417A, #3DA8D5);">
+  <a class="navbar-brand" href="{% url 'home' %}">SoundCapture</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      {% if not user.is_authenticated %}
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'login' %}">Login<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'register' %}">Sign Up</a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'recordings' %}">Public Recordings</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'profile' username=request.user.username %}">My Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'create_recording' username=request.user.username %}">Create Recording</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
 <!-- section navbar end  -->
