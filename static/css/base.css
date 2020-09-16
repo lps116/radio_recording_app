@@ -102,6 +102,9 @@ ul {
 
 /* PROFILE NAVIGATION SECTION START */
 /* CODE MODIFIED FROM https://www.bootdey.com/snippets/view/bs4-social-about */
+/* STYLES UNCHANGED FROM ORIGINAL HIGHLIGHTED */
+
+/*UNCHANGED*/
 .social-profile .image-position {
     position: absolute;
     width: 150px;
@@ -113,6 +116,7 @@ ul {
     text-align: center;
 }
 
+/* UNCHANGED */
 .profile-header img {
     width: 150px;
     height: 150px;
@@ -126,6 +130,7 @@ ul {
     margin-top: -175px;
 }
 
+/* UNCHANGED */
 .profile-header h3 {
     font-size: 36px;
     font-weight: 700;
@@ -146,6 +151,7 @@ a.active {
     color: var(--primary-text-color);
 }
 
+/* UNCHANGED */
 .card .nav>li>a {
     position: relative;
     display: block;
@@ -154,6 +160,7 @@ a.active {
     border-radius: 4px;
 }
 
+/* UNCHANGED */
 .card .nav>li>a:focus,
 .card .nav>li>a:hover {
     text-decoration: none;
