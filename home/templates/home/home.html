@@ -4,11 +4,11 @@
 {% block content %}
 <div style="background-color: white;">
 <!-- section homepage banner start -->
-<section id="banner">
+<section id="homepage-background">
   <div class="container">
     <div class="row">
-      <div class="col-md-6 title-div-margin">
-        <p class="promo-title">ALWAYS HAVE A RECORD OF YOUR RADIO APPEARANCES</p>
+      <div class="col-md-6 mt-2 mb-2">
+        <p class="main-title">ALWAYS HAVE A RECORD OF YOUR RADIO APPEARANCES</p>
         <p>The first radio broadcast recording platform.</p>
         {% if not user.is_authenticated %}
         <a href="{% url 'register' %}"><button class="btn btn-primary mr-2">Sign Up</button></a>
@@ -77,7 +77,7 @@
     <div class="container-fluid mt-3">
       <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
-          <div class="carousel-item active row ">
+          <div class="carousel-item active row">
             <div class="col-2 float-left ">
               <img  style="height: 100px;" class="img-fluid  my-auto" src="https://ichef.bbci.co.uk/images/ic/624x351/p02lrp2x.jpg"></div>
               <div class="col-2 float-left"><img style="height: 100px;" class="img-fluid" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/BBC_Radio_3.svg/1200px-BBC_Radio_3.svg.png"></div>
@@ -107,7 +107,7 @@
 </div>
 
 <!-- section footer start -->
-<section id="banner" class="py-4">
+<section id="homepage-background" class="py-4">
   <div class="container-fluid text-center">
     <small>Dissertation Project by Linus Strobel || University of Bath 2020</small>
   </div>
