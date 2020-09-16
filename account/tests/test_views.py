@@ -34,7 +34,7 @@ class TestViews(TestCase):
     second_user.save()
 
 
-    tag_one = Tag.objects.create(tag="Biology")
+    tag_one = Tag.objects.create(tag="Biochemistry")
     tag_one.save()
     tag_two = Tag.objects.create(tag="Animal")
     tag_two.save()
