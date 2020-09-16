@@ -35,6 +35,7 @@
   {% include 'components/navbar.html' %}
 
   <!-- displays user messages if present  -->
+  <!-- modified from bootstrap https://getbootstrap.com/docs/4.0/components/alerts/ -->
   {% for message in messages %}
   <div id='flashMessage' class="flash-message alert alert-dismissible fade show" role="alert">
     <span>{{message}}</span>
@@ -60,7 +61,9 @@
     var flashMessage = document.getElementById("flashMessage");
     setTimeout(function(){ flashMessage.style.display = "none";}, 5000);
   </script>
-  <!-- function required to display bootstrap tool tips -->
+  <!-- function required to display bootstrap tool tips
+      https://getbootstrap.com/docs/4.0/components/tooltips/
+  -->
   <script>
     $(function () {
     $('[data-toggle="tooltip"]').tooltip()

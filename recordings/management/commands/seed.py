@@ -123,7 +123,7 @@ def get_radio_stations_with_links(country="UK", station="bbc", genre='ALL'):
   querystring = {"country":country,"keyword":station,"genre":genre}
   headers = {
       'x-rapidapi-host': "30-000-radio-stations-and-music-charts.p.rapidapi.com",
-      'x-rapidapi-key': os.environ.get("RAPID_API_KEY_TWO")
+      'x-rapidapi-key': os.environ.get("RAPID_API_KEY_ONE")
   }
   response = requests.request("GET", url, headers=headers, params=querystring)
   return json.loads(response.text)

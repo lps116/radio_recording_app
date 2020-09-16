@@ -4,13 +4,17 @@
 
 {% block content %}
 
+<!-- section profile  navigation bar start -->
 {% include 'components/profile_navigation.html' with user=user active="myrecordings"%}
+<!-- section profile  navigation bar end -->
 
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-2">
         {% include 'components/card_header.html' with header="Actions"%}
 
+      <!-- section left had size navigation menu -->
+      <!-- modified from bootstrap https://getbootstrap.com/docs/4.0/components/card/ -->
       <div class="card">
         <div class="list-group list-group-flush" role="tablist">
           <a class="list-group-item list-group-item-action active" href="{% url 'myrecording_listen' username=user.username recording_id=recording.id %}">
@@ -30,11 +34,13 @@
           {% endif %}
         </div>
       </div>
+      <!-- section left hand size navigation menu end -->
+
     </div>
     <div class="col-md-7">
       <div class="tab-content">
-
           {% include 'components/card_header.html' with header="Listen to Recording"%}
+        <!-- section display recording information start -->
         <div class="card">
           <div class="card-body text-center">
             <h5>{{recording.title}}</h5>
@@ -48,13 +54,15 @@
               None
               {% endfor %}
             </p>
-
           </div>
         </div>
+        <!-- section display recording information end -->
       </div>
     </div>
     <div class="col-md-3">
         {% include 'components/card_header.html' with header="More Recordings"%}
+      <!-- section right navigation bar start -->
+      <!-- modified from bootstrap https://getbootstrap.com/docs/4.0/components/card/ -->
       <div class="card">
         <div class="list-group list-group-flush" role="tablist">
           {% for other_recording in recordings %}
@@ -70,6 +78,7 @@
           {% endfor %}
         </div>
       </div>
+      <!-- section right navigation bar end -->
     </div>
   </div>
 </div>

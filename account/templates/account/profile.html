@@ -3,17 +3,21 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<!-- https://www.bootdey.com/snippets/view/bs4-social-about -->
-{% include 'components/profile_navigation.html' with user=user active="profile"%}
 
-<!-- https://www.bootdey.com/snippets/view/support-tickets#html -->
+<!-- section profile  navigation bar start -->
+{% include 'components/profile_navigation.html' with user=user active="profile"%}
+<!-- section profile  navigation bar end -->
+
 <div class="container-fluid">
   <section class="content">
     <div class="row">
 
       <div class="col-md-2">
           {% include 'components/card_header.html' with header="Overview"%}
-
+          <!-- section recording status column start -->
+          <!-- code significantly modified from https://www.bootdey.com/snippets/view/support-tickets#html -->
+          <!-- additional bootstrap componenets used https://getbootstrap.com/docs/4.0/components/tooltips/ -->
+          <!-- and https://getbootstrap.com/docs/4.4/components/spinners/ -->
           <div class="card-body support">
           {% if inprogress_recordings.all %}
             <p><strong>In Progress</strong></p>
@@ -48,9 +52,13 @@
               {% endif %}
             </ul>
           </div>
+          <!-- section recording status column end  -->
       </div>
 
+
+
       <div class="col-md-7">
+          <!-- section my recordings header start -->
           {% if request.user == user %}
           {% include 'components/card_header.html' with header="My Completed Recordings"%}
           {% else %}
@@ -60,16 +68,19 @@
             </div>
           </div>
           {% endif %}
-
+          <!-- section my recordings header end -->
           <div class="row">
+            <!-- section create recording cards start -->
             <div class="col-md-12">
                 {% for recording in completed_recordings %}
                 {% include 'components/recording_card.html' with recording=recording user=user page="Profile" %}
                 {% endfor %}
             </div>
+            <!-- section create recording cards end -->
           </div>
       </div>
 
+      <!-- section create form if profile user start -->
       <div class="col-md-3">
           {% if request.user == user %}
           {% include 'components/card_header.html' with header="Quick Record"%}
@@ -83,6 +94,8 @@
           </div>
           {% endif %}
       </div>
+      <!-- section create form if profile user end -->
+
     </div>
   </div>
 </section>

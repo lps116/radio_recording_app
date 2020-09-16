@@ -21,6 +21,8 @@ body {
   --tab-active-color: #3afe;
 }*/
 
+/* GENERALLY APPLIED STYLE */
+
 body {
   font-family: 'Roboto', sans-serif;
   background-color: var(--body-background);
@@ -30,9 +32,9 @@ body {
 .card-body {
   background-color: var(--card-background);
 }
+/* GENERALLY APPLIED STYLE */
 
 /*NAVBAR SECTION*/
-
 #nav-bar {
   position: sticky;
   top: 0;
@@ -112,7 +114,6 @@ body {
 .row.grid {
   margin-left: 0;
 }
-
 
 a {
   color: var(--primary-text-color);
@@ -237,7 +238,7 @@ a {
   color: var(--primary-text-color);
 }
 
-/*FLASH MESSAGE STYLE*/
+/* FLASH MESSAGE STYLE */
 
 .flash-message {
   padding: 13px 24px;
@@ -252,6 +253,8 @@ a {
   border-radius: 0px;
   color:black;
 }
+
+/* MY RECORDING TABLE STYLE */
 
 .table {
   color: var(--primary-text-color);

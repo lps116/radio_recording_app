@@ -9,6 +9,7 @@
   <div class="container">
     <div class="title-div-margin"></div>
     <div class="row justify-content-center mb-2">
+      <!-- section registration form start -->
       <div class="col-8">
         <form method="POST">
           {% csrf_token %}
@@ -56,6 +57,7 @@
           <button type="submit" class="btn btn-primary">Sign in</button>
         </form>
       </div>
+      <!-- section registration form end -->
     </div>
   </div>
   <img src="{% static 'images/wave.png' %}" class="bottom-img">
