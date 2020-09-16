@@ -9,6 +9,7 @@ body {
   --primary-text-color: #FFF;
   --icon-hover-color: #37A2F2;
   --tab-active-color: #3afe;
+  --profile-border-color: #2F89BA;
 }
 
 /*Light color scheme*/
@@ -32,28 +33,25 @@ body {
 .card-body {
   background-color: var(--card-background);
 }
+
+a {
+  color: var(--primary-text-color);
+}
+
+ul {
+  list-style: none;
+  padding: 0px;
+}
 /* GENERALLY APPLIED STYLE */
 
-/*NAVBAR SECTION*/
-#nav-bar {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-#navbar-color {
-  background-image: linear-gradient(to right, #12417A, #3DA8D5);
-}
-
+/* SECTION NAVBAR STYLE START */
 .navbar-nav li {
   padding: 0 15px;
 }
 
-.navbar-nav li a {
+.nav-item a {
   color: var(--primary-text-color) !important;
   font-weight: 400;
-  float: right;
-  text-align: left;
 }
 
 .navbar-brand {
@@ -64,153 +62,88 @@ body {
 
 .navbar-toggler {
   border-color: rgba(0,0,0,0.0) !important;
-  outline: none !important;
 }
+/*SECTION NAVBAR STYLE END */
 
-/*BANNER SECTION */
-#banner {
+/* SECTION HOMEPAGE BANNER STYLE START */
+#homepage-background {
   background-image: linear-gradient(to right, #12417A, #3DA8D5);
   color: var(--primary-text-color);
   padding-top: 5%;
 }
 
-.title-div-margin {
-  margin-bottom: 20px;
-  margin-top: 20px;
-}
-
-.promo-title{
+.main-title{
   font-size: 40px;
   font-weight: 500px;
   margin-top: 100px;
 }
+/* SECTION HOMAPAGE BANNER END */
 
-.bottom-img {
-  width: 100%;
-}
-
-.button-margin {
-  margin-right: 20px;
-  margin-left: 20px;
-}
-
-/*PROFILE PAGE LAYOUT*/
-/*https://www.bootdey.com/snippets/view/support-tickets#html*/
-
-/* GRID */
+/* CODE MODIFIED FROM https://www.bootdey.com/snippets/view/support-tickets#html*/
+/* RECORDING CARDS RELATED STYLES START */
 .col {
   padding: 10px 20px;
   margin-bottom: 10px;
   background: var(--card-background);
-  color: #666666;
   text-align: center;
   font-weight: 400;
 }
-
-.row h3 {
-  color: #666666;
-}
-
-.row.grid {
-  margin-left: 0;
-}
-
-a {
-  color: var(--primary-text-color);
-}
-
-.support ul {
-  list-style: none;
-  padding: 0px;
-}
-
-.support ul li a {
-  color: #999;
-  display: block;
-}
-
-.support-content .list-group li:hover {
-  background: var(--body-background);
-}
-
-.support-content .fa-padding .fa {
-  padding-top: 5px;
-  width: 1.5em;
-}
-
-.support-content .info {
+.info {
   margin: 0px;
-}
-
-/*https://www.bootdey.com/snippets/view/support-tickets#html*/
-
-/*PROFILE NAVIGATION SECTION*/
-/*https://www.bootdey.com/snippets/view/bs4-social-about*/
-.card-one {
-    position: relative;
-    width: 300px;
-    background: var(--primary-text-color);
-    box-shadow: 0 10px 7px -5px rgba(0, 0, 0, 0.4);
-    background-color: var(--card-background);
 }
 
 .card {
   margin-bottom: 20px;
+  background-color: var(--card-background);
+  color: var(--primary-text-color);
 }
+/* RECORDING CARDS RELATED STYLES END */
 
-.social-profile .user-profile {
+
+/* PROFILE NAVIGATION SECTION START */
+/* CODE MODIFIED FROM https://www.bootdey.com/snippets/view/bs4-social-about */
+.social-profile .image-position {
     position: absolute;
     width: 150px;
     height: 150px;
     border-radius: 50%;
 }
 
-.social-nav {
-    position: absolute;
-    bottom: 0;
-}
-
-.social-prof {
-    color: #333;
+.profile-header {
     text-align: center;
 }
 
-.social-prof .wrapper {
-    width: 70%;
-    margin: auto;
-    margin-top: -175px;
-}
-
-.social-prof img {
+.profile-header img {
     width: 150px;
     height: 150px;
     border-radius: 50%;
     margin-bottom: 20px;
-    border: 5px solid #2F89BA;
+    border: 5px solid var(--profile-border-color);
 }
 
-.social-prof h3 {
+.wrapper {
+    margin: auto;
+    margin-top: -175px;
+}
+
+.profile-header h3 {
     font-size: 36px;
     font-weight: 700;
     margin-bottom: 0;
 }
 
-.social-prof p {
+.profile-header p {
     font-size: 18px;
 }
 
-.social-prof .nav-tabs {
+.profile-header .nav-tabs {
     border: none;
 }
 
-.card {
-  background-color: var(--card-background);
-  color: var(--primary-text-color);
-}
-
-.card .nav>li {
-    position: relative;
-    display: block;
+a.active {
+    text-decoration: none;
+    background-color: var(--tab-active-color);
+    color: var(--primary-text-color);
 }
 
 .card .nav>li>a {
@@ -227,11 +160,7 @@ a {
     background-color: #eee;
 }
 
-.card .s-nav>li>a.active {
-    text-decoration: none;
-    background-color: var(--tab-active-color);
-    color: var(--primary-text-color);
-}
+/* PROFILE NAVIGATION SECTION END */
 
 .list-group-item {
   background-color: var(--card-background);
