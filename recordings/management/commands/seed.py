@@ -40,7 +40,8 @@ def run_seed(self, mode):
 def clear_database(self, mode):
   user = User.objects.all().first()
   User.objects.all().delete()
-  user.save()
+  if user:
+    user.save()
   Recording.objects.all().delete()
   RadioStation.objects.all().delete()
   Tag.objects.all().delete()
