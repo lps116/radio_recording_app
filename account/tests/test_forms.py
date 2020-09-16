@@ -7,7 +7,7 @@ class TestForms(TestCase):
 
   def setUp(self):
     radio_station = RadioStation.objects.create(name = "BBC Two")
-    tag           = Tag.objects.create(tag = "Biology")
+    tag           = Tag.objects.create(tag = "Biochemistry")
     tag_two       = Tag.objects.create(tag = "Animals")
     radio_station.save()
     tag.save()
